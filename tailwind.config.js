@@ -11,6 +11,9 @@ export default {
       },
       fontFamily: {
         sans: ["Inter", "sans-serif"],
+        roboto: ["Roboto", "sans-serif"],
+        lexend: ['"Lexend Deca"', "sans-serif"],
+        lato: ["Lato", "sans-serif"],
       },
       boxShadow: {
         // Shadow chính xác: 0px 4px 12px 0px #00000040 (40 hex = 25%)

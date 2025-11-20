@@ -2,18 +2,18 @@ import { ChevronDown } from "lucide-react";
 import { cn } from "../../lib/utils";
 
 const NAV_ITEMS = [
-  { label: "Trang chủ", isActive: true },
-  { label: "Dịch vụ & Sản phẩm", hasArrow: true },
-  { label: "Chính sách", hasArrow: true },
-  { label: "Dự án", hasArrow: false },
-  { label: "Về PROMAC", hasArrow: false },
-  { label: "Tin tức", hasArrow: false },
-  { label: "Liên hệ", hasArrow: false },
+  { label: "TRANG CHỦ", isActive: true },
+  { label: "DỊCH VỤ & SẢN PHẨM", hasArrow: true },
+  { label: "CHÍNH SÁCH", hasArrow: true },
+  { label: "DỰ ÁN", hasArrow: false },
+  { label: "VỀ PROMAC", hasArrow: false },
+  { label: "TIN TỨC", hasArrow: false },
+  { label: "LIÊN HỆ", hasArrow: false },
 ];
 
 export const Header = () => {
   return (
-    <div className="w-full flex justify-center">
+    <div className="relative w-full">
       <header
         className="relative flex items-center box-border z-50"
         style={{
@@ -24,7 +24,10 @@ export const Header = () => {
           paddingBottom: "40px",
           paddingLeft: "93px",
           paddingRight: "93px",
-          boxShadow: "0px 4px 12px 0px rgba(0, 0, 0, 0.25)",
+          boxShadow: "0px 4px 12px 0px #00000040", // Hex shadow
+
+          // CANH VỊ TRÍ TRONG KHUNG 1440PX:
+          marginLeft: "3px", // Left: 3px
         }}
       >
         <nav

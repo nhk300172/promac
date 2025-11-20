@@ -1,18 +1,36 @@
 import { Header } from "./components/layout/Header";
+import { IntroductionHero } from "./features/intro/IntroductionHero";
+import { AboutUs } from "./features/about/AboutUs";
+import { History } from "./features/history/History";
+import { OurTeam } from "./features/team/OurTeam"; // <--- Import mới
+import { MachinerySystem } from "./features/machinery/MachinerySystem";
 
 function App() {
   return (
-    // Nền đen bao phủ toàn bộ
-    <main className="min-h-screen w-full bg-black flex flex-col items-center pt-[3px] overflow-x-hidden">
-      {/* Header (Frame 40072) nằm ở đây */}
-      <Header />
+    <main className="min-h-screen w-full bg-black flex justify-center overflow-x-hidden pb-20">
+      <div
+        className="relative bg-white"
+        style={{ width: "1440px", minHeight: "100vh" }}
+      >
+        <Header />
 
-      {/* Phần nội dung bên dưới (Body) 
-          Cũng rộng 1434px, nền trắng, nối tiếp ngay sau Header 
-      */}
-      <div className="w-[1434px] bg-white flex-1 min-h-[500px]">
-        {/* Nội dung demo */}
-        <div className="p-10">Banner và các phần khác sẽ code ở đây...</div>
+        <IntroductionHero />
+
+        <div style={{ marginTop: "114px" }}>
+          <AboutUs />
+        </div>
+
+        <div style={{ marginTop: "40px" }}>
+          <History />
+        </div>
+
+        {/* --- PHẦN ĐỘI NGŨ --- */}
+        <div>
+          <OurTeam />
+        </div>
+        <div style={{ marginTop: "22px" }}>
+          <MachinerySystem />
+        </div>
       </div>
     </main>
   );
