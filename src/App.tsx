@@ -1,9 +1,12 @@
 import { Header } from "./components/layout/Header";
+
 import { IntroductionHero } from "./features/intro/IntroductionHero";
 import { AboutUs } from "./features/about/AboutUs";
 import { History } from "./features/history/History";
 import { OurTeam } from "./features/team/OurTeam"; // <--- Import mới
 import { MachinerySystem } from "./features/machinery/MachinerySystem";
+
+import { Footer } from "./components/layout/Footer";
 
 function App() {
   return (
@@ -32,6 +35,8 @@ function App() {
           <MachinerySystem />
         </div>
       </div>
+      {/* 2. Đặt Footer vào đây */}
+      <Footer />
     </main>
   );
 }
