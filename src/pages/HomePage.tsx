@@ -8,6 +8,7 @@ import { HomeStory } from "../features/home/HomeStory";
 import { HomeTestimonials } from "../features/home/HomeTestimonials";
 import { HomeWelcome } from "../features/home/HomeWelcome";
 import { HomeWhyChoose } from "../features/home/HomeWhyChoose";
+import { ContactBanner } from "./../components/layout/ContactBanner";
 
 export const HomePage = () => {
   return (
@@ -50,6 +51,7 @@ export const HomePage = () => {
         {/* Margin bottom để cách Footer */}
         <HomeNews />
       </div>
+      <ContactBanner />
     </div>
   );
 };

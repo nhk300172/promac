@@ -4,6 +4,7 @@ import { IntroductionHero } from "../features/introduction/intro/IntroductionHer
 import { History } from "../features/introduction/history/History";
 import { OurTeam } from "../features/introduction/team/OurTeam";
 import { MachinerySystem } from "../features/introduction/machinery/MachinerySystem";
+import { ContactBanner } from "../components/layout/ContactBanner";
 
 export const IntroPage = () => {
   return (
@@ -25,6 +26,7 @@ export const IntroPage = () => {
       <div style={{ marginTop: "142px" }}>
         <MachinerySystem />
       </div>
+      <ContactBanner />
     </div>
   );
 };
