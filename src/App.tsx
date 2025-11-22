@@ -1,22 +1,37 @@
 // src/App.tsx
 import { Routes, Route } from "react-router-dom";
+import { Header } from "./components/layout/Header";
+import { Footer } from "./components/layout/Footer";
 import { HomePage } from "./pages/HomePage";
 import { IntroPage } from "./pages/IntroPage";
 
 function App() {
   return (
-    <main className="min-h-screen w-full bg-black flex justify-center overflow-x-hidden pb-20">
-      {/* KHU VỰC ĐỊNH TUYẾN (ROUTING) */}
-      <Routes>
-        {/* 1. Trang Chủ (Mặc định) */}
-        <Route path="/" element={<HomePage />} />
+    <main className="min-h-screen w-full bg-black flex flex-col items-center overflow-x-hidden pt-10 pb-0">
+      <div
+        className="bg-white flex flex-col relative shadow-2xl"
+        style={{
+          width: "1440px",
+          minHeight: "100vh",
+          maxWidth: "100%",
+          marginBottom: 0,
+        }}
+      >
+        <Header />
 
-        {/* 2. Trang Giới Thiệu (Khi bấm Về Promac) */}
-        <Route path="/gioi-thieu" element={<IntroPage />} />
+        <div className="flex-grow flex flex-col w-full">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/gioi-thieu" element={<IntroPage />} />
+            <Route path="*" element={<HomePage />} />
+          </Routes>
+        </div>
 
-        {/* Các trang khác chưa làm thì để tạm HomePage hoặc trang 404 */}
-        <Route path="*" element={<HomePage />} />
-      </Routes>
+        {/* Footer */}
+        <div className="w-full overflow-hidden">
+          <Footer />
+        </div>
+      </div>
     </main>
   );
 }
