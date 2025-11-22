@@ -39,7 +39,7 @@ export const HomePage = () => {
       <div style={{ marginTop: "20px" }}>
         <HomeProcess />
       </div>
-      <div style={{ marginTop: "20px" }}>
+      <div style={{ marginTop: "10px" }}>
         <HomeTestimonials />
       </div>
       <div style={{ marginTop: "30px" }}>
