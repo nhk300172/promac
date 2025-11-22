@@ -7,7 +7,7 @@ import { IntroPage } from "./pages/IntroPage";
 
 function App() {
   return (
-    <main className="min-h-screen w-full bg-black flex flex-col items-center overflow-x-hidden pt-10 pb-0">
+    <main className="min-h-screen w-full bg-black flex flex-col items-center overflow-x-hidden ">
       <div
         className="bg-white flex flex-col relative shadow-2xl"
         style={{

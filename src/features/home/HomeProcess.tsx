@@ -1,42 +1,44 @@
-// 1. CẤU HÌNH TOẠ ĐỘ (Giữ nguyên thông số chuẩn bạn gửi)
-const LAYOUT_CONFIG: Record<number, { left: string; top: string }[]> = {
+// 1. CẤU HÌNH TOẠ ĐỘ
+type Position = { left: string; top: string };
+
+const LAYOUT_CONFIG: Record<number, Position[]> = {
   3: [
-    { left: "180px", top: "450px" },
-    { left: "609px", top: "234px" },
-    { left: "1084px", top: "106px" },
+    { left: "188px", top: "587px" },
+    { left: "609px", top: "433px" },
+    { left: "1084px", top: "305px" },
   ],
   4: [
-    { left: "100px", top: "436px" },
-    { left: "468px", top: "300px" },
-    { left: "867px", top: "200px" },
-    { left: "1147px", top: "30px" },
+    { left: "100px", top: "706px" },
+    { left: "468px", top: "600px" },
+    { left: "867px", top: "500px" },
+    { left: "1147px", top: "330px" },
   ],
   5: [
-    { left: "50px", top: "380px" },
-    { left: "400px", top: "430px" },
-    { left: "600px", top: "250px" },
-    { left: "850px", top: "200px" },
-    { left: "1100px", top: "70px" },
+    // chỉnh để spacing ngang đều hơn và giảm top của phần tử cuối
+    { left: "70px", top: "680px" }, // giữ trái thấp nhưng lên hơn chút
+    { left: "350px", top: "720px" }, // di chuyển vào trong và lên nhẹ
+    { left: "550px", top: "550px" }, // đặt gần trục giữa, tạo độ cong
+    { left: "830px", top: "500px" }, // tiếp tục đi lên
+    { left: "1110px", top: "300px" }, //
   ],
 };
 
-// 2. DỮ LIỆU BƯỚC
+// 2. DỮ LIỆU BƯỚC (Update desc dài từ Figma)
 const STEPS_DATA = [
   {
     title: "Project Discovery Call",
-    desc: "Party we years to order allow asked of.",
+    desc: "Party we years to order allow asked of. We so opinion friends me message as delight.",
   },
   {
     title: "Project Discovery Call",
-    desc: "His defective nor convinced residence own.",
+    desc: "His defective nor convinced residence own. Connection has put impossible own apartments boisterous.",
   },
   {
     title: "Project Discovery Call",
-    desc: "From they fine john he give of rich he.",
+    desc: "From they fine john he give of rich he. They age and draw mrs like. Improving end distrusts may instantly.",
   },
-
-  // { title: "Step 5 Test", desc: "Testing auto connect line." },
 ];
+
 export const HomeProcess = () => {
   const stepCount = STEPS_DATA.length;
   const layout = LAYOUT_CONFIG[stepCount] || LAYOUT_CONFIG[4];
@@ -47,16 +49,16 @@ export const HomeProcess = () => {
 
     // 1. Lấy toạ độ TÂM của các Icon
     const points = layout.map((pos) => ({
-      x: parseInt(pos.left) + 32,
-      y: parseInt(pos.top) + 32,
+      x: parseInt(pos.left) + 31,
+      y: parseInt(pos.top) + 31,
     }));
 
     // 2. ĐIỂM BẮT ĐẦU:
     // - Xuất phát từ mép trái (x=0).
     // - Độ cao: Cao hơn điểm 1 khoảng 150px (y - 150).
     // - Uốn cong mềm mại vào tâm điểm 1.
-    let d = `M 0 ${points[0].y - 150} 
-             C 100 ${points[0].y - 150}, 
+    let d = `M 0 ${points[1].y - 100} 
+             C 20 ${points[0].y - 50}, 
                ${points[0].x - 100} ${points[0].y}, 
                ${points[0].x} ${points[0].y}`;
 
@@ -71,10 +73,10 @@ export const HomeProcess = () => {
 
       // Control Point 1: Từ điểm hiện tại kéo ngang sang phải
       const cp1x = curr.x + dist;
-      const cp1y = curr.y;
+      const cp1y = curr.y + 40;
 
       // Control Point 2: Từ điểm tiếp theo kéo ngang sang trái
-      const cp2x = next.x - dist;
+      const cp2x = next.x - dist - 10;
       const cp2y = next.y;
 
       d += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${next.x} ${next.y}`;
@@ -85,9 +87,9 @@ export const HomeProcess = () => {
     const last = points[points.length - 1];
 
     // Kéo ra xa 200px, nâng lên cao 100px so với điểm cuối
-    d += ` C ${last.x + 150} ${last.y}, 
-             1350 ${last.y - 100}, 
-             1440 ${last.y - 150}`;
+    d += ` C ${last.x + 100} ${last.y - 300}, 
+        1600 ${last.y - 100}, 
+        1500 ${last.y - 190}`;
 
     return d;
   };
@@ -149,7 +151,7 @@ export const HomeProcess = () => {
               width: "162px",
               height: "47px",
               left: "0px",
-              top: "250px", // 126 + 120 + ~4 spacing ≈ 376px Figma
+              top: "250px", // 126 + 250 = 376px effective, khớp Figma
             }}
           >
             <span className="font-inter font-semibold text-[16px] text-white">
@@ -158,11 +160,8 @@ export const HomeProcess = () => {
           </button>
         </div>
 
-        {/* PROCESS STEPS AREA */}
-        <div
-          className="absolute w-full top-[223px]"
-          style={{ height: "658px" }}
-        >
+        {/* PROCESS STEPS AREA (Update top:0, height:100% để khớp absolute positions) */}
+        <div className="absolute w-full top-[0px]" style={{ height: "100%" }}>
           {/* --- VECTOR LINE (SVG) --- */}
           <svg
             className="absolute top-0 left-0 w-full h-full pointer-events-none"
@@ -203,11 +202,11 @@ export const HomeProcess = () => {
                 <div
                   className="absolute font-inter font-black text-[#000000] opacity-[0.05] select-none pointer-events-none"
                   style={{
-                    fontSize: "190px",
+                    fontSize: "204px",
                     lineHeight: "204px",
                     letterSpacing: "-0.02em",
-                    right: "-20px",
-                    top: "-10px",
+                    left: "170px", // Adjust từ Figma offset
+                    top: "-13px",
                     zIndex: 0,
                   }}
                 >

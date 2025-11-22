@@ -168,16 +168,19 @@ export const Footer = () => {
         {/* Links Area */}
         <div className="w-full max-w-[1277px] grid grid-cols-2 md:grid-cols-4 gap-[75px] mb-[54px] px-4 md:px-0">
           {FOOTER_LINKS.map((section, index) => (
-            <div key={index} className="flex flex-col gap-[18px] items-center">
+            <div key={index} className="flex flex-col gap-[18px] items-start">
+              {/* Title + line */}
               <div className="flex flex-col items-center gap-[20px] w-full">
-                <h3 className="font-bold text-[20px] leading-[24px] text-[#FF0000] text-center">
+                <h3 className="font-inter font-bold text-[20px] leading-[24px] text-[#FF0000] text-center w-full">
                   {section.title}
                 </h3>
                 <div className="w-full h-0 border-b-[2px] border-[#E5E5E5]"></div>
               </div>
-              <ul className="flex flex-col gap-[16px] items-center w-full pt-2">
+
+              {/* Links */}
+              <ul className="flex flex-col gap-[16px] items-start w-full pt-2">
                 {section.items.map((item, idx) => (
-                  <li key={idx} className="text-center">
+                  <li key={idx} className="text-left w-full">
                     <a
                       href="#"
                       className="text-[20px] leading-[24px] text-black hover:text-[#FF0000] transition-colors"
