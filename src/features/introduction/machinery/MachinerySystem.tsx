@@ -8,7 +8,7 @@ export const MachinerySystem = () => {
       style={{
         width: "1440px",
         // Height theo Figma 1045px, nhưng để auto cho flex
-        paddingBottom: "100px",
+        paddingBottom: "50px",
       }}
     >
       {/* === 1. HEADER === 
