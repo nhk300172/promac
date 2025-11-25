@@ -1,2 +1,3 @@
 import inan from "./inan.jpg";
-export { inan };
+import qr from "./qr.jpg";
+export { inan, qr };

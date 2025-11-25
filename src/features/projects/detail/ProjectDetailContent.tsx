@@ -43,7 +43,7 @@ export const ProjectDetailContent: React.FC = () => {
           className="absolute left-[12px] top-[-1px] font-bold text-[16px] leading-[19px] text-[#FF0000] flex items-center h-[20px]"
           style={{ fontFamily: "Quicksand" }}
         >
-          BAO BÌ & HỘP CỨNG
+          Bao Bì & Hộp Cứng
         </span>
 
         {/* Title */}
