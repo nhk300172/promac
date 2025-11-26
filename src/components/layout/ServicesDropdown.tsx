@@ -1,4 +1,3 @@
-// src/components/layout/ServicesDropdown.tsx
 import {
   Popover,
   PopoverButton,
@@ -7,14 +6,13 @@ import {
 } from "@headlessui/react";
 import { ChevronDown } from "lucide-react";
 import { Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { cn } from "../../lib/utils";
 
-// --- IMPORT HÌNH ẢNH ---
-// Lưu ý: Kiểm tra chính xác tên file của bạn là .jpg hay .png
-
+// Import ảnh (Đảm bảo đường dẫn đúng)
 import promacQrImage from "../../assets/qr.jpg";
-// --- DỮ LIỆU MENU CHUẨN FIGMA ---
+
+// --- 1. ĐỊNH NGHĨA TYPE (Để fix lỗi 'any') ---
 type ServiceItem = {
   label: string;
   path: string;
@@ -26,11 +24,12 @@ type Column = {
   items: ServiceItem[];
 };
 
+// --- 2. KHAI BÁO DỮ LIỆU (Để fix lỗi 'Cannot find name COLUMNS') ---
 const COLUMNS: Column[] = [
   {
     title: "DỊCH VỤ CỐT LÕI",
     items: [
-      { label: "In hộp cứng cao cấp", path: "/in-hop-cung" }, // Red
+      { label: "In hộp cứng cao cấp", path: "/in-hop-cung" },
       { label: "In Voucher", path: "/in-voucher" },
       { label: "In ấn phẩm marketing", path: "/in-an-pham" },
       { label: "In tem nhãn decal", path: "/in-tem-nhan" },
@@ -54,16 +53,33 @@ const COLUMNS: Column[] = [
     items: [
       { label: "Điều khoản dịch vụ", path: "/chinh-sach/dieu-khoan" },
       { label: "Bảo mật thông tin", path: "/chinh-sach/bao-mat" },
-      { label: "Vận chuyển & Giao nhận", path: "/van-chuyen" },
-      { label: "Đổi trả hàng hóa", path: "/doi-tra" },
+      { label: "Vận chuyển & Giao nhận", path: "/chinh-sach/van-chuyen" },
+      { label: "Đổi trả hàng hóa", path: "/chinh-sach/doi-tra" },
       { label: "Quy trình làm việc", path: "/chinh-sach/quy-trinh" },
     ],
   },
 ];
 
 export const ServicesDropdown = () => {
+  const location = useLocation();
+
+  // Logic kiểm tra: Nếu URL hiện tại thuộc nhóm Dịch vụ thì Active
+  const isActive = COLUMNS.some((col) =>
+    col.items.some((item) => {
+      // 1. Trùng khớp hoàn toàn (VD: đang ở trang danh mục /san-pham)
+      if (item.path === location.pathname) return true;
+
+      // 2. Là trang con (VD: đang ở /san-pham/chi-tiet-san-pham-a)
+      // Logic: Đường dẫn hiện tại bắt đầu bằng "path cha" + dấu "/"
+      // Ví dụ: "/san-pham/..." bắt đầu bằng "/san-pham/"
+      if (location.pathname.startsWith(`${item.path}/`)) return true;
+
+      return false;
+    })
+  );
+
   return (
-    <Popover className="relative">
+    <Popover>
       {({ open }) => (
         <>
           {/* BUTTON TRIGGER */}
@@ -71,14 +87,17 @@ export const ServicesDropdown = () => {
             className={cn(
               "flex items-center justify-center gap-[5px] outline-none transition-colors duration-200",
               "font-inter font-bold text-[18px] leading-[100%]",
-              open ? "text-[#FF0000]" : "text-[#000000] hover:text-[#FF0000]"
+              // Nếu đang mở menu (open) HOẶC đang ở trang con (isActive) -> Tô Đỏ
+              open || isActive
+                ? "text-[#FF0000] underline decoration-solid"
+                : "text-[#000000] hover:text-[#FF0000]"
             )}
           >
             <span className="block pt-[2px]">DỊCH VỤ & SẢN PHẨM</span>
             <div className="w-[20px] h-[20px] flex items-center justify-center">
               <ChevronDown
                 size={20}
-                color={open ? "#FF0000" : "currentColor"}
+                color={open || isActive ? "#FF0000" : "currentColor"}
                 strokeWidth={2}
                 className={cn(
                   "transition-transform duration-200",
@@ -98,40 +117,38 @@ export const ServicesDropdown = () => {
             leaveFrom="opacity-100 translate-y-0"
             leaveTo="opacity-0 translate-y-1"
           >
+            {/* 2. CHỈNH SỬA VỊ TRÍ PANEL */}
             <PopoverPanel
               className="absolute z-50 bg-white"
               style={{
-                // Positioning: Dựa trên tính toán khoảng cách từ Nav Item đến mép trái Header
-                // Header Padding Left (93px) + Nav Margin Left (131px) + Width Item 1 (~120px) + Gap (40px) = ~384px
-                // Để an toàn, ta dùng con số ước lượng và điều chỉnh (shift left)
-                top: "62px", // Cách chữ một đoạn
-                left: "-370px", // Shift trái để mép trái Dropdown trùng với mép trái Header Container
-                width: "1434px", // Chuẩn theo Figma Frame 12674
-                height: "280px", // Chuẩn theo Figma Frame 12674
-                borderTop: "1px solid #E3E7EF", // Divider màu xám nhạt
-                boxShadow: "0px 10px 20px rgba(0,0,0,0.05)", // Bóng đổ nhẹ cho nổi
-                padding: "30px 30px", // Padding theo thiết kế (Top/Bottom ~30, Left/Right 30)
+                // Header cao 102px -> Top = 102px để nằm ngay dưới đáy header
+                top: "102px",
+                // Left = 0 để bắt đầu từ mép trái của Header
+                left: "0px",
+                // Width = 100% để rộng bằng đúng Header (1434px)
+                width: "100%",
+                height: "280px",
+                borderTop: "1px solid #E3E7EF",
+                boxShadow: "0px 10px 20px rgba(0,0,0,0.05)",
+                padding: "30px 30px",
+                // Quan trọng: Để đảm bảo nó đè lên các thành phần khác
+                boxSizing: "border-box",
               }}
             >
               <div className="flex w-full h-full items-start justify-between">
-                {/* --- PHẦN TEXT LINKS (4 CỘT) --- */}
+                {/* --- TEXT LINKS --- */}
                 <div className="flex gap-[40px]">
-                  {" "}
-                  {/* Gap giữa các cột */}
                   {COLUMNS.map((col, index) => (
                     <div
                       key={index}
                       className="flex flex-col w-[256px] gap-[20px]"
                     >
-                      {/* Header Cột */}
                       <span
                         className="font-inter font-semibold text-[12px] text-[#97A3B7] uppercase tracking-[0.5px]"
                         style={{ lineHeight: "150%" }}
                       >
                         {col.title}
                       </span>
-
-                      {/* Items Cột */}
                       <div className="flex flex-col gap-[16px]">
                         {col.items.map((item, idx) => (
                           <Link
@@ -139,9 +156,9 @@ export const ServicesDropdown = () => {
                             to={item.path}
                             className={cn(
                               "font-inter font-semibold text-[16px] leading-[150%] transition-colors text-left",
-                              item.highlight
-                                ? "text-[#FF0000]" // Màu đỏ cho mục Highlight
-                                : "text-[#111B29] hover:text-[#FF0000]" // Màu đen xám chuẩn Figma
+                              location.pathname === item.path
+                                ? "text-[#FF0000]"
+                                : "text-[#111B29] hover:text-[#FF0000]"
                             )}
                           >
                             {item.label}
@@ -151,19 +168,20 @@ export const ServicesDropdown = () => {
                     </div>
                   ))}
                 </div>
-                {/* --- PHẦN HÌNH ẢNH BÊN PHẢI (Rectangle 378) --- */}
+
+                {/* --- QR IMAGE --- */}
                 <div
                   className="relative flex flex-col items-center justify-center"
                   style={{
-                    width: "255px", // Chiều rộng chuẩn Figma Frame 12674 -> Rectangle 378
-                    height: "233px", // Chiều cao chuẩn Figma
-                    marginTop: "-10px", // Căn chỉnh vị trí
+                    width: "255px",
+                    height: "233px",
+                    marginTop: "-10px",
                   }}
                 >
                   <img
                     src={promacQrImage}
-                    alt="PROMAC Promotion QR Code"
-                    className="w-full h-full object-contain" // Đảm bảo ảnh hiển thị trọn vẹn
+                    alt="PROMAC QR"
+                    className="w-full h-full object-contain"
                   />
                 </div>
               </div>

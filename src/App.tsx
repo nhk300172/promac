@@ -9,8 +9,10 @@ import { NewsPage } from "./pages/news/NewsPage";
 import { NewsDetailPage } from "./pages/news/NewsDetailPage";
 import { ProjectPage } from "./pages/project/ProjectPage";
 import { ProjectDetailPage } from "./pages/project/ProjectDetailPage";
-import { TermsOfServicePage } from "./pages/termsofservice/TermsOfServicePage";
+import { ProductPage } from "./pages/product/ProductPage";
+import { ProductDetailPage } from "./pages/product/ProductDetailPage";
 import { PrivacyPolicyPage } from "./pages/privacypolicy/PrivacyPolicyPage";
+import { TermsOfServicePage } from "./pages/termsofservice/TermsOfServicePage";
 import { WorkingProcessPage } from "./pages/workingprocess/WorkingProcessPage";
 
 function App() {
@@ -36,8 +38,8 @@ function App() {
             <Route path="/tin-tuc/:slug" element={<NewsDetailPage />} />{" "}
             <Route path="/du-an" element={<ProjectPage />} />
             <Route path="/du-an/:slug" element={<ProjectDetailPage />} />
-            {/* --- CẬP NHẬT DÒNG NÀY --- */}
-            {/* Đổi từ "/dieu-khoan" thành "/chinh-sach/dieu-khoan" */}
+            <Route path="/san-pham" element={<ProductPage />} />
+            <Route path="/san-pham/:slug" element={<ProductDetailPage />} />
             <Route
               path="/chinh-sach/dieu-khoan"
               element={<TermsOfServicePage />}
@@ -47,7 +49,6 @@ function App() {
               path="/chinh-sach/quy-trinh"
               element={<WorkingProcessPage />}
             />
-            {/* --- HẾT CẬP NHẬT --- */}
           </Routes>
         </div>
 
