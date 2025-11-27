@@ -52,7 +52,7 @@ export const ProductSidebar: React.FC = () => {
 
         {/* List Items (Frame 12653) */}
         <div className="absolute top-[88px] left-[19px] w-[331px] flex flex-col gap-[8px]">
-          {SUGGESTED_PRODUCTS.map((item, index) => (
+          {SUGGESTED_PRODUCTS.map((_item, index) => (
             <div
               key={index}
               className="w-full h-[85px] border-b-[1.5px] border-[#F2F3F4] flex items-center gap-[13px] pl-[6px] cursor-pointer hover:bg-gray-50 transition-colors"

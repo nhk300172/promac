@@ -28,20 +28,29 @@ const COLUMNS: Column[] = [
   {
     title: "DỊCH VỤ CỐT LÕI",
     items: [
-      { label: "In hộp cứng cao cấp", path: "/in-hop-cung" },
-      { label: "In Voucher", path: "/in-voucher" },
-      { label: "In ấn phẩm marketing", path: "/in-an-pham" },
-      { label: "In tem nhãn decal", path: "/in-tem-nhan" },
+      { label: "In hộp cứng cao cấp", path: "/dich-vu-cot-loi/in-hop-cung" },
+      { label: "In Voucher", path: "/dich-vu-cot-loi/in-voucher" },
+      { label: "In ấn phẩm marketing", path: "/dich-vu-cot-loi/in-an-pham" },
+      { label: "In tem nhãn decal", path: "/dich-vu-cot-loi/in-tem-nhan" },
     ],
   },
   // Index 1
   {
     title: "CÁC DỊCH VỤ KHÁC",
     items: [
-      { label: "In thẻ cào biến đổi", path: "/the-cao-bien-doi" },
-      { label: "In thẻ cào kích hoạt dịch vụ", path: "/the-cao-kich-hoat" },
-      { label: "In thẻ cào trúng thưởng", path: "/the-cao-trung-thuong" },
-      { label: "In thẻ cào ráp chữ", path: "/the-cao-rap-chu" },
+      {
+        label: "In thẻ cào biến đổi",
+        path: "/dich-vu-khac/in-the-cao-bien-doi",
+      },
+      {
+        label: "In thẻ cào kích hoạt dịch vụ",
+        path: "/dich-vu-khac/the-cao-kich-hoat",
+      },
+      {
+        label: "In thẻ cào trúng thưởng",
+        path: "/dich-vu-khac/in-the-cao-trung-thuong",
+      },
+      { label: "In thẻ cào ráp chữ", path: "/dich-vu-khac/the-cao-rap-chu" },
     ],
   },
   // Index 2

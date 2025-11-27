@@ -14,6 +14,14 @@ import { ProductDetailPage } from "./pages/product/ProductDetailPage";
 import { TermsOfServicePage } from "./pages/termsofservice/TermsOfServicePage";
 import { PrivacyPolicyPage } from "./pages/privacypolicy/PrivacyPolicyPage";
 import { WorkingProcessPage } from "./pages/workingprocess/WorkingProcessPage";
+import { HardBoxPage } from "./pages/coreservices/HardBoxPage";
+import { VoucherPage } from "./pages/coreservices/VoucherPage";
+import { PublicationPage } from "./pages/coreservices/PublicationPage";
+import { DecalPage } from "./pages/coreservices/DecalPage";
+import { VariableScratchPage } from "./pages/otherservices/VariableScratchPage";
+import { ActivationScratchPage } from "./pages/otherservices/ActivationScratchPage";
+import { WinningScratchPage } from "./pages/otherservices/WinningScratchPage";
+import { MatchingScratchPage } from "./pages/otherservices/MatchingScratchPage";
 
 function App() {
   return (
@@ -40,7 +48,6 @@ function App() {
             <Route path="/du-an/:slug" element={<ProjectDetailPage />} />
             <Route path="/san-pham" element={<ProductPage />} />
             <Route path="/san-pham/:slug" element={<ProductDetailPage />} />
-
             <Route
               path="/chinh-sach/dieu-khoan"
               element={<TermsOfServicePage />}
@@ -50,7 +57,38 @@ function App() {
               path="/chinh-sach/quy-trinh"
               element={<WorkingProcessPage />}
             />
-
+            <Route
+              path="/dich-vu-cot-loi/in-hop-cung"
+              element={<HardBoxPage />}
+            />
+            <Route
+              path="/dich-vu-cot-loi/in-voucher"
+              element={<VoucherPage />}
+            />
+            <Route
+              path="/dich-vu-cot-loi/in-an-pham"
+              element={<PublicationPage />}
+            />
+            <Route
+              path="/dich-vu-cot-loi/in-tem-nhan"
+              element={<DecalPage />}
+            />
+            <Route
+              path="/dich-vu-khac/in-the-cao-bien-doi"
+              element={<VariableScratchPage />}
+            />
+            <Route
+              path="/dich-vu-khac/in-the-cao-kich-hoat"
+              element={<ActivationScratchPage />}
+            />
+            <Route
+              path="/dich-vu-khac/in-the-cao-trung-thuong"
+              element={<WinningScratchPage />}
+            />
+            <Route
+              path="/dich-vu-khac/in-the-cao-rap-chu"
+              element={<MatchingScratchPage />}
+            />
           </Routes>
         </div>
 
