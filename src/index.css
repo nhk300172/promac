@@ -1,0 +1,20 @@
+/* 1. Import Fonts từ Google */
+/* @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lato:wght@400;700&family=Manrope:wght@400;500;600;700;800&family=Quicksand:wght@400;500;600;700&display=swap"); */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 2. Hack làm mịn chữ (Bắt buộc phải có) */
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased; /* Làm chữ sắc nét hơn trên Mac/Chrome */
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    /* Set font mặc định là Inter */
+    font-family: "Inter", sans-serif;
+    color: #0e0e0e; /* Màu đen chuẩn Figma của bạn */
+  }
+}
