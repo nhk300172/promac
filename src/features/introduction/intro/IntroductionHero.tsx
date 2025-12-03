@@ -1,5 +1,7 @@
 import { Mail, Phone } from "lucide-react"; // Import thêm icon Phone
 
+import mainVisual from "../../../assets/main-visual.jpg";
+
 export const IntroductionHero = () => {
   return (
     <div className="w-full flex justify-center mt-[5px]">
@@ -39,8 +41,8 @@ export const IntroductionHero = () => {
           >
             <div className="relative w-full h-full">
               {/* ==============================================================
-                        LEFT TEXT AREA (Group 1000002968)
-                    ============================================================== */}
+                          LEFT TEXT AREA (Group 1000002968)
+                        ============================================================== */}
               <div
                 className="absolute"
                 style={{
@@ -114,15 +116,14 @@ export const IntroductionHero = () => {
                 />
 
                 {/* ==============================================================
-                            5. GROUP 302 (SỐ ĐIỆN THOẠI) - MỚI THÊM
-                        ============================================================== */}
+                              5. GROUP 302 (SỐ ĐIỆN THOẠI)
+                            ============================================================== */}
                 <div
                   className="absolute flex items-center"
                   style={{
                     top: "360px",
                     left: "20.6px",
                     height: "21px",
-                    // width: '277px', // Không cần set cứng width để flex tự xử lý
                   }}
                 >
                   {/* Rectangle 425 (Icon Phone) */}
@@ -134,7 +135,6 @@ export const IntroductionHero = () => {
                   </div>
 
                   {/* Số điện thoại*/}
-
                   <a
                     href="tel:02822272416"
                     className="font-inter font-normal underline decoration-solid"
@@ -149,8 +149,7 @@ export const IntroductionHero = () => {
                     (028) 22272416
                   </a>
 
-                  {/* Vector 28 (Vạch ngăn dọc)
-                   */}
+                  {/* Vector 28 (Vạch ngăn dọc) */}
                   <div
                     style={{
                       width: "0px",
@@ -174,10 +173,7 @@ export const IntroductionHero = () => {
                   </a>
                 </div>
 
-                {/* 6. GROUP 303 (EMAIL INFO) 
-                            Figma Top: 599px -> Relative Top: 400px
-                            Figma Left: 63.14px -> Relative Left: 20.74px
-                        */}
+                {/* 6. GROUP 303 (EMAIL INFO) */}
                 <div
                   className="absolute flex items-center"
                   style={{
@@ -219,7 +215,12 @@ export const IntroductionHero = () => {
                   left: "769.4px",
                 }}
               >
-                <span className="text-gray-500">m_image</span>
+                {/* Đã thay thế placeholder bằng ảnh thật */}
+                <img
+                  src={mainVisual}
+                  alt="Promac Main Visual"
+                  className="w-full h-full object-cover"
+                />
               </div>
             </div>
           </div>
