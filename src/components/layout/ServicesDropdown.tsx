@@ -60,7 +60,7 @@ const COLUMNS: Column[] = [
   },
   // Index 3 - CHÍNH SÁCH (Sửa path cho đúng với App.tsx)
   {
-    title: "CHÍNH SÁCH",
+    title: "Chính sách",
     items: [
       { label: "Điều khoản dịch vụ", path: "/chinh-sach/dieu-khoan" },
       { label: "Bảo mật thông tin", path: "/chinh-sach/bao-mat" },
@@ -79,7 +79,7 @@ export const ServicesDropdown = ({ label }: ServicesDropdownProps) => {
   const location = useLocation();
 
   const displayColumns =
-    label === "CHÍNH SÁCH"
+    label === "Chính sách"
       ? [COLUMNS[3]]
       : [COLUMNS[0], COLUMNS[1], COLUMNS[2]];
 
@@ -104,7 +104,7 @@ export const ServicesDropdown = ({ label }: ServicesDropdownProps) => {
                 : "text-[#000000] hover:text-[#FF0000]"
             )}
           >
-            <span className="block pt-[2px] uppercase">{label}</span>
+            <span className="block pt-[2px]">{label}</span>
             <div className="w-[20px] h-[20px] flex items-center justify-center">
               <ChevronDown
                 size={20}
@@ -143,7 +143,7 @@ export const ServicesDropdown = ({ label }: ServicesDropdownProps) => {
               <div
                 className="flex w-full h-full items-start gap-[60px]"
                 style={{
-                  justifyContent: label === "CHÍNH SÁCH" ? "center" : "center",
+                  justifyContent: label === "Chính sách" ? "center" : "center",
                 }}
               >
                 {/* RENDER CÁC CỘT */}
@@ -154,7 +154,7 @@ export const ServicesDropdown = ({ label }: ServicesDropdownProps) => {
                       className="flex flex-col w-[256px] gap-[20px]"
                     >
                       <span
-                        className="font-inter font-semibold text-[12px] text-[#97A3B7] uppercase tracking-[0.5px]"
+                        className="font-inter font-semibold text-[12px] text-[#97A3B7] tracking-[0.5px]"
                         style={{ lineHeight: "150%" }}
                       >
                         {col.title}

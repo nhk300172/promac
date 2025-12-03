@@ -1,17 +1,107 @@
+//src/features/home/HomeBanner.tsx
 import { Mail, Phone } from "lucide-react";
 
+import mainVisual from "../../assets/main-visual.jpg";
+// --- QUAN TRỌNG: PHẦN MOBILE MỚI ---
+const MobileBanner = () => {
+  return (
+    // Container Mobile (lg:hidden)
+    // Width: 100% (max 375px), Padding: 101px 23px (Figma)
+    <div className="flex flex-col items-center w-full max-w-[375px] bg-[#FFF5F6] rounded-[30px] pt-[40px] pb-[60px] px-[23px] mx-auto lg:hidden">
+      {/* 1. TEXT CONTENT GROUP */}
+      <div className="flex flex-col items-center gap-[32px] w-full mb-[50px]">
+        {/* Title + Subtitle Group */}
+        <div className="flex flex-col items-center gap-[24px] w-full text-center">
+          <h1 className="font-inter font-bold text-[28px] leading-[34px] text-[#FF0000]">
+            PROMAC: In ấn Kỹ thuật Cao
+          </h1>
+          <p className="font-inter font-semibold text-[16px] leading-[19px] text-[#374151]">
+            Đối tác đáng tin cậy của bạn về dịch vụ in ấn chuyên nghiệp tại
+            PROMAC
+          </p>
+        </div>
+
+        {/* Button */}
+        <button className="flex flex-col justify-center items-center w-[155px] h-[45px] bg-[#FF0000] rounded-[20px] shadow-[0px_0px_14px_#FF0000] active:scale-95 transition-transform">
+          <span className="font-inter font-bold text-[16px] leading-[19px] text-[#F5F5F5]">
+            Yêu cầu Báo giá
+          </span>
+        </button>
+
+        {/* Divider Line */}
+        <div className="w-full h-[1px] bg-black/50 opacity-50 border border-black/50"></div>
+
+        {/* Contact Info Group */}
+        <div className="flex flex-col items-start gap-[14px] w-full pl-[10px]">
+          {/* Phone Row */}
+          <div className="flex items-center relative h-[21px]">
+            {/* Icon Phone */}
+            <div className="w-[20px] h-[21px] flex items-center justify-center mr-[12px]">
+              <Phone size={20} className="text-black/50" />
+            </div>
+
+            {/* Phone Numbers */}
+            <div className="flex items-center gap-[12px]">
+              <a
+                href="tel:02822272416"
+                className="font-inter font-normal text-[16px] leading-[19px] text-black/50 underline"
+              >
+                (028) 22272416
+              </a>
+              {/* Vertical Line */}
+              <div className="w-[1px] h-[20px] bg-black/50"></div>
+              <a
+                href="tel:0906838869"
+                className="font-inter font-normal text-[16px] leading-[19px] text-black/50 underline"
+              >
+                0906838869
+              </a>
+            </div>
+          </div>
+
+          {/* Email Row */}
+          <div className="flex items-center relative h-[21px]">
+            {/* Icon Mail */}
+            <div className="w-[22px] h-[21px] flex items-center justify-center mr-[12px]">
+              <Mail size={20} className="text-black/50" />
+            </div>
+
+            <a
+              href="mailto:info@promacprinting.com"
+              className="font-inter font-normal underline text-[16px] leading-[19px] text-black/50"
+            >
+              info@promacprinting.com
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* 2. IMAGE (Order 1 in Figma - Bottom) */}
+      <div
+        className="w-full h-[242px] bg-gray-200 rounded-[10px] flex items-center justify-center overflow-hidden shadow-sm"
+        style={{ width: "328px" }}
+      >
+        {/* Thẻ img */}
+        <img
+          src={mainVisual}
+          alt="Promac Banner Mobile"
+          className="w-full h-full object-cover"
+        />
+      </div>
+    </div>
+  );
+};
+
+// --- COMPONENT CHÍNH ---
 export const HomeBanner = () => {
   return (
-    // Wrapper căn giữa
-    // Margin Top tính theo Figma: 143px (Start Banner) - 102px (End Header) = 41px
-    <div className="w-full flex justify-center mt-[41px]">
-      {/* ============================================================
-          ROOT CONTAINER (Group 1000003008)
-          Width: 1437px; Height: 600px
-          Background: #FFF5F6; Radius: 30px
-      ============================================================ */}
+    <div className="w-full flex justify-center mt-[20px] lg:mt-[41px]">
+      {/* 1. MOBILE BANNER (Tách riêng) */}
+      <MobileBanner />
+
+      {/* 2. DESKTOP BANNER (Giữ nguyên code cũ 100%) */}
       <section
-        className="relative"
+        className="hidden lg:block relative"
         style={{
           width: "1437px",
           height: "600px",
@@ -19,11 +109,7 @@ export const HomeBanner = () => {
           borderRadius: "30px",
         }}
       >
-        {/* --- IMAGE RIGHT (m_image) --- 
-            Left: 813px
-            Top: 200 - 143 = 57px
-            Size: 591x506
-        */}
+        {/* --- DESKTOP CONTENT (Code gốc của bạn) --- */}
         <div
           className="absolute bg-gray-200 flex items-center justify-center overflow-hidden"
           style={{
@@ -34,17 +120,13 @@ export const HomeBanner = () => {
             top: "57px",
           }}
         >
-          <span className="text-gray-500 font-medium">m_image placeholder</span>
+          <img
+            src={mainVisual}
+            alt="Promac Banner Desktop"
+            className="w-full h-full object-cover"
+          />
         </div>
 
-        {/* ============================================================
-            LEFT CONTENT AREA
-        ============================================================ */}
-
-        {/* 1. TITLE: PROMAC: In ấn Kỹ thuật Cao 
-            Left: 51px
-            Top: 233 - 143 = 90px
-        */}
         <h1
           className="absolute font-inter font-bold text-[#FF0000]"
           style={{
@@ -59,10 +141,6 @@ export const HomeBanner = () => {
           PROMAC: In ấn Kỹ thuật Cao
         </h1>
 
-        {/* 2. SUBTITLE: Đối tác đáng tin cậy...
-            Left: 51px
-            Top: 317 - 143 = 174px
-        */}
         <p
           className="absolute font-inter font-semibold text-[#374151]"
           style={{
@@ -77,10 +155,6 @@ export const HomeBanner = () => {
           Đối tác đáng tin cậy của bạn về dịch vụ in ấn chuyên nghiệp tại PROMAC
         </p>
 
-        {/* 3. BUTTON: Yêu cầu Báo giá
-            Left: 51px
-            Top: 389 - 143 = 246px
-        */}
         <button
           className="absolute flex flex-col justify-center items-center transition-transform hover:scale-105"
           style={{
@@ -90,7 +164,7 @@ export const HomeBanner = () => {
             top: "246px",
             backgroundColor: "#FF0000",
             borderRadius: "20px",
-            boxShadow: "0px 0px 14px #FF0000", // Hiệu ứng phát sáng đỏ
+            boxShadow: "0px 0px 14px #FF0000",
             gap: "12px",
           }}
         >
@@ -99,10 +173,6 @@ export const HomeBanner = () => {
           </span>
         </button>
 
-        {/* 4. VECTOR 27 (Divider Line)
-            Left: 34px
-            Top: 588.51 - 143 = 445.51px
-        */}
         <div
           className="absolute"
           style={{
@@ -114,10 +184,6 @@ export const HomeBanner = () => {
           }}
         />
 
-        {/* 5. PHONE INFO (Group 302)
-            Left: 54.56px
-            Top: 611.18 - 143 = 468.18px
-        */}
         <div
           className="absolute flex items-center"
           style={{
@@ -126,15 +192,12 @@ export const HomeBanner = () => {
             height: "21.07px",
           }}
         >
-          {/* Icon Phone */}
           <div
             className="flex items-center justify-center"
             style={{ width: "20px", height: "21px" }}
           >
             <Phone size={20} color="rgba(0,0,0,0.5)" />
           </div>
-
-          {/* Phone 1 */}
           <a
             href="tel:02822272416"
             className="font-inter font-normal underline ml-[12px]"
@@ -142,8 +205,6 @@ export const HomeBanner = () => {
           >
             (028) 22272416
           </a>
-
-          {/* Vector 28 (Vertical Line) */}
           <div
             className="mx-[12px]"
             style={{
@@ -152,8 +213,6 @@ export const HomeBanner = () => {
               borderLeft: "1px solid rgba(0,0,0,0.5)",
             }}
           />
-
-          {/* Phone 2 */}
           <a
             href="tel:0906838869"
             className="font-inter font-normal underline"
@@ -163,10 +222,6 @@ export const HomeBanner = () => {
           </a>
         </div>
 
-        {/* 6. EMAIL INFO (Group 303)
-            Left: 55px
-            Top: 652 - 143 = 509px
-        */}
         <div
           className="absolute flex items-center"
           style={{
@@ -175,18 +230,15 @@ export const HomeBanner = () => {
             height: "21.07px",
           }}
         >
-          {/* Icon Mail */}
           <div
             className="flex items-center justify-center"
             style={{ width: "22.1px", height: "21.07px" }}
           >
             <Mail size={20} color="rgba(0,0,0,0.5)" />
           </div>
-
-          {/* Email Text */}
           <a
             href="mailto:info@promacprinting.com"
-            className="font-inter font-normal ml-[12px]"
+            className="font-inter font-normal underline ml-[12px]"
             style={{ fontSize: "16px", color: "rgba(0,0,0,0.5)" }}
           >
             info@promacprinting.com
