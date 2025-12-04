@@ -1,4 +1,4 @@
-import { HomeBanner } from "../../features/home/HomeBanner"; // <--- IMPORT
+import { HomeBanner } from "../../features/home/HomeBanner";
 import { HomeExperience } from "../../features/home/HomeExperience";
 import { HomeNews } from "../../features/home/HomeNews";
 import { HomeProcess } from "../../features/home/HomeProcess";
@@ -13,8 +13,12 @@ import { ContactBanner } from "../../components/layout/ContactBanner";
 export const HomePage = () => {
   return (
     <div
-      className="relative bg-white"
-      style={{ width: "1440px", minHeight: "100vh" }}
+      className="relative bg-white mx-auto overflow-hidden" // Thêm mx-auto để căn giữa màn hình to, overflow-hidden để tránh trượt ngang
+      style={{
+        width: "100%", // Mobile: Full width
+        maxWidth: "1440px", // Desktop: Max 1440px
+        minHeight: "100vh",
+      }}
     >
       {/* Banner chính của trang chủ */}
       <HomeBanner />
@@ -51,7 +55,11 @@ export const HomePage = () => {
         {/* Margin bottom để cách Footer */}
         <HomeNews />
       </div>
-      <ContactBanner />
+      <div className="w-full">
+        {" "}
+        {/* Bọc ContactBanner để đảm bảo nó không bị lỗi width */}
+        <ContactBanner />
+      </div>
     </div>
   );
 };

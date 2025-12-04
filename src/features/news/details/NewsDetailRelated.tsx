@@ -2,30 +2,28 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-// --- IMPORT ẢNH (Đảm bảo khớp với ID trong slug) ---
-// Ví dụ: Bài số 2 dùng news2, Bài số 3 dùng news3...
+// --- IMPORT ẢNH ---
 import news2 from "../../../assets/news/news1.png";
 import news3 from "../../../assets/news/news2.png";
-import news4 from "../../../assets/news/news3.png"; // Import thêm news4
+import news4 from "../../../assets/news/news3.png";
 
 // Dữ liệu 3 bài viết liên quan
 const RELATED_NEWS = [
   {
-    id: 2, // ID tương ứng
+    id: 2,
     date: "22 July 2024",
     readTime: "Read 4 min",
     title: "Bài viết số 2: Our SaaS Product Just Launched!",
-    // Slug phải chứa ID đúng (số 2) để trang chi tiết tính toán ra đúng ảnh news2
     slug: "bai-viet-so-2",
     desc: "Remote work has drastically improved my design skills by giving me the freedom to experiment, focus, and learn at my own pace.",
-    image: news2, // Ảnh hiển thị ở đây
+    image: news2,
   },
   {
     id: 3,
     date: "22 July 2024",
     readTime: "Read 4 min",
     title: "Bài viết số 3: Our SaaS Product Just Launched!",
-    slug: "bai-viet-so-3", // Slug chứa ID 3 -> Trang chi tiết sẽ load ảnh news3
+    slug: "bai-viet-so-3",
     desc: "Remote work has drastically improved my design skills by giving me the freedom to experiment, focus, and learn at my own pace.",
     image: news3,
   },
@@ -34,7 +32,7 @@ const RELATED_NEWS = [
     date: "22 July 2024",
     readTime: "Read 4 min",
     title: "Bài viết số 4: Our SaaS Product Just Launched!",
-    slug: "bai-viet-so-4", // Slug chứa ID 4 -> Trang chi tiết sẽ load ảnh news4
+    slug: "bai-viet-so-4",
     desc: "Remote work has drastically improved my design skills by giving me the freedom to experiment, focus, and learn at my own pace.",
     image: news4,
   },
@@ -50,8 +48,109 @@ export const NewsDetailRelated: React.FC = () => {
 
   return (
     <section className="w-full flex flex-col items-center">
-      {/* CONTAINER */}
-      <div className="w-[1260px] flex flex-col gap-[32px] mb-[100px]">
+      {/* =================================================================
+          1. MOBILE VERSION (< 1024px) - THEO FIGMA DỌC
+          ================================================================= */}
+      <div className="flex flex-col items-center w-full lg:hidden px-[23px] mb-[60px]">
+        {/* Header Mobile */}
+        <div className="flex flex-col items-center text-center mb-[40px] w-full max-w-[326px]">
+          <h2 className="font-inter font-bold text-[28px] leading-[34px] text-[#000000] mb-[24px]">
+            Tin tức khác cùng chủ đề
+          </h2>
+        </div>
+
+        {/* List Mobile (Vertical) */}
+        <div className="flex flex-col gap-[40px] w-full items-center mb-[40px]">
+          {RELATED_NEWS.map((item) => (
+            <div
+              key={item.id}
+              onClick={() => handleCardClick(item.slug)}
+              className="flex flex-col w-[326px] cursor-pointer group"
+            >
+              {/* Thumbnail */}
+              <div className="w-full h-[230px] bg-[#F2F2F2] rounded-[4px] relative overflow-hidden mb-[12px]">
+                <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+
+              {/* Content */}
+              <div className="flex flex-col gap-[16px]">
+                {/* Meta */}
+                <div className="flex items-center gap-[4px]">
+                  <span className="font-inter font-medium text-[15px] text-[#4F4F4F]">
+                    {item.date}
+                  </span>
+                  <span className="mx-1 text-[#4F4F4F]">|</span>
+                  <span className="font-inter font-medium text-[15px] text-[#4F4F4F]">
+                    {item.readTime}
+                  </span>
+                </div>
+
+                {/* Title & Desc */}
+                <div className="flex flex-col gap-[8px]">
+                  <h3 className="font-inter font-semibold text-[16px] leading-[19px] text-[#000000]">
+                    {item.title}
+                  </h3>
+                  <p className="font-inter font-normal text-[15px] leading-[24px] text-[#828282] line-clamp-3">
+                    {item.desc}
+                  </p>
+                </div>
+
+                {/* Button "Đọc ngay" */}
+                <div className="flex flex-col items-start group/btn">
+                  <div className="flex items-center gap-[8px]">
+                    <span className="font-inter font-bold text-[16px] text-[#FF0000] leading-[19px]">
+                      Đọc ngay
+                    </span>
+                    <div className="relative w-[18px] h-[10px] flex items-center transition-transform group-hover/btn:translate-x-1">
+                      <svg
+                        width="18"
+                        height="10"
+                        viewBox="0 0 18 10"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M1 5H17"
+                          stroke="#FF0000"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                        <path
+                          d="M13 1L17 5L13 9"
+                          stroke="#FF0000"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                  <div className="w-[136px] h-[1px] bg-[#FF0000] mt-[2px]"></div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Button "Xem tin tức" Mobile */}
+        <button className="flex items-center justify-center bg-[#FF0000] rounded-[47px] w-[132px] h-[45px] shadow-lg active:scale-95 transition-transform">
+          <span className="font-inter font-semibold text-[16px] text-white tracking-[-0.02em]">
+            Xem tin tức
+          </span>
+        </button>
+      </div>
+
+      {/* =================================================================
+          2. DESKTOP VERSION (>= 1024px) - GIỮ NGUYÊN CODE CŨ
+          ================================================================= */}
+      <div className="hidden lg:flex w-[1260px] flex-col gap-[32px] mb-[100px]">
         {/* HEADER */}
         <h2 className="font-inter font-normal text-[#000000] text-[56px] leading-[115px] tracking-[-5px]">
           Tin tức khác cùng chủ đề
@@ -78,7 +177,6 @@ export const NewsDetailRelated: React.FC = () => {
 
               {/* Content */}
               <div className="flex flex-col">
-                {/* Meta */}
                 <div className="flex items-center gap-[4px] mb-[12px]">
                   <span className="font-inter font-semibold text-[18px] text-[#4F4F4F]">
                     {item.date}
@@ -91,17 +189,14 @@ export const NewsDetailRelated: React.FC = () => {
                   </span>
                 </div>
 
-                {/* Title */}
                 <h3 className="font-inter font-medium text-[#000000] text-[24px] leading-[29px] tracking-[-0.04em] mb-[12px] group-hover:text-[#FF0000] transition-colors">
                   {item.title}
                 </h3>
 
-                {/* Desc */}
                 <p className="font-inter font-normal text-[#828282] text-[18px] leading-[160%] tracking-[-0.02em] mb-[20px] line-clamp-3">
                   {item.desc}
                 </p>
 
-                {/* Button Read More */}
                 <div className="flex items-center gap-[8px] group/btn">
                   <span className="font-inter font-bold text-[16px] text-[#FF0000] leading-[19px]">
                     Đọc ngay
@@ -131,7 +226,6 @@ export const NewsDetailRelated: React.FC = () => {
                     </svg>
                   </div>
                 </div>
-                {/* Underline */}
                 <div className="w-[136px] h-[1px] bg-[#FF0000] mt-[2px]" />
               </div>
             </div>

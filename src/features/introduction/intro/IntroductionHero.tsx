@@ -1,3 +1,4 @@
+//src/features/introduction/intro/IntroductionHero.tsx
 import { Mail, Phone } from "lucide-react";
 import mainVisual from "../../../assets/main-visual.jpg";
 
@@ -182,7 +183,7 @@ export const IntroductionHero = () => {
           style={{
             width: "481px",
             height: "0px",
-            left: "56px",
+            left: "70px",
             top: "389.51px", // 53 + 336.51
             borderTop: "1px solid rgba(0, 0, 0, 0.5)",
           }}

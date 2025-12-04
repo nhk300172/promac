@@ -1,121 +1,180 @@
+//src/features/policies/privacypolicy/PrivacyPolicyHero.tsx
 import React from "react";
 import { Phone, Mail } from "lucide-react";
 
 export const PrivacyPolicyHero: React.FC = () => {
   return (
-    <section
-      className="relative mx-auto flex flex-col items-center bg-[#FFF5F6] rounded-[30px]"
-      style={{
-        width: "1379px",
-        height: "451px",
-        marginTop: "40px",
-      }}
-    >
-      {/* 1. Title Section */}
-      <div className="mt-[56px] text-center">
-        <h1
-          className="font-extrabold text-[#FF0000]"
-          style={{
-            fontFamily: "Inter",
-            fontSize: "40px",
-            lineHeight: "48px",
-          }}
-        >
-          Chính Sách Bảo Mật Thông Tin
-        </h1>
+    // Wrapper chung
+    <div className="w-full flex justify-center mt-[20px] lg:mt-[40px]">
+      {/* =================================================================
+          1. MOBILE VERSION (< 1024px) - THEO FIGMA DỌC
+          ================================================================= */}
+      <section className="flex flex-col items-center w-full max-w-[375px] bg-[#FFF5F6] rounded-[30px] pt-[40px] pb-[60px] px-[23px] lg:hidden mb-[20px]">
+        {/* Title Group */}
+        <div className="flex flex-col items-center gap-[16px] text-center mb-[50px]">
+          <h1 className="font-inter font-bold text-[28px] leading-[34px] text-[#FF0000]">
+            Bảo Mật Thông Tin
+          </h1>
+          <p className="font-inter font-semibold text-[16px] leading-[19px] text-[#374151]">
+            Chúng tôi sẵn sàng hỗ trợ bạn qua Hotline, Email, hoặc tại Văn
+            phòng.
+          </p>
+        </div>
 
-        <p
-          className="mt-[24px] font-semibold text-[#374151]"
-          style={{
-            fontFamily: "Inter",
-            fontSize: "16px",
-            lineHeight: "19px",
-            width: "697px",
-            marginInline: "auto",
-          }}
-        >
-          Chúng tôi sẵn sàng hỗ trợ bạn qua Hotline, Email, hoặc tại Văn phòng.
-        </p>
-      </div>
+        {/* Button */}
+        <button className="flex flex-col justify-center items-center w-[155px] h-[45px] bg-[#FF0000] rounded-[20px] shadow-[0px_0px_14px_#FF0000] mb-[24px] active:scale-95 transition-transform">
+          <span className="font-inter font-bold text-[16px] leading-[19px] text-[#F5F5F5]">
+            Yêu cầu Báo giá
+          </span>
+        </button>
 
-      {/* 2. CTA Button */}
-      <button
-        className="mt-[72px] flex flex-col items-center justify-center bg-[#FF0000] text-[#F5F5F5] transition-transform hover:scale-105 active:scale-95"
-        style={{
-          width: "309.82px",
-          height: "70.53px",
-          borderRadius: "20px",
-          border: "1px solid #FFF5F6",
-          boxShadow: "0px 0px 14px #FF0000",
-          gap: "12px",
-        }}
+        {/* Divider */}
+        <div className="w-full h-[1px] bg-black/50 border border-black/50 mb-[24px]"></div>
+
+        {/* Contact Info (Vertical) */}
+        <div className="flex flex-col items-start gap-[14px] w-full pl-[10px]">
+          {/* Phone Row */}
+          <div className="flex items-center">
+            <div className="w-[20px] mr-[12px] flex justify-center">
+              <Phone size={20} className="text-black/50" />
+            </div>
+            <div className="flex items-center gap-[12px]">
+              <a
+                href="tel:02822272416"
+                className="font-inter font-normal text-[16px] text-black/50 underline"
+              >
+                (028) 22272416
+              </a>
+              <div className="w-[1px] h-[20px] bg-black/50"></div>
+              <a
+                href="tel:0906838869"
+                className="font-inter font-normal text-[16px] text-black/50 underline"
+              >
+                0906838869
+              </a>
+            </div>
+          </div>
+
+          {/* Email Row */}
+          <div className="flex items-center">
+            <div className="w-[22px] mr-[12px] flex justify-center">
+              <Mail size={20} className="text-black/50" />
+            </div>
+            <a
+              href="mailto:info@promacprinting.com"
+              className="font-inter font-normal text-[16px] text-black/50"
+            >
+              info@promacprinting.com
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* =================================================================
+          2. DESKTOP VERSION (>= 1024px) - GIỮ NGUYÊN CODE CŨ
+          ================================================================= */}
+      <section
+        className="hidden lg:block relative mx-auto bg-[#FFF5F6] rounded-[30px]"
+        style={{ width: "1379px", height: "451px" }}
       >
-        <span
-          className="font-bold"
+        <div className="mt-[56px] text-center">
+          <h1
+            className="font-extrabold text-[#FF0000]"
+            style={{
+              fontFamily: "Inter",
+              fontSize: "40px",
+              lineHeight: "48px",
+            }}
+          >
+            Chính Sách Bảo Mật Thông Tin
+          </h1>
+          <p
+            className="mt-[24px] font-semibold text-[#374151]"
+            style={{
+              fontFamily: "Inter",
+              fontSize: "16px",
+              lineHeight: "19px",
+              width: "697px",
+              marginInline: "auto",
+            }}
+          >
+            Chúng tôi sẵn sàng hỗ trợ bạn qua Hotline, Email, hoặc tại Văn
+            phòng.
+          </p>
+        </div>
+
+        <button
+          className="mt-[72px] flex flex-col items-center justify-center bg-[#FF0000] text-[#F5F5F5] transition-transform hover:scale-105 active:scale-95 mx-auto"
           style={{
-            fontFamily: "Inter",
-            fontSize: "20px",
-            lineHeight: "24px",
+            width: "309.82px",
+            height: "70.53px",
+            borderRadius: "20px",
+            border: "1px solid #FFF5F6",
+            boxShadow: "0px 0px 14px #FF0000",
+            gap: "12px",
           }}
         >
-          Yêu cầu Báo giá
-        </span>
-      </button>
+          <span
+            className="font-bold"
+            style={{
+              fontFamily: "Inter",
+              fontSize: "20px",
+              lineHeight: "24px",
+            }}
+          >
+            Yêu cầu Báo giá
+          </span>
+        </button>
 
-      {/* 3. Divider */}
-      <div
-        className="absolute"
-        style={{
-          top: "347px",
-          width: "749.72px",
-          height: "0px",
-          border: "1px solid rgba(0, 0, 0, 0.5)",
-        }}
-      />
+        <div
+          className="absolute"
+          style={{
+            top: "347px",
+            width: "749.72px",
+            height: "0px",
+            border: "1px solid rgba(0, 0, 0, 0.5)",
+            left: "50%",
+            transform: "translateX(-50%)",
+          }}
+        />
 
-      {/* 4. Contact Info Row */}
-      <div
-        className="absolute flex items-center justify-center w-full"
-        style={{
-          top: "370px",
-          gap: "40px",
-        }}
-      >
-        {/* Phone Group */}
-        <div className="flex items-center gap-[12px]">
-          <div className="w-[20px] flex justify-center">
-            <Phone className="w-5 h-5 text-black/50" strokeWidth={2} />
+        <div
+          className="absolute flex items-center justify-center w-full"
+          style={{ top: "370px", gap: "40px" }}
+        >
+          <div className="flex items-center gap-[12px]">
+            <div className="w-[20px] flex justify-center">
+              <Phone className="w-5 h-5 text-black/50" strokeWidth={2} />
+            </div>
+            <div className="flex items-center gap-[12px]">
+              <a
+                href="tel:02822272416"
+                className="font-normal text-black/50 underline hover:text-[#FF0000] transition-colors text-[16px] leading-[19px]"
+              >
+                (028) 22272416
+              </a>
+              <div className="h-[20px] border-l border-black/50"></div>
+              <a
+                href="tel:0906838869"
+                className="font-normal text-black/50 underline hover:text-[#FF0000] transition-colors text-[16px] leading-[19px]"
+              >
+                0906838869
+              </a>
+            </div>
           </div>
           <div className="flex items-center gap-[12px]">
+            <div className="w-[22px] flex justify-center">
+              <Mail className="w-5 h-5 text-black/50" strokeWidth={2} />
+            </div>
             <a
-              href="tel:02822272416"
-              className="font-normal text-black/50 underline hover:text-[#FF0000] transition-colors text-[16px] leading-[19px]"
+              href="mailto:info@promacprinting.com"
+              className="font-normal text-black/50 hover:text-[#FF0000] transition-colors text-[16px] leading-[19px]"
             >
-              (028) 22272416
-            </a>
-            <div className="h-[20px] border-l border-black/50"></div>
-            <a
-              href="tel:0906838869"
-              className="font-normal text-black/50 underline hover:text-[#FF0000] transition-colors text-[16px] leading-[19px]"
-            >
-              0906838869
+              info@promacprinting.com
             </a>
           </div>
         </div>
-
-        {/* Mail Group */}
-        <div className="flex items-center gap-[12px]">
-          <div className="w-[22px] flex justify-center">
-            <Mail className="w-5 h-5 text-black/50" strokeWidth={2} />
-          </div>
-          <a
-            href="mailto:info@promacprinting.com"
-            className="font-normal text-black/50 hover:text-[#FF0000] transition-colors text-[16px] leading-[19px]"
-          >
-            info@promacprinting.com
-          </a>
-        </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 };

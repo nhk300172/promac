@@ -2,37 +2,28 @@ import React from "react";
 import { ProductDetailInfo } from "../../features/products/detail/ProductDetailInfo";
 import { ProductDetailMain } from "../../features/products/detail/ProductDetailMain";
 import { ProductSidebar } from "../../features/products/detail/ProductSidebar";
-import { OrderBanner } from "./../../components/layout/OrderBanner";
+import { OrderBanner } from "../../components/layout/OrderBanner";
 
 export const ProductDetailPage: React.FC = () => {
   return (
-    <div className="w-full flex flex-col items-center bg-white pb-[100px]">
+    <div className="w-full flex flex-col items-center bg-white pb-[60px] lg:pb-[100px]">
+      {/* Header Info */}
       <ProductDetailInfo />
 
-      {/* ============================================================
-          2. BODY (Chia 2 cột: Main + Sidebar)
-          Phần này mới cần wrap trong container 1319px để chia cột
-      ============================================================ */}
-      <div
-        className="flex flex-row items-start gap-[58px]"
-        style={{
-          width: "1319px",
-          marginBottom: "100px",
-          // Width = 890 (Main) + 58 (Gap) + 371 (Sidebar) = 1319px
-        }}
-      >
-        {/* Cột Trái: Ảnh + Bài viết */}
-        <div className="flex-shrink-0">
+      {/* Body Content */}
+      <div className="flex flex-col lg:flex-row items-center lg:items-start gap-[40px] lg:gap-[58px] w-full lg:w-[1319px] mb-[60px] lg:mb-[100px]">
+        {/* Main Content */}
+        <div className="w-full lg:flex-shrink-0 lg:w-[890px]">
           <ProductDetailMain />
         </div>
 
-        {/* Cột Phải: Sidebar */}
-        <div className="flex-shrink-0">
+        {/* Sidebar */}
+        <div className="w-full lg:flex-shrink-0 lg:w-[371px]">
           <ProductSidebar />
         </div>
       </div>
 
-      {/* 3. Banner đặt hàng */}
+      {/* Footer Banner */}
       <OrderBanner />
     </div>
   );

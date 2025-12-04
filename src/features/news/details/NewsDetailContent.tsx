@@ -1,4 +1,4 @@
-import React, { useMemo } from "react"; // Thêm useMemo
+import React, { useMemo } from "react";
 import { ChevronRight } from "lucide-react";
 import { useParams, Link } from "react-router-dom";
 
@@ -32,7 +32,6 @@ const newsImages = [
   news12,
 ];
 
-// --- 1. KHAI BÁO KIỂU DỮ LIỆU (Fix lỗi no-explicit-any) ---
 interface NewsItemType {
   id: number;
   date: string;
@@ -44,12 +43,9 @@ interface NewsItemType {
   intro: string;
 }
 
-// --- GIẢ LẬP LẠI DỮ LIỆU ---
-// Hàm này trả về NewsItemType hoặc null
 const getNewsData = (slug: string): NewsItemType | null => {
   const parts = slug.split("-");
   const id = parseInt(parts[parts.length - 1]);
-
   if (isNaN(id)) return null;
 
   return {
@@ -68,15 +64,11 @@ const getNewsData = (slug: string): NewsItemType | null => {
 export const NewsDetailContent: React.FC = () => {
   const { slug } = useParams();
 
-  // --- 2. FIX LỖI set-state-in-effect ---
-  // Thay vì dùng useState + useEffect, ta dùng useMemo để tính toán dữ liệu trực tiếp.
-  // Dữ liệu sẽ tự động cập nhật khi 'slug' thay đổi.
   const newsItem = useMemo(() => {
     if (!slug) return null;
     return getNewsData(slug);
   }, [slug]);
 
-  // Nếu không tìm thấy bài viết
   if (!newsItem) {
     return (
       <div className="w-full h-[50vh] flex flex-col items-center justify-center">
@@ -91,158 +83,179 @@ export const NewsDetailContent: React.FC = () => {
   }
 
   return (
-    <section className="w-full flex flex-col items-center bg-white pb-[100px]">
+    <section className="w-full flex flex-col items-center bg-white pb-[60px] lg:pb-[100px]">
       {/* ============================================================
-          BREADCRUMB
-      ============================================================ */}
-      <div className="w-[1299px] flex items-center gap-[8px] mt-[21px] mb-[40px]">
-        <Link
-          to="/"
-          className="flex items-center gap-[8px] text-[#8E8E8E] hover:text-red-500 transition-colors"
-        >
-          <span className="font-inter text-[16px]">Trang chủ</span>
-          <ChevronRight size={16} />
-        </Link>
-
-        <Link
-          to="/tin-tuc"
-          className="flex items-center gap-[8px] text-[#9E9E9E] hover:text-red-500 transition-colors"
-        >
-          <span className="font-inter text-[16px]">Tin Tức</span>
-          <ChevronRight size={16} />
-        </Link>
-
-        <div className="flex items-center gap-[8px] text-[#9E9E9E]">
-          <span className="font-inter text-[16px]">{newsItem.tag}</span>
-          <ChevronRight size={16} />
+          1. MOBILE VERSION (< 1024px) - THEO FIGMA MỚI
+          ============================================================ */}
+      <div className="flex flex-col w-full px-[24px] lg:hidden">
+        {/* Breadcrumb Mobile */}
+        <div className="flex flex-col items-start gap-[4px] mt-[12px] mb-[20px]">
+          <div className="flex items-center flex-wrap gap-[4px] w-full">
+            <Link
+              to="/"
+              className="font-inter font-normal text-[15px] leading-[24px] text-[#8E8E8E]"
+            >
+              Trang chủ
+            </Link>
+            <ChevronRight size={14} className="text-[#8E8E8E]" />
+            <Link
+              to="/tin-tuc"
+              className="font-inter font-normal text-[15px] leading-[24px] text-[#9E9E9E]"
+            >
+              Tin Tức
+            </Link>
+            <ChevronRight size={14} className="text-[#9E9E9E]" />
+            <span className="font-inter font-normal text-[15px] leading-[24px] text-[#9E9E9E]">
+              {newsItem.tag}
+            </span>
+          </div>
+          <div className="flex items-center gap-[4px] w-full">
+            <ChevronRight size={14} className="text-[#9E9E9E]" />
+            <span className="font-inter font-semibold text-[15px] leading-[18px] text-[#FF0000]/80 tracking-[-0.04em] line-clamp-1">
+              {newsItem.title}
+            </span>
+          </div>
         </div>
 
-        <div className="flex items-center">
-          <span
-            className="font-inter font-semibold text-[16px] truncate max-w-[600px]"
-            style={{ color: "rgba(255, 0, 0, 0.8)", letterSpacing: "-0.04em" }}
-          >
-            {newsItem.title}
+        {/* Header Mobile */}
+        <div className="flex flex-col gap-[16px] mb-[24px]">
+          <span className="font-quicksand font-bold text-[16px] leading-[19px] text-[#FF0000]">
+            {newsItem.tag}
           </span>
+          <h1 className="font-inter font-medium text-[28px] leading-[34px] text-black tracking-[-0.04em]">
+            {newsItem.title}
+          </h1>
         </div>
-      </div>
 
-      {/* ============================================================
-          ARTICLE HEADER
-      ============================================================ */}
-      <div className="relative w-[1299px] h-[145px] mb-[40px]">
-        <span
-          className="
-            absolute left-[12px] top-[-1px]
-            font-bold text-[16px] leading-[19px] text-[#FF0000]
-            flex items-center w-[88px] h-[20px]
-          "
-          style={{ fontFamily: "Quicksand" }}
-        >
-          {newsItem.tag}
-        </span>
-
-        <h1
-          className="
-            absolute left-[12px] top-[28px]
-            w-[1265px] h-[98px]
-            text-[40px] leading-[48px] font-medium text-black
-            flex items-center
-          "
-          style={{ fontFamily: "Inter", letterSpacing: "-0.04em" }}
-        >
-          {newsItem.title}
-        </h1>
-      </div>
-
-      {/* ============================================================
-          FEATURED IMAGE
-      ============================================================ */}
-      <div className="w-[890px] h-[415px] bg-[#F2F2F2] rounded-[15px] overflow-hidden relative mb-[60px] mt-[-50px]">
-        <img
-          src={newsItem.image}
-          alt={newsItem.title}
-          className="w-full h-full object-cover"
-        />
-      </div>
-
-      {/* ============================================================
-          MAIN CONTENT
-      ============================================================ */}
-      <div className="w-[897px] flex flex-col relative">
-        <p
-          className="text-[#253D4E] text-[24px] leading-[32px] mb-[32px] pl-[12px] font-bold"
-          style={{ fontFamily: "Lato" }}
-        >
-          {newsItem.intro}
-        </p>
-
-        <p
-          className="text-[#253D4E] text-[17px] leading-[24px] mb-[32px] pl-[12px]"
-          style={{ fontFamily: "Lato" }}
-        >
-          We've reviewed and ranked all of the best smartwatches on the market
-          right now, and we've made a definitive list of the top 10 devices you
-          can buy today. One of the 10 picks below may just be your perfect next
-          smartwatch.
-        </p>
-
-        <p
-          className="text-[#253D4E] text-[17px] leading-[24px] mb-[40px] pl-[12px]"
-          style={{ fontFamily: "Lato" }}
-        >
-          Those top-end wearables span from the Apple Watch to Fitbits, Garmin
-          watches to Tizen-sporting Samsung watches. There's also Wear OS which
-          is Google's own wearable operating system in the vein of Apple's
-          watchOS - you’ll see it show up in a lot of these devices.
-        </p>
-
-        <h3
-          className="text-[#253D4E] font-bold text-[20px] leading-[24px] mb-[24px] pl-[12px]"
-          style={{ fontFamily: "Quicksand" }}
-        >
-          Lorem ipsum dolor sit amet cons
-        </h3>
-
-        <p
-          className="text-[#253D4E] text-[17px] leading-[24px] mb-[40px] pl-[12px]"
-          style={{ fontFamily: "Lato" }}
-        >
-          Throughout our review process, we look at the design, features,
-          battery life, spec, price and more for each smartwatch, rank it
-          against the competition and enter it into the list you'll find below.
-        </p>
-
-        {/* Second Image */}
-        <div className="w-[890px] h-[415px] bg-[#F2F2F2] rounded-[15px] overflow-hidden relative mb-[40px] ml-[12px]">
+        {/* Featured Image Mobile */}
+        <div className="w-full h-[228px] bg-[#F2F2F2] rounded-[4px] overflow-hidden relative mb-[24px]">
           <img
             src={newsItem.image}
-            alt="Content detail"
+            alt={newsItem.title}
             className="w-full h-full object-cover"
           />
         </div>
 
-        <p
-          className="text-[#253D4E] text-[17px] leading-[24px] mb-[32px] pl-[12px]"
-          style={{ fontFamily: "Lato" }}
-        >
-          Tortor, lobortis semper viverra ac, molestie tortor laoreet amet
-          euismod et diam quis aliquam consequat porttitor integer a nisl, in
-          faucibus nunc et aenean turpis dui dignissim nec scelerisque
-          ullamcorper eu neque, augue quam quis lacus pretium eros est amet
-          turpis nunc in turpis massa et eget facilisis ante molestie penatibus
-          dolor volutpat...
-        </p>
+        {/* Content Mobile */}
+        <div className="flex flex-col gap-[24px]">
+          <p className="font-inter text-[15px] leading-[24px] text-[#253D4E] font-bold">
+            {newsItem.intro}
+          </p>
+          <p className="font-inter font-normal text-[15px] leading-[24px] text-[#253D4E]">
+            We've reviewed and ranked all of the best smartwatches on the market
+            right now...
+          </p>
 
-        <p
-          className="text-[#253D4E] text-[17px] leading-[24px] pl-[12px]"
-          style={{ fontFamily: "Lato" }}
-        >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet id enim,
-          libero sit. Est donec lobortis cursus amet, cras elementum libero
-          convallis feugiat. Nulla faucibus facilisi tincidunt a arcu, sem donec
-          sed sed.
-        </p>
+          {/* Image In-Content Mobile */}
+          <div className="w-full h-[228px] bg-[#F2F2F2] rounded-[4px] overflow-hidden relative my-[10px]">
+            <img
+              src={newsItem.secondaryImage}
+              alt="Content detail"
+              className="w-full h-full object-cover"
+            />
+          </div>
+
+          <p className="font-lato font-normal text-[17px] leading-[24px] text-[#253D4E]">
+            Tortor, lobortis semper viverra ac, molestie tortor laoreet amet
+            euismod...
+          </p>
+        </div>
+      </div>
+
+      {/* ============================================================
+          2. DESKTOP VERSION (>= 1024px) - GIỮ NGUYÊN CODE CŨ
+          ============================================================ */}
+      <div className="hidden lg:flex flex-col items-center w-full">
+        {/* BREADCRUMB */}
+        <div className="w-[1299px] flex items-center gap-[8px] mt-[21px] mb-[40px]">
+          <Link
+            to="/"
+            className="flex items-center gap-[8px] text-[#8E8E8E] hover:text-red-500 transition-colors"
+          >
+            <span className="font-inter text-[16px]">Trang chủ</span>
+            <ChevronRight size={16} />
+          </Link>
+          <Link
+            to="/tin-tuc"
+            className="flex items-center gap-[8px] text-[#9E9E9E] hover:text-red-500 transition-colors"
+          >
+            <span className="font-inter text-[16px]">Tin Tức</span>
+            <ChevronRight size={16} />
+          </Link>
+          <div className="flex items-center gap-[8px] text-[#9E9E9E]">
+            <span className="font-inter text-[16px]">{newsItem.tag}</span>
+            <ChevronRight size={16} />
+          </div>
+          <div className="flex items-center">
+            <span
+              className="font-inter font-semibold text-[16px] truncate max-w-[600px]"
+              style={{
+                color: "rgba(255, 0, 0, 0.8)",
+                letterSpacing: "-0.04em",
+              }}
+            >
+              {newsItem.title}
+            </span>
+          </div>
+        </div>
+
+        {/* ARTICLE HEADER */}
+        <div className="relative w-[1299px] h-[145px] mb-[40px]">
+          <span
+            className="absolute left-[12px] top-[-1px] font-bold text-[16px] leading-[19px] text-[#FF0000] flex items-center w-[88px] h-[20px]"
+            style={{ fontFamily: "Quicksand" }}
+          >
+            {newsItem.tag}
+          </span>
+          <h1
+            className="absolute left-[12px] top-[28px] w-[1265px] h-[98px] text-[40px] leading-[48px] font-medium text-black flex items-center"
+            style={{ fontFamily: "Inter", letterSpacing: "-0.04em" }}
+          >
+            {newsItem.title}
+          </h1>
+        </div>
+
+        {/* FEATURED IMAGE */}
+        <div className="w-[890px] h-[415px] bg-[#F2F2F2] rounded-[15px] overflow-hidden relative mb-[60px] mt-[-50px]">
+          <img
+            src={newsItem.image}
+            alt={newsItem.title}
+            className="w-full h-full object-cover"
+          />
+        </div>
+
+        {/* MAIN CONTENT */}
+        <div className="w-[897px] flex flex-col relative">
+          <p
+            className="text-[#253D4E] text-[24px] leading-[32px] mb-[32px] pl-[12px] font-bold"
+            style={{ fontFamily: "Lato" }}
+          >
+            {newsItem.intro}
+          </p>
+          <p
+            className="text-[#253D4E] text-[17px] leading-[24px] mb-[32px] pl-[12px]"
+            style={{ fontFamily: "Lato" }}
+          >
+            We've reviewed and ranked all of the best smartwatches on the market
+            right now...
+          </p>
+
+          {/* Second Image */}
+          <div className="w-[890px] h-[415px] bg-[#F2F2F2] rounded-[15px] overflow-hidden relative mb-[40px] ml-[12px]">
+            <img
+              src={newsItem.secondaryImage}
+              alt="Content detail"
+              className="w-full h-full object-cover"
+            />
+          </div>
+
+          <p
+            className="text-[#253D4E] text-[17px] leading-[24px] mb-[32px] pl-[12px]"
+            style={{ fontFamily: "Lato" }}
+          >
+            Tortor, lobortis semper viverra ac, molestie tortor laoreet amet...
+          </p>
+        </div>
       </div>
     </section>
   );

@@ -1,3 +1,4 @@
+//src/features/news/NewsListing.tsx
 import React, { useState } from "react";
 import { ChevronLeft, ChevronRight, Search } from "lucide-react";
 import { useNavigate } from "react-router-dom";
