@@ -8,22 +8,13 @@ import news3 from "../../assets/news/news3.png";
 // DỮ LIỆU TIN TỨC
 const NEWS_DATA = [
   {
-    id: 1,
+    id: 2, // Sửa lại id bắt đầu từ 1 cho khớp với logic giả lập bên NewsDetailContent
     date: "22 July 2024",
     readTime: "Read 4 min",
     title: "Our SaaS Product Just Launched!",
     desc: "Remote work has drastically improved my design skills by giving me the freedom to experiment, focus, and learn at my own pace.",
     image: news1,
-    slug: "our-saas-product-just-launched", // Thêm slug để link đẹp hơn
-  },
-  {
-    id: 2,
-    date: "22 July 2024",
-    readTime: "Read 4 min",
-    title: "Our SaaS Product Just Launched!",
-    desc: "Remote work has drastically improved my design skills by giving me the freedom to experiment, focus, and learn at my own pace.",
-    image: news2,
-    slug: "our-saas-product-just-launched-2",
+    slug: "bai-viet-so-2", // Cập nhật slug để khớp với logic lấy ID: "bai-viet-so-{id}"
   },
   {
     id: 3,
@@ -31,8 +22,17 @@ const NEWS_DATA = [
     readTime: "Read 4 min",
     title: "Our SaaS Product Just Launched!",
     desc: "Remote work has drastically improved my design skills by giving me the freedom to experiment, focus, and learn at my own pace.",
+    image: news2,
+    slug: "bai-viet-so-3", // Cập nhật slug
+  },
+  {
+    id: 4,
+    date: "22 July 2024",
+    readTime: "Read 4 min",
+    title: "Our SaaS Product Just Launched!",
+    desc: "Remote work has drastically improved my design skills by giving me the freedom to experiment, focus, and learn at my own pace.",
     image: news3,
-    slug: "our-saas-product-just-launched-3",
+    slug: "bai-viet-so-4", // Cập nhật slug
   },
 ];
 
@@ -56,14 +56,15 @@ export const HomeNews = () => {
             <Link
               key={index}
               to={`/tin-tuc/${item.slug}`} // Link chi tiết tin tức
-              className="flex flex-col w-full max-w-[326px] group"
+              className="flex flex-col w-full max-w-[326px] group cursor-pointer"
+              onClick={() => window.scrollTo(0, 0)} // Cuộn lên đầu trang khi click
             >
               {/* Thumbnail */}
               <div
                 className="w-full bg-[#F2F2F2] rounded-[4px] overflow-hidden mb-[12px]"
                 style={{ height: "230px" }}
               >
-                {/* Thay thế placeholder bằng ảnh thật */}
+                {/* Ảnh thật */}
                 <img
                   src={item.image}
                   alt={item.title}
@@ -88,7 +89,7 @@ export const HomeNews = () => {
 
                 {/* Text Group */}
                 <div className="flex flex-col gap-[8px]">
-                  <h3 className="font-inter font-semibold text-[16px] leading-[19px] text-[#000000] tracking-[-0.04em]">
+                  <h3 className="font-inter font-semibold text-[16px] leading-[19px] text-[#000000] tracking-[-0.04em] group-hover:text-[#FF0000] transition-colors">
                     {item.title}
                   </h3>
                   <p className="font-inter font-normal text-[15px] leading-[24px] text-[#828282] tracking-[-0.02em] line-clamp-3">
@@ -172,13 +173,14 @@ export const HomeNews = () => {
               key={index}
               to={`/tin-tuc/${item.slug}`} // Wrap Link cho Desktop
               className="flex flex-col w-[380px] group cursor-pointer"
+              onClick={() => window.scrollTo(0, 0)} // Cuộn lên đầu trang khi click
             >
               {/* Thumbnail Desktop */}
               <div
                 className="w-full bg-[#F2F2F2] rounded-[4px] overflow-hidden mb-[20px] relative"
                 style={{ height: "268px" }}
               >
-                {/* Thay thế placeholder bằng ảnh thật */}
+                {/* Ảnh thật */}
                 <img
                   src={item.image}
                   alt={item.title}
@@ -200,7 +202,7 @@ export const HomeNews = () => {
                 </div>
 
                 <h3
-                  className="font-inter font-medium text-[#000000] mb-[12px]"
+                  className="font-inter font-medium text-[#000000] mb-[12px] group-hover:text-[#FF0000] transition-colors"
                   style={{
                     fontSize: "24px",
                     lineHeight: "29px",

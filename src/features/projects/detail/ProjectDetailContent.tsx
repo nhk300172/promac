@@ -1,26 +1,113 @@
-import React from "react";
+// src/features/projects/detail/ProjectDetailContent.tsx
+import React, { useMemo } from "react";
 import { ChevronRight } from "lucide-react";
+import { useParams, Link } from "react-router-dom";
+
+// --- IMPORT 12 HÌNH ẢNH DỰ ÁN ---
+import project1 from "../../../assets/projects/project1.png";
+import project2 from "../../../assets/projects/project2.png";
+import project3 from "../../../assets/projects/project3.png";
+import project4 from "../../../assets/projects/project4.png";
+import project5 from "../../../assets/projects/project5.png";
+import project6 from "../../../assets/projects/project6.png";
+import project7 from "../../../assets/projects/project7.png";
+import project8 from "../../../assets/projects/project8.png";
+import project9 from "../../../assets/projects/project9.png";
+import project10 from "../../../assets/projects/project10.png";
+import project11 from "../../../assets/projects/project11.png";
+import project12 from "../../../assets/projects/project12.png";
+
+// Danh sách ảnh để lặp
+const projectImages = [
+  project1,
+  project2,
+  project3,
+  project4,
+  project5,
+  project6,
+  project7,
+  project8,
+  project9,
+  project10,
+  project11,
+  project12,
+];
+
+// --- KHAI BÁO KIỂU DỮ LIỆU ---
+interface ProjectItemType {
+  id: number;
+  title: string;
+  image: string;
+  desc: string;
+  tag: string;
+  intro: string;
+}
+
+// --- GIẢ LẬP LẠI DỮ LIỆU ĐỂ TÌM DỰ ÁN ---
+const getProjectData = (slug: string): ProjectItemType | null => {
+  // Slug mẫu: "du-an-so-1" -> lấy ID = 1
+  const parts = slug.split("-");
+  const id = parseInt(parts[parts.length - 1]);
+
+  if (isNaN(id)) return null;
+
+  return {
+    id: id,
+    title: `Dự án số ${id}: Thiết kế bao bì hộp sữa cao cấp`,
+    // Logic lấy ảnh giống hệt bên ProjectListing: i % 12
+    image: projectImages[(id - 1) % projectImages.length],
+    tag: id % 2 === 0 ? "Bao bì" : "In ấn",
+    desc: "Dự án thiết kế và in ấn bao bì hộp cứng 5 lớp với công nghệ in UV định hình, đảm bảo độ bền và tính thẩm mỹ cao cho sản phẩm.",
+    intro:
+      "Helping everyone live happier, healthier lives at home through their kitchen. Kitchn is a daily food magazine on the Web celebrating life in the kitchen through home cooking and kitchen intelligence.",
+  };
+};
 
 export const ProjectDetailContent: React.FC = () => {
+  const { slug } = useParams();
+
+  // Dùng useMemo để tính toán dữ liệu ngay lập tức
+  const projectItem = useMemo(() => {
+    if (!slug) return null;
+    return getProjectData(slug);
+  }, [slug]);
+
+  // Nếu không tìm thấy dự án
+  if (!projectItem) {
+    return (
+      <div className="w-full h-[300px] flex flex-col items-center justify-center text-gray-500">
+        <p>Đang tải hoặc không tìm thấy dự án...</p>
+        <Link to="/du-an" className="text-red-500 mt-2 underline">
+          Quay lại danh sách
+        </Link>
+      </div>
+    );
+  }
+
   return (
     <section className="w-full flex flex-col items-center bg-white pb-[100px]">
       {/* ============================================================
           1. BREADCRUMB
-          Logic: Home > Dự án > Tag (Bao bì) > Tên Dự Án
       ============================================================ */}
       <div className="w-[1299px] flex items-center gap-[8px] mt-[21px] mb-[40px]">
-        <div className="flex items-center gap-[8px] text-[#8E8E8E]">
+        <Link
+          to="/"
+          className="flex items-center gap-[8px] text-[#8E8E8E] hover:text-red-500 transition-colors"
+        >
           <span className="font-inter text-[16px]">Trang chủ</span>
           <ChevronRight size={16} />
-        </div>
+        </Link>
 
-        <div className="flex items-center gap-[8px] text-[#9E9E9E]">
+        <Link
+          to="/du-an"
+          className="flex items-center gap-[8px] text-[#9E9E9E] hover:text-red-500 transition-colors"
+        >
           <span className="font-inter text-[16px]">Dự án</span>
           <ChevronRight size={16} />
-        </div>
+        </Link>
 
         <div className="flex items-center gap-[8px] text-[#9E9E9E]">
-          <span className="font-inter text-[16px]">Bao bì</span>
+          <span className="font-inter text-[16px]">{projectItem.tag}</span>
           <ChevronRight size={16} />
         </div>
 
@@ -29,7 +116,7 @@ export const ProjectDetailContent: React.FC = () => {
             className="font-inter font-semibold text-[16px] truncate max-w-[600px]"
             style={{ color: "rgba(255, 0, 0, 0.8)", letterSpacing: "-0.04em" }}
           >
-            Thiết kế bao bì hộp sữa cao cấp Vinamilk
+            {projectItem.title}
           </span>
         </div>
       </div>
@@ -43,7 +130,7 @@ export const ProjectDetailContent: React.FC = () => {
           className="absolute left-[12px] top-[-1px] font-bold text-[16px] leading-[19px] text-[#FF0000] flex items-center h-[20px]"
           style={{ fontFamily: "Quicksand" }}
         >
-          Bao Bì & Hộp Cứng
+          {projectItem.tag}
         </span>
 
         {/* Title */}
@@ -51,17 +138,20 @@ export const ProjectDetailContent: React.FC = () => {
           className="absolute left-[12px] top-[28px] w-[1265px] h-[98px] text-[40px] leading-[48px] font-medium text-black flex items-center"
           style={{ fontFamily: "Inter", letterSpacing: "-0.04em" }}
         >
-          Thiết kế bao bì hộp sữa cao cấp Vinamilk
+          {projectItem.title}
         </h1>
       </div>
 
       {/* ============================================================
-          3. FEATURED IMAGE (Có mt-[-50px] giống Tin tức)
+          3. FEATURED IMAGE (Ảnh Chính)
       ============================================================ */}
       <div className="w-[890px] h-[415px] bg-[#F2F2F2] rounded-[15px] overflow-hidden relative mb-[60px] mt-[-50px]">
-        <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400">
-          Project Featured Image
-        </div>
+        {/* Thay thế placeholder bằng ảnh thật */}
+        <img
+          src={projectItem.image}
+          alt={projectItem.title}
+          className="w-full h-full object-cover"
+        />
       </div>
 
       {/* ============================================================
@@ -73,9 +163,7 @@ export const ProjectDetailContent: React.FC = () => {
           className="text-[#253D4E] text-[24px] leading-[32px] mb-[32px] pl-[12px]"
           style={{ fontFamily: "Lato" }}
         >
-          Helping everyone live happier, healthier lives at home through their
-          kitchen. Kitchn is a daily food magazine on the Web celebrating life
-          in the kitchen through home cooking and kitchen intelligence.
+          {projectItem.intro}
         </p>
 
         {/* Paragraph 1 */}
@@ -100,7 +188,7 @@ export const ProjectDetailContent: React.FC = () => {
           watchOS - you’ll see it show up in a lot of these devices.
         </p>
 
-        {/* Sub-Heading (414) */}
+        {/* Sub-Heading */}
         <h3
           className="text-[#253D4E] font-bold text-[20px] leading-[24px] mb-[24px] pl-[12px]"
           style={{ fontFamily: "Quicksand" }}
@@ -108,27 +196,29 @@ export const ProjectDetailContent: React.FC = () => {
           Các Loại Hộp Chúng Tôi Nhận Sản Xuất
         </h3>
 
-        {/* Paragraph 3 */}
+        {/* List Items (Demo) */}
         <ul className="list-disc pl-[40px] mb-[40px]">
           <li
-            className="text-[#253D4E] text-[20px] leading-[24px] pl-[12px] list" // Removed the comma from original className and kept "list" if it's a custom class
+            className="text-[#253D4E] text-[20px] leading-[24px] pl-[12px] mb-2"
             style={{ fontFamily: "Lato" }}
           >
             Hộp nắp rời / hộp âm dương
           </li>
-          {/* If you want more items, add them here like: */}
           <li
-            className="text-[#253D4E] text-[20px] leading-[24px] pl-[12px] list"
+            className="text-[#253D4E] text-[20px] leading-[24px] pl-[12px]"
             style={{ fontFamily: "Lato" }}
           >
-            Item thứ hai
+            Hộp nắp nam châm
           </li>
         </ul>
-        {/* Second Image (In-content Thumbnail) */}
+
+        {/* Second Image (Ảnh phụ - dùng lại ảnh chính) */}
         <div className="w-[890px] h-[415px] bg-[#F2F2F2] rounded-[15px] overflow-hidden relative mb-[40px] ml-[12px]">
-          <div className="w-full h-full bg-gray-300 flex items-center justify-center text-gray-500">
-            In-Content Image
-          </div>
+          <img
+            src={projectItem.image}
+            alt="Project detail view"
+            className="w-full h-full object-cover"
+          />
         </div>
 
         {/* Paragraph 4 */}
