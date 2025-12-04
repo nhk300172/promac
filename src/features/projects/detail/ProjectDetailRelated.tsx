@@ -1,5 +1,11 @@
+// src/features/projects/detail/ProjectDetailRelated.tsx
 import React from "react";
 import { useNavigate } from "react-router-dom";
+
+// --- IMPORT HÌNH ẢNH DỰ ÁN KHÁC ---
+import otherProject1 from "../../../assets/projects/other-project1.png";
+import otherProject2 from "../../../assets/projects/other-project2.png";
+import otherProject3 from "../../../assets/projects/other-project3.png";
 
 // Dữ liệu giả cho dự án liên quan
 const RELATED_PROJECTS = [
@@ -8,27 +14,27 @@ const RELATED_PROJECTS = [
     date: "July 2024",
     client: "Viettel Group",
     title: "Bộ quà tặng doanh nghiệp cao cấp",
-    slug: "bo-qua-tang-viettel",
+    slug: "du-an-so-2",
     desc: "Thiết kế và sản xuất bộ Giftset sổ tay, bút ký và bình giữ nhiệt...",
-    image: "bg-gray-200",
+    image: otherProject1,
   },
   {
     id: 2,
     date: "June 2024",
     client: "NovaLand",
     title: "Catalogue dự án Aqua City",
-    slug: "catalogue-novaland",
+    slug: "du-an-so-3",
     desc: "In ấn Catalogue khổ lớn, bìa cứng, gia công gáy keo nhiệt...",
-    image: "bg-gray-200",
+    image: otherProject2,
   },
   {
     id: 3,
     date: "May 2024",
     client: "Techcombank",
     title: "Lịch để bàn độc quyền 2025",
-    slug: "lich-tet-techcombank",
+    slug: "du-an-so-4",
     desc: "Bộ lịch tết thiết kế riêng với phong cách tối giản, hiện đại...",
-    image: "bg-gray-200",
+    image: otherProject3,
   },
 ];
 
@@ -56,10 +62,14 @@ export const ProjectDetailRelated: React.FC = () => {
               className="flex flex-col w-[380px] group cursor-pointer"
               onClick={() => handleCardClick(item.slug)}
             >
-              {/* Thumbnail */}
+              {/* Thumbnail - Ảnh thật */}
               <div className="w-full h-[268px] bg-[#F2F2F2] rounded-[4px] mb-[20px] relative overflow-hidden">
                 <div className="w-full h-full bg-gray-200 flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
-                  <span className="text-gray-400">Project Img</span>
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
               </div>
 
@@ -114,6 +124,7 @@ export const ProjectDetailRelated: React.FC = () => {
                     </svg>
                   </div>
                 </div>
+                {/* Underline */}
                 <div className="w-[136px] h-[1px] bg-[#FF0000] mt-[2px]" />
               </div>
             </div>

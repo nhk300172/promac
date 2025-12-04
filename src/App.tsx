@@ -22,6 +22,8 @@ import { VariableScratchPage } from "./pages/otherservices/VariableScratchPage";
 import { ActivationScratchPage } from "./pages/otherservices/ActivationScratchPage";
 import { WinningScratchPage } from "./pages/otherservices/WinningScratchPage";
 import { MatchingScratchPage } from "./pages/otherservices/MatchingScratchPage";
+import { ReturnPolicyPage } from "./pages/returnpolicy/ReturnPolicyPage";
+import { ShippingPolicyPage } from "./pages/shippingpolicy/ShippingPolicyPage";
 
 function App() {
   return (
@@ -56,6 +58,11 @@ function App() {
             <Route
               path="/chinh-sach/quy-trinh"
               element={<WorkingProcessPage />}
+            />
+            <Route path="/chinh-sach/doi-tra" element={<ReturnPolicyPage />} />
+            <Route
+              path="/chinh-sach/van-chuyen"
+              element={<ShippingPolicyPage />}
             />
             <Route
               path="/dich-vu-cot-loi/in-hop-cung"

@@ -1,111 +1,182 @@
-import React from "react";
+import React, { useMemo } from "react"; // Thêm useMemo
 import { ChevronRight } from "lucide-react";
+import { useParams, Link } from "react-router-dom";
+
+// --- IMPORT HÌNH ẢNH ---
+import news1 from "../../../assets/home-experience/onca.png";
+import news2 from "../../../assets/news/news1.png";
+import news3 from "../../../assets/news/news2.png";
+import news4 from "../../../assets/news/news3.png";
+import news5 from "../../../assets/home-experience/voguearabia2023.png";
+import news6 from "../../../assets/home-experience/coolfish.png";
+import news7 from "../../../assets/home-experience/domo.png";
+import news8 from "../../../assets/home-experience/freeletics2021.png";
+import news9 from "../../../assets/home-experience/bagel.png";
+import news10 from "../../../assets/news/news10.png";
+import news11 from "../../../assets/news/news11.png";
+import news12 from "../../../assets/news/news12.png";
+
+// Danh sách ảnh
+const newsImages = [
+  news1,
+  news2,
+  news3,
+  news4,
+  news5,
+  news6,
+  news7,
+  news8,
+  news9,
+  news10,
+  news11,
+  news12,
+];
+
+// --- 1. KHAI BÁO KIỂU DỮ LIỆU (Fix lỗi no-explicit-any) ---
+interface NewsItemType {
+  id: number;
+  date: string;
+  readTime: string;
+  title: string;
+  tag: string;
+  image: string;
+  secondaryImage: string;
+  intro: string;
+}
+
+// --- GIẢ LẬP LẠI DỮ LIỆU ---
+// Hàm này trả về NewsItemType hoặc null
+const getNewsData = (slug: string): NewsItemType | null => {
+  const parts = slug.split("-");
+  const id = parseInt(parts[parts.length - 1]);
+
+  if (isNaN(id)) return null;
+
+  return {
+    id: id,
+    date: "22 July 2024",
+    readTime: "Read 4 min",
+    title: `Our SaaS Product Just Launched!`,
+    tag: id % 2 === 0 ? "In ấn" : "Voucher",
+    image: newsImages[(id - 1) % newsImages.length],
+    secondaryImage: newsImages[id % newsImages.length],
+    intro:
+      "Remote work has drastically improved my design skills by giving me the freedom to experiment, focus, and learn at my own pace.",
+  };
+};
 
 export const NewsDetailContent: React.FC = () => {
+  const { slug } = useParams();
+
+  // --- 2. FIX LỖI set-state-in-effect ---
+  // Thay vì dùng useState + useEffect, ta dùng useMemo để tính toán dữ liệu trực tiếp.
+  // Dữ liệu sẽ tự động cập nhật khi 'slug' thay đổi.
+  const newsItem = useMemo(() => {
+    if (!slug) return null;
+    return getNewsData(slug);
+  }, [slug]);
+
+  // Nếu không tìm thấy bài viết
+  if (!newsItem) {
+    return (
+      <div className="w-full h-[50vh] flex flex-col items-center justify-center">
+        <h2 className="text-2xl font-bold text-gray-400">
+          Đang tải hoặc không tìm thấy bài viết...
+        </h2>
+        <Link to="/tin-tuc" className="text-red-500 mt-4 underline">
+          Quay lại danh sách
+        </Link>
+      </div>
+    );
+  }
+
   return (
     <section className="w-full flex flex-col items-center bg-white pb-[100px]">
       {/* ============================================================
-          1. BREADCRUMB (Frame 12654)
-          Logic: Home > Tin Tức > Tag (In Ấn) > Tên Bài Viết
+          BREADCRUMB
       ============================================================ */}
-      <div className="w-[1299px]  flex items-center gap-[8px] mt-[21px] mb-[40px]">
-        {/* Home / 1299 */}
-        <div className="flex items-center gap-[8px] text-[#8E8E8E]">
+      <div className="w-[1299px] flex items-center gap-[8px] mt-[21px] mb-[40px]">
+        <Link
+          to="/"
+          className="flex items-center gap-[8px] text-[#8E8E8E] hover:text-red-500 transition-colors"
+        >
           <span className="font-inter text-[16px]">Trang chủ</span>
           <ChevronRight size={16} />
-        </div>
+        </Link>
 
-        {/* Tin Tức */}
-        <div className="flex items-center gap-[8px] text-[#9E9E9E]">
+        <Link
+          to="/tin-tuc"
+          className="flex items-center gap-[8px] text-[#9E9E9E] hover:text-red-500 transition-colors"
+        >
           <span className="font-inter text-[16px]">Tin Tức</span>
           <ChevronRight size={16} />
-        </div>
+        </Link>
 
-        {/* Tag: In Ấn (Dynamic Tag) */}
         <div className="flex items-center gap-[8px] text-[#9E9E9E]">
-          <span className="font-inter text-[16px]">In Ấn</span>
+          <span className="font-inter text-[16px]">{newsItem.tag}</span>
           <ChevronRight size={16} />
         </div>
 
-        {/* Current Post Title */}
         <div className="flex items-center">
           <span
             className="font-inter font-semibold text-[16px] truncate max-w-[600px]"
             style={{ color: "rgba(255, 0, 0, 0.8)", letterSpacing: "-0.04em" }}
           >
-            Our SaaS Product Just Launched!
+            {newsItem.title}
           </span>
         </div>
       </div>
 
       {/* ============================================================
-  2. ARTICLE HEADER — Tag & Title (Absolute như Figma)
-============================================================ */}
+          ARTICLE HEADER
+      ============================================================ */}
       <div className="relative w-[1299px] h-[145px] mb-[40px]">
-        {/* Tag (1548) */}
         <span
           className="
-      absolute
-      left-[12px]
-      top-[-1px]
-      font-bold
-      text-[16px]
-      leading-[19px]
-      text-[#FF0000]
-      flex items-center
-      w-[88px] h-[20px]
-    "
+            absolute left-[12px] top-[-1px]
+            font-bold text-[16px] leading-[19px] text-[#FF0000]
+            flex items-center w-[88px] h-[20px]
+          "
           style={{ fontFamily: "Quicksand" }}
         >
-          In Ấn
+          {newsItem.tag}
         </span>
 
-        {/* Title (412) */}
         <h1
           className="
-      absolute
-      left-[12px]
-      top-[28px]
-      w-[1265px] h-[98px]
-      text-[40px]
-      leading-[48px]
-      font-medium
-      text-black
-      flex items-center
-    "
+            absolute left-[12px] top-[28px]
+            w-[1265px] h-[98px]
+            text-[40px] leading-[48px] font-medium text-black
+            flex items-center
+          "
           style={{ fontFamily: "Inter", letterSpacing: "-0.04em" }}
         >
-          Our SaaS Product Just Launched!
+          {newsItem.title}
         </h1>
       </div>
 
       {/* ============================================================
-          3. FEATURED IMAGE (Thumbnail 1)
-          890x415px, Radius 15px
+          FEATURED IMAGE
       ============================================================ */}
       <div className="w-[890px] h-[415px] bg-[#F2F2F2] rounded-[15px] overflow-hidden relative mb-[60px] mt-[-50px]">
-        {/* Placeholder Image */}
-        <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400">
-          Featured Image
-        </div>
+        <img
+          src={newsItem.image}
+          alt={newsItem.title}
+          className="w-full h-full object-cover"
+        />
       </div>
 
       {/* ============================================================
-          4. MAIN CONTENT (Body Text)
-          Width: 897px (Center)
+          MAIN CONTENT
       ============================================================ */}
       <div className="w-[897px] flex flex-col relative">
-        {/* Intro Text */}
         <p
-          className="text-[#253D4E] text-[24px] leading-[32px] mb-[32px] pl-[12px]"
+          className="text-[#253D4E] text-[24px] leading-[32px] mb-[32px] pl-[12px] font-bold"
           style={{ fontFamily: "Lato" }}
         >
-          Helping everyone live happier, healthier lives at home through their
-          kitchen. Kitchn is a daily food magazine on the Web celebrating life
-          in the kitchen through home cooking and kitchen intelligence.
+          {newsItem.intro}
         </p>
 
-        {/* Paragraph 1 */}
         <p
           className="text-[#253D4E] text-[17px] leading-[24px] mb-[32px] pl-[12px]"
           style={{ fontFamily: "Lato" }}
@@ -116,7 +187,6 @@ export const NewsDetailContent: React.FC = () => {
           smartwatch.
         </p>
 
-        {/* Paragraph 2 */}
         <p
           className="text-[#253D4E] text-[17px] leading-[24px] mb-[40px] pl-[12px]"
           style={{ fontFamily: "Lato" }}
@@ -127,7 +197,6 @@ export const NewsDetailContent: React.FC = () => {
           watchOS - you’ll see it show up in a lot of these devices.
         </p>
 
-        {/* Sub-Heading (414) */}
         <h3
           className="text-[#253D4E] font-bold text-[20px] leading-[24px] mb-[24px] pl-[12px]"
           style={{ fontFamily: "Quicksand" }}
@@ -135,7 +204,6 @@ export const NewsDetailContent: React.FC = () => {
           Lorem ipsum dolor sit amet cons
         </h3>
 
-        {/* Paragraph 3 */}
         <p
           className="text-[#253D4E] text-[17px] leading-[24px] mb-[40px] pl-[12px]"
           style={{ fontFamily: "Lato" }}
@@ -145,14 +213,15 @@ export const NewsDetailContent: React.FC = () => {
           against the competition and enter it into the list you'll find below.
         </p>
 
-        {/* Second Image (In-content Thumbnail) */}
+        {/* Second Image */}
         <div className="w-[890px] h-[415px] bg-[#F2F2F2] rounded-[15px] overflow-hidden relative mb-[40px] ml-[12px]">
-          <div className="w-full h-full bg-gray-300 flex items-center justify-center text-gray-500">
-            In-Content Image
-          </div>
+          <img
+            src={newsItem.image}
+            alt="Content detail"
+            className="w-full h-full object-cover"
+          />
         </div>
 
-        {/* Paragraph 4 */}
         <p
           className="text-[#253D4E] text-[17px] leading-[24px] mb-[32px] pl-[12px]"
           style={{ fontFamily: "Lato" }}
@@ -165,7 +234,6 @@ export const NewsDetailContent: React.FC = () => {
           dolor volutpat...
         </p>
 
-        {/* Paragraph 5 */}
         <p
           className="text-[#253D4E] text-[17px] leading-[24px] pl-[12px]"
           style={{ fontFamily: "Lato" }}

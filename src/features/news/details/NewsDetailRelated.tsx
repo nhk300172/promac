@@ -1,69 +1,78 @@
+//src/features/news/details/NewsDetailRelated.tsx
 import React from "react";
-import { useNavigate } from "react-router-dom"; // Import hook điều hướng
+import { useNavigate } from "react-router-dom";
 
-// Dữ liệu giả 3 bài viết liên quan
+// --- IMPORT ẢNH (Đảm bảo khớp với ID trong slug) ---
+// Ví dụ: Bài số 2 dùng news2, Bài số 3 dùng news3...
+import news2 from "../../../assets/news/news1.png";
+import news3 from "../../../assets/news/news2.png";
+import news4 from "../../../assets/news/news3.png"; // Import thêm news4
+
+// Dữ liệu 3 bài viết liên quan
 const RELATED_NEWS = [
   {
-    id: 1,
+    id: 2, // ID tương ứng
     date: "22 July 2024",
     readTime: "Read 4 min",
-    title: "Our SaaS Product Just Launched!",
-    slug: "bai-viet-lien-quan-1",
+    title: "Bài viết số 2: Our SaaS Product Just Launched!",
+    // Slug phải chứa ID đúng (số 2) để trang chi tiết tính toán ra đúng ảnh news2
+    slug: "bai-viet-so-2",
     desc: "Remote work has drastically improved my design skills by giving me the freedom to experiment, focus, and learn at my own pace.",
-    image: "bg-gray-200",
-  },
-  {
-    id: 2,
-    date: "22 July 2024",
-    readTime: "Read 4 min",
-    title: "Our SaaS Product Just Launched!",
-    slug: "bai-viet-lien-quan-2",
-    desc: "Remote work has drastically improved my design skills by giving me the freedom to experiment, focus, and learn at my own pace.",
-    image: "bg-gray-200",
+    image: news2, // Ảnh hiển thị ở đây
   },
   {
     id: 3,
     date: "22 July 2024",
     readTime: "Read 4 min",
-    title: "Our SaaS Product Just Launched!",
-    slug: "bai-viet-lien-quan-3",
+    title: "Bài viết số 3: Our SaaS Product Just Launched!",
+    slug: "bai-viet-so-3", // Slug chứa ID 3 -> Trang chi tiết sẽ load ảnh news3
     desc: "Remote work has drastically improved my design skills by giving me the freedom to experiment, focus, and learn at my own pace.",
-    image: "bg-gray-200",
+    image: news3,
+  },
+  {
+    id: 4,
+    date: "22 July 2024",
+    readTime: "Read 4 min",
+    title: "Bài viết số 4: Our SaaS Product Just Launched!",
+    slug: "bai-viet-so-4", // Slug chứa ID 4 -> Trang chi tiết sẽ load ảnh news4
+    desc: "Remote work has drastically improved my design skills by giving me the freedom to experiment, focus, and learn at my own pace.",
+    image: news4,
   },
 ];
 
 export const NewsDetailRelated: React.FC = () => {
   const navigate = useNavigate();
 
-  // Hàm xử lý chuyển hướng khi click
   const handleCardClick = (slug: string) => {
-    // Chuyển hướng sang bài viết khác
     navigate(`/tin-tuc/${slug}`);
-    // Cuộn lên đầu trang để người dùng đọc từ đầu
     window.scrollTo(0, 0);
   };
 
   return (
     <section className="w-full flex flex-col items-center">
-      {/* CONTAINER (Frame 12657) */}
+      {/* CONTAINER */}
       <div className="w-[1260px] flex flex-col gap-[32px] mb-[100px]">
-        {/* HEADER (Tin tức khác cùng chủ đề) */}
+        {/* HEADER */}
         <h2 className="font-inter font-normal text-[#000000] text-[56px] leading-[115px] tracking-[-5px]">
           Tin tức khác cùng chủ đề
         </h2>
 
-        {/* GRID (Frame 12656) */}
+        {/* GRID */}
         <div className="flex items-center gap-[60px]">
           {RELATED_NEWS.map((item) => (
             <div
               key={item.id}
               className="flex flex-col w-[380px] group cursor-pointer"
-              onClick={() => handleCardClick(item.slug)} // Gắn sự kiện click
+              onClick={() => handleCardClick(item.slug)}
             >
               {/* Thumbnail */}
               <div className="w-full h-[268px] bg-[#F2F2F2] rounded-[4px] mb-[20px] relative overflow-hidden">
                 <div className="w-full h-full bg-gray-200 flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
-                  <span className="text-gray-400">Related Img</span>
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
               </div>
 
@@ -82,7 +91,7 @@ export const NewsDetailRelated: React.FC = () => {
                   </span>
                 </div>
 
-                {/* Title (Hover Red) */}
+                {/* Title */}
                 <h3 className="font-inter font-medium text-[#000000] text-[24px] leading-[29px] tracking-[-0.04em] mb-[12px] group-hover:text-[#FF0000] transition-colors">
                   {item.title}
                 </h3>
