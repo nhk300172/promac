@@ -7,21 +7,17 @@ merge_to_main:
   only:
     - dev
   before_script:
-    - 'command -v ssh-agent >/dev/null || ( apt-get update -y && apt-get install openssh-client -y )'
-    - eval $(ssh-agent -s)
-    - mkdir -p ~/.ssh && chmod 700 ~/.ssh
-    - echo "$SSH_PRIVATE_KEY" | base64 -d > ~/.ssh/id_rsa
-    - chmod 600 ~/.ssh/id_rsa
-    - ssh-add ~/.ssh/id_rsa
-    - ssh-keyscan -H gitlab.com >> ~/.ssh/known_hosts
-    - chmod 644 ~/.ssh/known_hosts
     - git config --global user.email "ci@gitlab.com"
     - git config --global user.name "GitLab CI/CD"
   script:
+    - echo "🔀 Merging dev to main..."
+    - git remote set-url origin https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/amitgroupvn/website-in-promac/in-promac-fe-2025.git
+    - git fetch origin
     - git checkout main
     - git pull origin main
     - git merge origin/dev --no-edit
     - git push origin main
+    - echo "✅ Merged successfully!"
 
 deploy_production:
   stage: deploy
