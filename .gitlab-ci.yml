@@ -21,8 +21,6 @@ merge_to_main:
     - git pull origin main
     - git merge origin/dev --no-edit
     - git push origin main
-  tags:
-    - docker
 
 deploy_production:
   stage: deploy
@@ -38,5 +36,3 @@ deploy_production:
     - chmod 644 ~/.ssh/known_hosts
   script:
     - ssh deploy@160.250.134.174 "cd /home/deploy/in-promac-fe-2025 && git pull origin main && npm i && npm run build && pm2 restart 22"
-  tags:
-    - docker
