@@ -35,4 +35,4 @@ deploy_production:
     - ssh-keyscan 160.250.134.174 >> ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
   script:
-    - ssh deploy@160.250.134.174 "cd /home/deploy/in-promac-fe-2025 && git pull origin main && npm i && npm run build && pm2 restart 22"
+    - ssh deploy@160.250.134.174 "bash -lc 'cd /home/deploy/in-promac-fe-2025 && git pull origin main && npm i && npm run build && pm2 restart 22'"
