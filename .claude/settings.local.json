@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nAdd GitLab CI/CD configuration for auto merge and deploy\n\n- Auto merge dev branch to main when no conflicts\n- Auto deploy to production server when main updated\n- Deploy via SSH to 160.250.134.174\n- Run npm install, build, and PM2 restart\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git push:*)",
+      "Bash(git commit:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
