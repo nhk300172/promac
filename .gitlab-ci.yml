@@ -11,7 +11,7 @@ merge_to_main:
     - git config --global user.name "GitLab CI/CD"
   script:
     - echo "🔀 Merging dev to main..."
-    - git remote set-url origin https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.com/amitgroupvn/website-in-promac/in-promac-fe-2025.git
+    - git remote set-url origin https://oauth2:${CI_PUSH_TOKEN}@gitlab.com/amitgroupvn/website-in-promac/in-promac-fe-2025.git
     - git fetch origin
     - git checkout main
     - git pull origin main
