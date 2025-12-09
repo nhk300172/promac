@@ -6,16 +6,16 @@ export const IntroductionHero = () => {
   return (
     <div className="w-full flex justify-center mt-[5px]">
       {/* =================================================================
-          1. MOBILE VERSION (< 1024px) - THEO FIGMA MỚI
+          1. MOBILE VERSION (< 768px)
+          - Giữ nguyên code cũ: Flex Col, max-w-[375px]
           ================================================================= */}
-      <div className="lg:hidden flex justify-center w-full">
+      <div className="md:hidden flex justify-center w-full px-[10px]">
         <section
-          className="relative flex flex-col items-center bg-[#FFF5F6] rounded-[30px]"
-          style={{ width: "375px", height: "694px" }}
+          className="relative flex flex-col items-center bg-[#FFF5F6] rounded-[30px] w-full max-w-[375px]"
+          style={{ height: "694px" }}
         >
-          {/* TEXT CONTENT (Top: 75px - padding Figma) */}
+          {/* TEXT CONTENT */}
           <div className="absolute top-[75px] w-[328px] flex flex-col items-center gap-[50px]">
-            {/* Title & Desc Group */}
             <div className="flex flex-col items-center gap-[16px]">
               <h1
                 className="font-inter font-bold text-[#FF0000] text-center"
@@ -32,28 +32,19 @@ export const IntroductionHero = () => {
               </p>
             </div>
 
-            {/* Button & Contact */}
             <div className="flex flex-col items-center w-full gap-[24px]">
-              {/* Button */}
               <button
-                className="flex flex-col justify-center items-center bg-[#FF0000] rounded-[20px]"
-                style={{
-                  width: "155px",
-                  height: "45px",
-                  boxShadow: "0px 0px 14px #FF0000",
-                }}
+                className="flex flex-col justify-center items-center bg-[#FF0000] rounded-[20px] shadow-[0px_0px_14px_#FF0000] active:scale-95 transition-transform"
+                style={{ width: "155px", height: "45px" }}
               >
                 <span className="font-inter font-bold text-[16px] text-[#F5F5F5]">
                   Yêu cầu Báo giá
                 </span>
               </button>
 
-              {/* Divider */}
               <div className="w-full h-[1px] bg-black/50 border border-black/50"></div>
 
-              {/* Contact Info (Vertical) */}
               <div className="flex flex-col items-start gap-[14px] w-full pl-[10px]">
-                {/* Phone */}
                 <div className="flex items-center gap-[12px]">
                   <div className="w-[20px] flex justify-center">
                     <Phone size={20} className="text-black/50" />
@@ -74,7 +65,6 @@ export const IntroductionHero = () => {
                     </a>
                   </div>
                 </div>
-                {/* Mail */}
                 <div className="flex items-center gap-[12px]">
                   <div className="w-[22px] flex justify-center">
                     <Mail size={20} className="text-black/50" />
@@ -90,11 +80,11 @@ export const IntroductionHero = () => {
             </div>
           </div>
 
-          {/* IMAGE (Bottom: 328x242, radius 10px) */}
-          <div className="absolute bottom-[50px] w-[328px] h-[242px] bg-gray-200 rounded-[10px] overflow-hidden">
+          {/* IMAGE */}
+          <div className="absolute bottom-[50px] w-[328px] h-[242px] bg-gray-200 rounded-[10px] overflow-hidden shadow-sm">
             <img
               src={mainVisual}
-              alt="Promac Intro"
+              alt="Promac Intro Mobile"
               className="w-full h-full object-cover"
             />
           </div>
@@ -102,10 +92,68 @@ export const IntroductionHero = () => {
       </div>
 
       {/* =================================================================
-          2. DESKTOP VERSION (>= 1024px) - GIỮ NGUYÊN CODE CŨ
+          2. TABLET & IPAD PRO VERSION (768px -> 1279px) - MỚI
+          - Layout Ngang (Flex Row), Fluid Width
+          - Hiển thị từ md (Tablet) đến xl (Desktop lớn)
+          ================================================================= */}
+      <section className="hidden md:flex xl:hidden flex-row items-center bg-[#FFF5F6] rounded-[30px] p-[40px] w-full max-w-[720px] lg:max-w-[960px] gap-[40px] mx-auto">
+        {/* IMAGE LEFT */}
+        <div className="w-[45%] h-[400px] bg-gray-200 rounded-[10px] overflow-hidden shrink-0 shadow-md">
+          <img
+            src={mainVisual}
+            alt="Promac Intro Tablet"
+            className="w-full h-full object-cover"
+          />
+        </div>
+
+        {/* CONTENT RIGHT */}
+        <div className="flex flex-col items-start w-[55%] gap-[24px]">
+          <h1 className="font-inter font-bold text-[#FF0000] text-[32px] lg:text-[40px] leading-[1.2]">
+            GIỚI THIỆU VỀ PROMAC
+          </h1>
+          <p className="font-inter font-medium text-[#374151] text-[16px] lg:text-[18px] leading-[1.5]">
+            Đối tác đáng tin cậy của bạn về dịch vụ in ấn chuyên nghiệp tại
+            PROMAC
+          </p>
+
+          <button className="bg-[#FF0000] text-white font-bold text-[18px] px-6 py-3 rounded-[20px] shadow-lg hover:bg-red-700 transition-colors">
+            Yêu cầu Báo giá
+          </button>
+
+          <div className="w-full h-[1px] bg-black/20 my-2"></div>
+
+          <div className="flex flex-col gap-[16px]">
+            <div className="flex items-center gap-[12px]">
+              <Phone size={24} className="text-black/60" />
+              <div className="flex gap-4 text-[16px] font-medium text-black/70">
+                <a href="tel:02822272416" className="hover:text-red-600">
+                  (028) 22272416
+                </a>
+                <span className="text-black/30">|</span>
+                <a href="tel:0906838869" className="hover:text-red-600">
+                  0906838869
+                </a>
+              </div>
+            </div>
+            <div className="flex items-center gap-[12px]">
+              <Mail size={24} className="text-black/60" />
+              <a
+                href="mailto:info@promacprinting.com"
+                className="text-[16px] font-medium text-black/70 hover:text-red-600"
+              >
+                info@promacprinting.com
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =================================================================
+          3. DESKTOP VERSION (>= 1280px) - GIỮ NGUYÊN 100% CODE CŨ
+          - Chỉ đổi lg:block thành xl:block
           ================================================================= */}
       <section
-        className="hidden lg:block relative"
+        className="hidden xl:block relative" // <--- Đổi lg:block thành xl:block
         style={{
           width: "1440px",
           height: "600px",
@@ -113,7 +161,7 @@ export const IntroductionHero = () => {
           borderRadius: "30px",
         }}
       >
-        {/* --- DESKTOP CONTENT (Code gốc của bạn) --- */}
+        {/* --- DESKTOP CONTENT --- */}
         <div
           className="absolute bg-gray-200 flex items-center justify-center overflow-hidden"
           style={{
@@ -136,8 +184,8 @@ export const IntroductionHero = () => {
           style={{
             width: "732.86px",
             height: "64px",
-            top: "53px", // +53px relative to group
-            left: "80px", // Adjust for absolute positioning
+            top: "53px",
+            left: "80px",
             fontSize: "36px",
             lineHeight: "64px",
             color: "#FF0000",
@@ -151,7 +199,7 @@ export const IntroductionHero = () => {
           style={{
             width: "698.29px",
             height: "46px",
-            top: "137px", // 53 + 84
+            top: "137px",
             left: "80px",
             fontSize: "16px",
             lineHeight: "19px",
@@ -167,7 +215,7 @@ export const IntroductionHero = () => {
             width: "208.4px",
             height: "53px",
             left: "80px",
-            top: "209px", // 53 + 156
+            top: "209px",
             backgroundColor: "#FF0000",
             borderRadius: "20px",
             boxShadow: "0px 0px 14px #FF0000",
@@ -184,7 +232,7 @@ export const IntroductionHero = () => {
             width: "481px",
             height: "0px",
             left: "70px",
-            top: "389.51px", // 53 + 336.51
+            top: "389.51px",
             borderTop: "1px solid rgba(0, 0, 0, 0.5)",
           }}
         />
@@ -193,7 +241,7 @@ export const IntroductionHero = () => {
           className="absolute flex items-center"
           style={{
             left: "80px",
-            top: "413px", // 53 + 360
+            top: "413px",
             height: "21px",
           }}
         >
@@ -231,7 +279,7 @@ export const IntroductionHero = () => {
           className="absolute flex items-center"
           style={{
             left: "80px",
-            top: "453px", // 53 + 400
+            top: "453px",
             height: "21.07px",
           }}
         >

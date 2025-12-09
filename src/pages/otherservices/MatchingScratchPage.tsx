@@ -3,6 +3,7 @@ import React from "react";
 import { MatchingScratchHero } from "../../features/otherservices/matching/MatchingScratchHero";
 import { MatchingScratchContent } from "../../features/otherservices/matching/MatchingScratchContent";
 import { MatchingScratchPortfolio } from "../../features/otherservices/matching/MatchingScratchPortfolio";
+import { ContactBanner } from "../../components/layout/ContactBanner";
 
 export const MatchingScratchPage: React.FC = () => {
   return (
@@ -10,6 +11,7 @@ export const MatchingScratchPage: React.FC = () => {
       <MatchingScratchHero />
       <MatchingScratchContent />
       <MatchingScratchPortfolio />
+      <ContactBanner />
     </div>
   );
 };

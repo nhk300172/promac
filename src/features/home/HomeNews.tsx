@@ -1,4 +1,4 @@
-//src/features/home/HomeNews.tsx
+// src/features/home/HomeNews.tsx
 import { Link } from "react-router-dom"; // Import Link để chuyển trang
 
 import news1 from "../../assets/news/news1.png";
@@ -8,13 +8,13 @@ import news3 from "../../assets/news/news3.png";
 // DỮ LIỆU TIN TỨC
 const NEWS_DATA = [
   {
-    id: 2, // Sửa lại id bắt đầu từ 1 cho khớp với logic giả lập bên NewsDetailContent
+    id: 2,
     date: "22 July 2024",
     readTime: "Read 4 min",
     title: "Our SaaS Product Just Launched!",
     desc: "Remote work has drastically improved my design skills by giving me the freedom to experiment, focus, and learn at my own pace.",
     image: news1,
-    slug: "bai-viet-so-2", // Cập nhật slug để khớp với logic lấy ID: "bai-viet-so-{id}"
+    slug: "bai-viet-so-2",
   },
   {
     id: 3,
@@ -23,7 +23,7 @@ const NEWS_DATA = [
     title: "Our SaaS Product Just Launched!",
     desc: "Remote work has drastically improved my design skills by giving me the freedom to experiment, focus, and learn at my own pace.",
     image: news2,
-    slug: "bai-viet-so-3", // Cập nhật slug
+    slug: "bai-viet-so-3",
   },
   {
     id: 4,
@@ -32,7 +32,7 @@ const NEWS_DATA = [
     title: "Our SaaS Product Just Launched!",
     desc: "Remote work has drastically improved my design skills by giving me the freedom to experiment, focus, and learn at my own pace.",
     image: news3,
-    slug: "bai-viet-so-4", // Cập nhật slug
+    slug: "bai-viet-so-4",
   },
 ];
 
@@ -40,31 +40,30 @@ export const HomeNews = () => {
   return (
     <section className="w-full flex flex-col items-center">
       {/* =================================================================
-          1. MOBILE VERSION (< 1024px)
+          1. MOBILE & TABLET VERSION (< 1024px)
+          - Mobile (< 768px): List dọc.
+          - Tablet (768px - 1023px): Grid 2 cột.
           ================================================================= */}
       <div className="flex flex-col items-center w-full lg:hidden px-[20px] pb-[60px]">
-        {/* HEADER MOBILE */}
-        <div className="flex flex-col items-center text-center mb-[40px] w-full max-w-[326px]">
-          <h2 className="font-inter font-bold text-[28px] leading-[34px] text-[#000000]">
+        {/* HEADER */}
+        <div className="flex flex-col items-center text-center mb-[40px] w-full max-w-[326px] md:max-w-[700px]">
+          <h2 className="font-inter font-bold text-[28px] leading-[34px] md:text-[40px] md:leading-[48px] text-[#000000]">
             Tin tức khuyến mãi
           </h2>
         </div>
 
-        {/* NEWS LIST MOBILE (Vertical) */}
-        <div className="flex flex-col gap-[40px] w-full items-center mb-[40px]">
+        {/* NEWS LIST (Mobile Col -> Tablet Grid 2) */}
+        <div className="w-full flex flex-col md:grid md:grid-cols-2 md:gap-[30px] items-center mb-[40px]">
           {NEWS_DATA.map((item, index) => (
             <Link
               key={index}
-              to={`/tin-tuc/${item.slug}`} // Link chi tiết tin tức
-              className="flex flex-col w-full max-w-[326px] group cursor-pointer"
-              onClick={() => window.scrollTo(0, 0)} // Cuộn lên đầu trang khi click
+              to={`/tin-tuc/${item.slug}`}
+              // Mobile: max-w-[326px], Tablet: max-w-full
+              className="flex flex-col w-full max-w-[326px] md:max-w-full group cursor-pointer mx-auto"
+              onClick={() => window.scrollTo(0, 0)}
             >
               {/* Thumbnail */}
-              <div
-                className="w-full bg-[#F2F2F2] rounded-[4px] overflow-hidden mb-[12px]"
-                style={{ height: "230px" }}
-              >
-                {/* Ảnh thật */}
+              <div className="w-full bg-[#F2F2F2] rounded-[4px] overflow-hidden mb-[12px] relative aspect-[326/230]">
                 <img
                   src={item.image}
                   alt={item.title}
@@ -89,16 +88,16 @@ export const HomeNews = () => {
 
                 {/* Text Group */}
                 <div className="flex flex-col gap-[8px]">
-                  <h3 className="font-inter font-semibold text-[16px] leading-[19px] text-[#000000] tracking-[-0.04em] group-hover:text-[#FF0000] transition-colors">
+                  <h3 className="font-inter font-semibold text-[16px] leading-[19px] md:text-[20px] md:leading-[26px] text-[#000000] tracking-[-0.04em] group-hover:text-[#FF0000] transition-colors line-clamp-2">
                     {item.title}
                   </h3>
-                  <p className="font-inter font-normal text-[15px] leading-[24px] text-[#828282] tracking-[-0.02em] line-clamp-3">
+                  <p className="font-inter font-normal text-[15px] leading-[24px] md:text-[16px] text-[#828282] tracking-[-0.02em] line-clamp-3">
                     {item.desc}
                   </p>
                 </div>
 
                 {/* Button "Đọc ngay" */}
-                <div className="flex flex-col items-start group/btn">
+                <div className="flex flex-col items-start group/btn mt-2">
                   <div className="flex items-center gap-[8px]">
                     <span className="font-inter font-bold text-[16px] text-[#FF0000] leading-[19px]">
                       Đọc ngay
@@ -135,7 +134,7 @@ export const HomeNews = () => {
           ))}
         </div>
 
-        {/* BUTTON "Xem tin tức" (MOBILE nằm dưới cùng) */}
+        {/* BUTTON "Xem tin tức" */}
         <Link to="/tin-tuc">
           <button className="flex items-center justify-center bg-[#FF0000] rounded-[47px] w-[132px] h-[45px] shadow-lg active:scale-95 transition-transform">
             <span className="font-inter font-semibold text-[16px] text-white tracking-[-0.02em]">
@@ -146,41 +145,32 @@ export const HomeNews = () => {
       </div>
 
       {/* =================================================================
-          2. DESKTOP VERSION (>= 1024px)
+          2. DESKTOP & IPAD PRO VERSION (>= 1024px)
+          - Đã chỉnh sửa để hỗ trợ iPad Pro (Fluid Width)
           ================================================================= */}
-      <div className="hidden lg:flex flex-col items-center w-full">
+      <div className="hidden lg:flex flex-col items-center w-full px-4 xl:px-0">
         {/* HEADER SECTION */}
-        <div className="w-[1260px] flex flex-col items-start mb-[60px]">
-          <h2
-            className="font-inter font-normal text-[#000000]"
-            style={{
-              fontSize: "56px",
-              lineHeight: "115px",
-              letterSpacing: "-5px",
-            }}
-          >
+        <div className="w-full max-w-[1260px] flex flex-col items-start mb-[60px]">
+          <h2 className="font-inter font-normal text-[#000000] text-[48px] xl:text-[56px] leading-[115%] tracking-[-2px] xl:tracking-[-5px]">
             Tin tức khuyến mãi
           </h2>
         </div>
 
-        {/* NEWS GRID */}
+        {/* NEWS GRID (iPad: 3 cột co giãn, Desktop: 3 cột chuẩn) */}
         <div
-          className="grid grid-cols-3 mb-[60px]"
-          style={{ width: "1260px", gap: "60px", marginTop: "-30px" }}
+          className="grid grid-cols-3 gap-[30px] xl:gap-[60px] mb-[60px] w-full max-w-[1260px]"
+          style={{ marginTop: "-30px" }}
         >
           {NEWS_DATA.map((item, index) => (
             <Link
               key={index}
-              to={`/tin-tuc/${item.slug}`} // Wrap Link cho Desktop
-              className="flex flex-col w-[380px] group cursor-pointer"
-              onClick={() => window.scrollTo(0, 0)} // Cuộn lên đầu trang khi click
+              to={`/tin-tuc/${item.slug}`}
+              // Bỏ w-[380px] cứng -> dùng w-full để co giãn theo grid
+              className="flex flex-col w-full group cursor-pointer"
+              onClick={() => window.scrollTo(0, 0)}
             >
               {/* Thumbnail Desktop */}
-              <div
-                className="w-full bg-[#F2F2F2] rounded-[4px] overflow-hidden mb-[20px] relative"
-                style={{ height: "268px" }}
-              >
-                {/* Ảnh thật */}
+              <div className="w-full bg-[#F2F2F2] rounded-[4px] overflow-hidden mb-[20px] relative aspect-[380/268]">
                 <img
                   src={item.image}
                   alt={item.title}
@@ -190,36 +180,22 @@ export const HomeNews = () => {
 
               <div className="flex flex-col">
                 <div className="flex items-center gap-[4px] mb-[12px]">
-                  <span className="font-inter font-semibold text-[18px] text-[#4F4F4F]">
+                  <span className="font-inter font-semibold text-[16px] xl:text-[18px] text-[#4F4F4F]">
                     {item.date}
                   </span>
-                  <span className="font-inter font-semibold text-[18px] text-[#4F4F4F] mx-1">
+                  <span className="font-inter font-semibold text-[16px] xl:text-[18px] text-[#4F4F4F] mx-1">
                     |
                   </span>
-                  <span className="font-inter font-semibold text-[18px] text-[#4F4F4F]">
+                  <span className="font-inter font-semibold text-[16px] xl:text-[18px] text-[#4F4F4F]">
                     {item.readTime}
                   </span>
                 </div>
 
-                <h3
-                  className="font-inter font-medium text-[#000000] mb-[12px] group-hover:text-[#FF0000] transition-colors"
-                  style={{
-                    fontSize: "24px",
-                    lineHeight: "29px",
-                    letterSpacing: "-0.04em",
-                  }}
-                >
+                <h3 className="font-inter font-medium text-[#000000] mb-[12px] group-hover:text-[#FF0000] transition-colors text-[20px] xl:text-[24px] leading-[120%] tracking-[-0.04em]">
                   {item.title}
                 </h3>
 
-                <p
-                  className="font-inter font-normal text-[#828282] mb-[20px] line-clamp-3"
-                  style={{
-                    fontSize: "18px",
-                    lineHeight: "160%",
-                    letterSpacing: "-0.02em",
-                  }}
-                >
+                <p className="font-inter font-normal text-[#828282] mb-[20px] line-clamp-3 text-[16px] xl:text-[18px] leading-[160%] tracking-[-0.02em]">
                   {item.desc}
                 </p>
 
@@ -260,13 +236,7 @@ export const HomeNews = () => {
 
         {/* BUTTON XEM TIN TỨC */}
         <Link to="/tin-tuc">
-          <button
-            className="flex items-center justify-center bg-[#FF0000] rounded-[20px] transition-transform hover:scale-105"
-            style={{
-              width: "162px",
-              height: "47px",
-            }}
-          >
+          <button className="flex items-center justify-center bg-[#FF0000] rounded-[20px] transition-transform hover:scale-105 w-[162px] h-[47px]">
             <span className="font-inter font-semibold text-[16px] text-[#FFFFFF]">
               Xem tin tức
             </span>

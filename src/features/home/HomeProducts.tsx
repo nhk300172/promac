@@ -1,4 +1,4 @@
-//src/features/home/HomeProducts.tsx
+// src/features/home/HomeProducts.tsx
 import { Link } from "react-router-dom"; // Import Link
 
 import product1 from "../../assets/home-experience/onca.png";
@@ -43,47 +43,46 @@ export const HomeProducts = () => {
   return (
     <section className="w-full flex flex-col items-center">
       {/* =================================================================
-          1. MOBILE VERSION (< 1024px)
+          1. MOBILE & TABLET VERSION (< 1024px)
+          - Mobile (< 768px): List dọc.
+          - Tablet (768px -> 1023px): Grid 2 cột.
           ================================================================= */}
       <div className="flex flex-col items-center w-full lg:hidden px-[20px] pt-[40px] pb-[60px]">
-        {/* HEADER MOBILE */}
-        <div className="flex flex-col items-center text-center mb-[40px] w-full max-w-[331px]">
-          <h2 className="font-inter font-bold text-[28px] leading-[34px] text-[#000000] mb-[24px]">
+        {/* HEADER MOBILE & TABLET */}
+        <div className="flex flex-col items-center text-center mb-[40px] w-full max-w-[331px] md:max-w-[700px]">
+          <h2 className="font-inter font-bold text-[28px] leading-[34px] md:text-[40px] md:leading-[48px] text-[#000000] mb-[24px]">
             Danh mục sản phẩm
           </h2>
-          <p className="font-inter font-medium text-[16px] leading-[25px] text-[#64607D] text-center tracking-[-0.02em]">
+          <p className="font-inter font-medium text-[16px] leading-[25px] md:text-[18px] md:leading-[28px] text-[#64607D] text-center tracking-[-0.02em]">
             Yet bed any for travelling assistance indulgence unpleasing. Not
             thoughts all exercise blessing. Indulgence way everything joy.
           </p>
         </div>
 
-        {/* PRODUCT LIST MOBILE */}
-        <div className="flex flex-col gap-[40px] w-full items-center mb-[40px]">
+        {/* PRODUCT LIST MOBILE (Vertical) -> TABLET (Grid 2) */}
+        <div className="w-full flex flex-col md:grid md:grid-cols-2 md:gap-[30px] items-center mb-[40px]">
           {PRODUCTS.map((product, index) => (
             <Link
               key={index}
-              to={`/san-pham/${product.id}`} // Link chi tiết sản phẩm
-              className="flex flex-col items-start w-full max-w-[331px] group"
+              to={`/san-pham/${product.id}`}
+              // Mobile: max-w-[331px], Tablet: max-w-full (tự dãn theo grid)
+              className="flex flex-col items-start w-full max-w-[331px] md:max-w-full group mx-auto"
             >
-              <div
-                className="w-full bg-[#F2F2F2] rounded-[4px] overflow-hidden mb-[8px]"
-                style={{ height: "255px" }}
-              >
-                {/* Thay thế placeholder bằng ảnh thật */}
+              <div className="w-full bg-[#F2F2F2] rounded-[4px] overflow-hidden mb-[8px] relative aspect-[331/255]">
                 <img
                   src={product.image}
                   alt={product.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
-              <h3 className="font-inter font-medium text-[15px] leading-[18px] text-[#000000] tracking-[-0.04em] group-hover:text-red-500 transition-colors">
+              <h3 className="font-inter font-medium text-[15px] leading-[18px] md:text-[18px] md:leading-[24px] text-[#000000] tracking-[-0.04em] group-hover:text-red-500 transition-colors line-clamp-2">
                 {product.title}
               </h3>
             </Link>
           ))}
         </div>
 
-        {/* BUTTON MOBILE */}
+        {/* BUTTON "Xem tất cả" */}
         <Link to="/san-pham">
           <button className="flex items-center justify-center bg-[#FF0000] rounded-[47px] w-[132px] h-[45px] shadow-lg active:scale-95 transition-transform">
             <span className="font-inter font-semibold text-[16px] text-white tracking-[-0.02em]">
@@ -94,11 +93,12 @@ export const HomeProducts = () => {
       </div>
 
       {/* =================================================================
-          2. DESKTOP VERSION (>= 1024px)
+          2. DESKTOP & IPAD PRO VERSION (>= 1024px)
+          - Đã điều chỉnh width linh hoạt để hỗ trợ iPad Pro.
           ================================================================= */}
-      <div className="hidden lg:flex flex-col items-center w-full">
+      <div className="hidden lg:flex flex-col items-center w-full px-4 xl:px-0">
         {/* HEADER DESKTOP */}
-        <div className="flex flex-col items-center text-center mb-[100px]">
+        <div className="flex flex-col items-center text-center mb-[100px] w-full max-w-[1260px]">
           <div className="flex flex-col items-center gap-[8px] mb-[40px]">
             <h2
               className="font-inter font-normal text-[#000000]"
@@ -110,15 +110,7 @@ export const HomeProducts = () => {
             >
               Danh mục sản phẩm
             </h2>
-            <p
-              className="font-inter font-normal text-center"
-              style={{
-                fontSize: "20px",
-                lineHeight: "31px",
-                color: "rgba(0, 0, 0, 0.65)",
-                maxWidth: "683px",
-              }}
-            >
+            <p className="font-inter font-normal text-center text-[20px] leading-[31px] text-black/65 max-w-[683px]">
               A webinar platform designed for marketers to host jaw-dropping
               experiences that drive revenue.
             </p>
@@ -140,37 +132,23 @@ export const HomeProducts = () => {
           </Link>
         </div>
 
-        {/* PRODUCT GRID DESKTOP */}
-        <div
-          className="grid grid-cols-3"
-          style={{ width: "1260px", columnGap: "60px", rowGap: "50px" }}
-        >
+        {/* PRODUCT GRID DESKTOP (Fluid for iPad Pro) */}
+        <div className="grid grid-cols-3 gap-[30px] xl:gap-[60px] w-full max-w-[1260px]">
           {PRODUCTS.map((product, index) => (
             <Link
               key={index}
-              to={`/san-pham/${product.id}`} // Link Desktop
-              className="flex flex-col cursor-pointer group"
-              style={{ width: "380px" }}
+              to={`/san-pham/${product.id}`}
+              // Bỏ width cứng 380px -> Dùng w-full để co giãn theo grid
+              className="flex flex-col cursor-pointer group w-full"
             >
-              <div
-                className="w-full bg-[#F2F2F2] rounded-[4px] overflow-hidden relative mb-[24px]"
-                style={{ height: "268px" }}
-              >
-                {/* Thay thế placeholder bằng ảnh thật & hiệu ứng zoom */}
+              <div className="w-full bg-[#F2F2F2] rounded-[4px] overflow-hidden relative mb-[24px] aspect-[380/268]">
                 <img
                   src={product.image}
                   alt={product.title}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
-              <h3
-                className="font-inter font-medium text-[#000000] text-left line-clamp-2 group-hover:text-red-500 transition-colors"
-                style={{
-                  fontSize: "24px",
-                  lineHeight: "29px",
-                  letterSpacing: "-0.04em",
-                }}
-              >
+              <h3 className="font-inter font-medium text-[#000000] text-left line-clamp-2 group-hover:text-red-500 transition-colors text-[20px] xl:text-[24px] leading-[120%] tracking-[-0.04em]">
                 {product.title}
               </h3>
             </Link>

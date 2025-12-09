@@ -3,6 +3,7 @@ import React from "react";
 import { VariableScratchHero } from "../../features/otherservices/variable/VariableScratchHero";
 import { VariableScratchContent } from "../../features/otherservices/variable/VariableScratchContent";
 import { VariableScratchPortfolio } from "../../features/otherservices/variable/VariableScratchPortfolio";
+import { ContactBanner } from "../../components/layout/ContactBanner";
 
 export const VariableScratchPage: React.FC = () => {
   return (
@@ -10,6 +11,7 @@ export const VariableScratchPage: React.FC = () => {
       <VariableScratchHero />
       <VariableScratchContent />
       <VariableScratchPortfolio />
+      <ContactBanner />
     </div>
   );
 };

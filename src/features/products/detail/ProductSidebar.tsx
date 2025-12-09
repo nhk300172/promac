@@ -57,10 +57,18 @@ export const ProductSidebar: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col gap-[17px] w-full lg:w-[371px] px-[20px] lg:px-0 mt-[40px] lg:mt-0">
+    // CONTAINER CHÍNH:
+    // - Mobile (<768px): flex-col (dọc)
+    // - Tablet & iPad Pro (768px -> 1279px): flex-row (ngang) - Để 2 khối nằm cạnh nhau dưới content
+    // - Desktop (>= 1280px - xl): flex-col (dọc) - Để nằm bên phải content
+    <div className="flex flex-col md:flex-row xl:flex-col gap-[20px] w-full xl:w-[371px] px-[20px] xl:px-0 mt-[40px] xl:mt-0">
       {/* --- BOX 1: ĐẶT MUA HÀNG --- */}
       <div
-        className="w-full lg:w-[371px] rounded-[15px] border-[2px] border-[#ECECEC] bg-white relative p-[25px]"
+        // Width logic:
+        // - Mobile: w-full
+        // - Tablet/iPad: w-1/2 (50%)
+        // - Desktop (xl): w-full (của sidebar 371px)
+        className="w-full md:w-1/2 xl:w-full h-fit rounded-[15px] border-[2px] border-[#ECECEC] bg-white relative p-[25px]"
         style={{ boxShadow: "5px 5px 15px rgba(0, 0, 0, 0.05)" }}
       >
         <div className="h-[50px] border-b border-[#ECECEC] mb-[20px] relative">
@@ -85,7 +93,8 @@ export const ProductSidebar: React.FC = () => {
 
       {/* --- BOX 2: SẢN PHẨM ĐỀ XUẤT --- */}
       <div
-        className="w-full lg:w-[371px] rounded-[15px] border-[2px] border-[#ECECEC] bg-white relative p-[25px]"
+        // Tương tự Box 1
+        className="w-full md:w-1/2 xl:w-full h-fit rounded-[15px] border-[2px] border-[#ECECEC] bg-white relative p-[25px]"
         style={{ boxShadow: "5px 5px 15px rgba(0, 0, 0, 0.05)" }}
       >
         <div className="h-[50px] border-b border-[#ECECEC] mb-[20px] relative">

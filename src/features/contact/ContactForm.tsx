@@ -1,10 +1,9 @@
+// src/features/contact/ContactForm.tsx
 import React, { useState, useRef, useEffect } from "react";
 // Import Icons từ Lucide
 import { ChevronDown, Phone, Mail, MapPin, Clock } from "lucide-react";
 
 // --- IMPORT ẢNH TỪ ASSETS/CONTACT ---
-// Lưu ý: Đường dẫn "../assets" giả định file này nằm trong thư mục con (vd: src/components).
-// Nếu file này nằm ngay tại src, hãy đổi thành "./assets"
 import imgPhone from "../../assets/contact/contact-phone.png";
 import imgGmail from "../../assets/contact/contact-gmail.png";
 import imgMap from "../../assets/contact/contact-mappointer.png";
@@ -63,16 +62,17 @@ export const ContactForm: React.FC = () => {
         <h2 className="font-manrope font-bold text-[#0E0E0E] text-[28px] lg:text-[56px] leading-[140%]">
           Liên hệ với chúng tôi
         </h2>
-        <p className="mt-[12px] font-inter font-medium lg:font-semibold text-black text-[16px] lg:text-[20px] leading-[24px] max-w-[600px] lg:max-w-none">
+        <p className="mt-[12px] font-inter font-medium lg:font-semibold text-black text-[16px] lg:text-[20px] leading-[24px] max-w-[600px] lg:max-w-none mx-auto">
           Liên hệ ngay để bắt đầu dự án in ấn của bạn — nhận báo giá & tư vấn
           miễn phí từ đội ngũ PROMAC.
         </p>
       </div>
 
       {/* =================================================================
-          1. MOBILE VERSION (< 1024px)
+          1. MOBILE VERSION (< 768px)
+          - Giữ nguyên (md:hidden)
           ================================================================= */}
-      <div className="flex flex-col gap-[40px] w-full items-center lg:hidden pb-[60px]">
+      <div className="flex flex-col gap-[40px] w-full items-center md:hidden pb-[60px]">
         {/* KHỐI 1: FORM */}
         <div className="bg-white rounded-[20px] shadow-[0px_8px_25px_rgba(0,0,0,0.25)] p-[24px] w-[375px] max-w-full">
           <h3 className="font-inter font-bold text-[20px] mb-[36px] text-black">
@@ -80,7 +80,7 @@ export const ContactForm: React.FC = () => {
           </h3>
 
           <form className="flex flex-col gap-[24px]">
-            {/* Họ tên */}
+            {/* ... (Giữ nguyên nội dung Form Mobile) ... */}
             <div className="flex flex-col gap-[8px]">
               <label className="font-bold text-[#364153] text-[15px]">
                 Họ và tên
@@ -91,7 +91,6 @@ export const ContactForm: React.FC = () => {
                 className="w-full h-[35px] bg-[#F3F3F5] rounded-[10px] px-[14px] text-[15px] outline-none placeholder-[#707081]"
               />
             </div>
-            {/* Email */}
             <div className="flex flex-col gap-[8px]">
               <label className="font-bold text-[#364153] text-[15px]">
                 Địa chỉ email
@@ -102,7 +101,6 @@ export const ContactForm: React.FC = () => {
                 className="w-full h-[35px] bg-[#F3F3F5] rounded-[10px] px-[14px] text-[15px] outline-none placeholder-[#707081]"
               />
             </div>
-            {/* SĐT */}
             <div className="flex flex-col gap-[8px]">
               <label className="font-bold text-[#364153] text-[15px]">
                 Số điện thoại
@@ -113,7 +111,6 @@ export const ContactForm: React.FC = () => {
                 className="w-full h-[35px] bg-[#F3F3F5] rounded-[10px] px-[14px] text-[15px] outline-none placeholder-[#707081]"
               />
             </div>
-            {/* Dịch vụ (Dropdown) */}
             <div className="flex flex-col gap-[8px] relative" ref={dropdownRef}>
               <label className="font-bold text-[#364153] text-[15px]">
                 Dịch vụ cần hỗ trợ
@@ -136,7 +133,6 @@ export const ContactForm: React.FC = () => {
                   }`}
                 />
               </div>
-              {/* Mobile Dropdown List */}
               {isOpen && (
                 <div className="absolute top-[65px] left-0 w-full bg-white border border-[#BDBDBD] rounded-[5px] max-h-[200px] overflow-y-auto z-50 custom-scrollbar p-1 shadow-lg">
                   {SERVICE_OPTIONS.map((opt) => (
@@ -151,7 +147,6 @@ export const ContactForm: React.FC = () => {
                 </div>
               )}
             </div>
-            {/* Textarea */}
             <div className="flex flex-col gap-[8px]">
               <label className="font-bold text-[#364153] text-[15px]">
                 Mô tả chi tiết dự án
@@ -161,7 +156,6 @@ export const ContactForm: React.FC = () => {
                 className="w-full h-[144px] bg-[#F3F3F5] rounded-[10px] p-[14px] text-[15px] outline-none resize-none placeholder-[#707081]"
               />
             </div>
-            {/* Button Gửi */}
             <button
               type="button"
               className="self-center w-[132px] h-[45px] bg-[#FF0000] rounded-[10px] text-white font-bold text-[16px] shadow-sm active:scale-95 transition-transform"
@@ -171,14 +165,12 @@ export const ContactForm: React.FC = () => {
           </form>
         </div>
 
-        {/* KHỐI 2: INFO */}
+        {/* KHỐI 2: INFO MOBILE */}
         <div className="bg-white rounded-[20px] shadow-[0px_8px_25px_rgba(0,0,0,0.25)] p-[24px] w-[375px] max-w-full flex flex-col gap-[36px]">
           <h3 className="font-inter font-bold text-[20px] text-black">
             Thông tin liên hệ
           </h3>
-
           <div className="flex flex-col gap-[24px]">
-            {/* Phone */}
             <div className="flex gap-[15px]">
               <div className="w-[26px] h-[26px] bg-gray-200 rounded flex items-center justify-center">
                 <Phone size={16} />
@@ -199,7 +191,6 @@ export const ContactForm: React.FC = () => {
                 </a>
               </div>
             </div>
-            {/* Email */}
             <div className="flex gap-[15px]">
               <div className="w-[28px] h-[28px] bg-gray-200 rounded flex items-center justify-center">
                 <Mail size={16} />
@@ -214,7 +205,6 @@ export const ContactForm: React.FC = () => {
                 </a>
               </div>
             </div>
-            {/* Address */}
             <div className="flex gap-[15px]">
               <div className="w-[28px] h-[32px] bg-gray-200 rounded flex items-center justify-center">
                 <MapPin size={16} />
@@ -226,7 +216,6 @@ export const ContactForm: React.FC = () => {
                 </p>
               </div>
             </div>
-            {/* Clock */}
             <div className="flex gap-[15px]">
               <div className="w-[27px] h-[27px] bg-gray-200 rounded flex items-center justify-center">
                 <Clock size={16} />
@@ -239,8 +228,6 @@ export const ContactForm: React.FC = () => {
               </div>
             </div>
           </div>
-
-          {/* Action Buttons */}
           <div className="flex flex-col gap-[18px] mt-[18px] items-start ml-[80px]">
             <button className="flex items-center justify-center gap-[8px] w-[155px] h-[45px] bg-[#FF0000] rounded-[10px] text-white font-semibold text-[16px]">
               <Phone size={18} fill="white" /> Gửi ngay
@@ -253,10 +240,185 @@ export const ContactForm: React.FC = () => {
       </div>
 
       {/* =================================================================
-          2. DESKTOP VERSION (>= 1024px)
+          2. TABLET & IPAD PRO VERSION (768px -> 1279px) - KHỐI MỚI
+          - Fluid Layout (Linh hoạt)
+          - ĐÃ SỬA: items-center để căn giữa 2 khối theo chiều dọc
+          ================================================================= */}
+      <div className="hidden md:flex xl:hidden w-full max-w-[1000px] flex-col md:flex-row items-center justify-center gap-[30px] lg:gap-[50px] px-[20px] pb-[80px]">
+        {/* FORM */}
+        <div className="bg-white rounded-[20px] shadow-[0px_8px_25px_rgba(0,0,0,0.25)] p-[30px] w-full flex-1">
+          <h3 className="font-bold text-black mb-[20px] text-[24px]">
+            Gửi tin nhắn cho chúng tôi
+          </h3>
+          <p className="mb-[20px] text-[#FF0000] text-[14px]">
+            Vui lòng điền đầy đủ thông tin vào các ô dưới đây
+          </p>
+          <form className="w-full flex flex-col gap-[20px]">
+            <div className="flex flex-col gap-[8px]">
+              <label className="font-bold text-[#364153] text-[16px]">
+                Họ và tên
+              </label>
+              <input
+                type="text"
+                placeholder="Nguyễn Văn An"
+                className="w-full h-[45px] bg-[#F3F3F5] rounded-[10px] px-[20px] text-[14px] outline-none focus:ring-1 focus:ring-red-500"
+              />
+            </div>
+            <div className="flex flex-col gap-[8px]">
+              <label className="font-bold text-[#364153] text-[16px]">
+                Email
+              </label>
+              <input
+                type="email"
+                placeholder="your@gmail.com"
+                className="w-full h-[45px] bg-[#F3F3F5] rounded-[10px] px-[20px] text-[14px] outline-none focus:ring-1 focus:ring-red-500"
+              />
+            </div>
+            <div className="flex flex-col gap-[8px]">
+              <label className="font-bold text-[#364153] text-[16px]">
+                Số điện thoại
+              </label>
+              <input
+                type="tel"
+                placeholder="098..."
+                className="w-full h-[45px] bg-[#F3F3F5] rounded-[10px] px-[20px] text-[14px] outline-none focus:ring-1 focus:ring-red-500"
+              />
+            </div>
+            <div className="flex flex-col gap-[8px] relative">
+              <label className="font-bold text-[#364153] text-[16px]">
+                Dịch vụ cần hỗ trợ
+              </label>
+              <div
+                className="w-full h-[45px] bg-[#F3F3F5] rounded-[10px] px-[20px] flex items-center justify-between cursor-pointer"
+                onClick={() => setIsOpen(!isOpen)}
+              >
+                <span className="text-[14px] text-[#364153]">
+                  {selectedService || "Chọn dịch vụ"}
+                </span>
+                <ChevronDown size={16} />
+              </div>
+              {isOpen && (
+                <div className="absolute top-[50px] w-full bg-white border rounded-[5px] max-h-[200px] overflow-y-auto z-50 shadow-lg p-2">
+                  {SERVICE_OPTIONS.map((opt) => (
+                    <div
+                      key={opt.id}
+                      onClick={() => handleSelect(opt.label)}
+                      className="p-2 hover:bg-gray-100 cursor-pointer"
+                    >
+                      {opt.label}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+            <div className="flex flex-col gap-[8px]">
+              <label className="font-bold text-[#364153] text-[16px]">
+                Mô tả
+              </label>
+              <textarea
+                placeholder="..."
+                className="w-full h-[100px] bg-[#F3F3F5] rounded-[10px] p-[20px] text-[14px] outline-none focus:ring-1 focus:ring-red-500 resize-none"
+              />
+            </div>
+            <button
+              type="button"
+              className="w-full h-[50px] bg-[#FF0000] rounded-[10px] text-white font-bold text-[18px] hover:bg-red-700 transition-colors shadow-lg"
+            >
+              Gửi
+            </button>
+          </form>
+        </div>
+
+        {/* INFO */}
+        <div className="bg-white flex flex-col px-[30px] py-[40px] rounded-[20px] shadow-[0px_8px_25px_rgba(0,0,0,0.25)] w-full flex-1 h-fit">
+          {" "}
+          {/* Thêm h-fit để nó ôm nội dung, căn giữa đẹp hơn */}
+          <h3 className="font-bold text-black text-center mb-[30px] text-[24px]">
+            Thông tin liên hệ
+          </h3>
+          <div className="flex flex-col gap-[30px]">
+            <div className="flex gap-[15px] items-start">
+              <div className="w-[30px] h-[30px] flex items-center justify-center">
+                <img
+                  src={imgPhone}
+                  className="w-full h-full object-contain"
+                  alt="phone"
+                />
+              </div>
+              <div className="flex flex-col">
+                <span className="font-bold text-[16px]">Hotline</span>
+                <span className="text-[14px] text-[#4A5464]">0906838869</span>
+              </div>
+            </div>
+            <div className="flex gap-[15px] items-start">
+              <div className="w-[30px] h-[30px] flex items-center justify-center">
+                <img
+                  src={imgGmail}
+                  className="w-full h-full object-contain"
+                  alt="mail"
+                />
+              </div>
+              <div className="flex flex-col">
+                <span className="font-bold text-[16px]">Email</span>
+                <span className="text-[14px] text-[#4A5464]">
+                  info@promacprinting.com
+                </span>
+              </div>
+            </div>
+            <div className="flex gap-[15px] items-start">
+              <div className="w-[30px] h-[30px] flex items-center justify-center">
+                <img
+                  src={imgMap}
+                  className="w-full h-full object-contain"
+                  alt="map"
+                />
+              </div>
+              <div className="flex flex-col">
+                <span className="font-bold text-[16px]">Địa chỉ</span>
+                <span className="text-[14px] text-[#4A5464]">
+                  236/59 Điện Biên Phủ, P.17, Bình Thạnh
+                </span>
+              </div>
+            </div>
+            <div className="flex gap-[15px] items-start">
+              <div className="w-[30px] h-[30px] flex items-center justify-center">
+                <img
+                  src={imgClock}
+                  className="w-full h-full object-contain"
+                  alt="clock"
+                />
+              </div>
+              <div className="flex flex-col">
+                <span className="font-bold text-[16px]">Giờ làm việc</span>
+                <span className="text-[14px] text-[#4A5464]">
+                  T2 - T7 (8:00 - 17:30)
+                </span>
+              </div>
+            </div>
+          </div>
+          <div className="mt-[40px] flex flex-col gap-[15px]">
+            <a
+              href="tel:0906838869"
+              className="w-full h-[45px] bg-[#FF0000] rounded-[10px] flex items-center justify-center gap-[10px] text-white font-medium hover:bg-red-700 transition-colors"
+            >
+              <Phone size={18} /> Gọi ngay
+            </a>
+            <a
+              href="mailto:info@promacprinting.com"
+              className="w-full h-[45px] bg-[#00C851] rounded-[10px] flex items-center justify-center gap-[10px] text-black font-medium hover:bg-green-500 transition-colors"
+            >
+              <Mail size={18} /> Gửi email
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* =================================================================
+          3. DESKTOP VERSION (>= 1280px)
+          - Giữ nguyên thiết kế pixel-perfect
           ================================================================= */}
       <div
-        className="hidden lg:flex justify-center gap-[80px] w-full"
+        className="hidden xl:flex justify-center gap-[80px] w-full"
         style={{ width: "1439px", height: "auto" }}
       >
         {/* === CỘT TRÁI: FORM === */}
@@ -290,9 +452,8 @@ export const ContactForm: React.FC = () => {
             Vui lòng điền đầy đủ thông tin vào các ô dưới đây để gửi yêu cầu đến
             chúng tôi
           </p>
-
-          <form className="w-full flex flex-col gap-[28px]">
-            {/* Họ tên */}
+          <form className="w-full flex flex-col gap-[20px]">
+            {/* Input Fields (Giữ nguyên) */}
             <div className="flex flex-col gap-[8px]">
               <label
                 htmlFor="fullName"
@@ -307,8 +468,6 @@ export const ContactForm: React.FC = () => {
                 className="w-full h-[35px] bg-[#F3F3F5] rounded-[10px] px-[20px] text-[14px] outline-none focus:ring-1 focus:ring-red-500 placeholder-[#707081]"
               />
             </div>
-
-            {/* Email & Phone */}
             <div className="flex gap-[36px]">
               <div className="flex flex-col gap-[8px] w-[245px]">
                 <label
@@ -339,8 +498,6 @@ export const ContactForm: React.FC = () => {
                 />
               </div>
             </div>
-
-            {/* Dropdown Desktop */}
             <div className="flex flex-col gap-[8px] relative z-50">
               <label className="font-bold text-[#364153] text-[16px]">
                 Dịch vụ cần hỗ trợ
@@ -405,8 +562,6 @@ export const ContactForm: React.FC = () => {
                 </div>
               )}
             </div>
-
-            {/* Mô tả */}
             <div className="flex flex-col gap-[8px]">
               <label
                 htmlFor="message"
@@ -420,18 +575,16 @@ export const ContactForm: React.FC = () => {
                 className="w-full h-[87px] bg-[#F3F3F5] rounded-[10px] p-[20px] text-[14px] outline-none focus:ring-1 focus:ring-red-500 resize-none placeholder-[#707081]"
               />
             </div>
-
-            {/* Submit Button */}
             <button
               type="button"
-              className="mt-[10px] w-full h-[40px] bg-[#FF0000] rounded-[10px] text-white font-bold text-[20px] hover:bg-red-700 transition-colors shadow-lg shadow-red-500/30"
+              className="mt-[10px] w-full h-[40.1px] bg-[#FF0000] rounded-[10px] text-white font-bold text-[20px] hover:bg-red-700 transition-colors shadow-lg shadow-red-500/30"
             >
               Gửi
             </button>
           </form>
         </div>
 
-        {/* === CỘT PHẢI: THÔNG TIN (Sử dụng ảnh đã Import) === */}
+        {/* === CỘT PHẢI: THÔNG TIN === */}
         <div
           className="bg-white flex flex-col px-[30px] pt-[28px] relative"
           style={{
@@ -452,7 +605,6 @@ export const ContactForm: React.FC = () => {
             Thông tin liên hệ
           </h3>
           <div className="flex flex-col gap-[30px] pl-[18px]">
-            {/* Phone */}
             <div className="flex gap-[20px] items-start">
               <div className="w-[26px] h-[26px] flex items-center justify-center mt-1">
                 <img
@@ -469,7 +621,6 @@ export const ContactForm: React.FC = () => {
                 </div>
               </div>
             </div>
-            {/* Email */}
             <div className="flex gap-[20px] items-start">
               <div className="w-[28px] h-[28px] flex items-center justify-center mt-1">
                 <img
@@ -488,7 +639,6 @@ export const ContactForm: React.FC = () => {
                 </a>
               </div>
             </div>
-            {/* Address */}
             <div className="flex gap-[20px] items-start">
               <div className="w-[32px] h-[32px] flex items-center justify-center mt-1">
                 <img
@@ -505,7 +655,6 @@ export const ContactForm: React.FC = () => {
                 </p>
               </div>
             </div>
-            {/* Clock */}
             <div className="flex gap-[20px] items-start">
               <div className="w-[32px] h-[32px] flex items-center justify-center mt-1">
                 <img
@@ -522,24 +671,18 @@ export const ContactForm: React.FC = () => {
               </div>
             </div>
           </div>
-
-          {/* Buttons */}
           <div className="absolute bottom-[40px] left-0 w-full px-[30px] flex flex-col gap-[15px]">
             <a
               href="tel:0906838869"
               className="w-full h-[36px] bg-[#FF0000] rounded-[10px] flex items-center justify-center gap-[10px] text-white font-medium text-[16px] hover:bg-red-700 transition-colors"
             >
-              {/* Thay ảnh lỗi bằng Icon Phone từ Lucide */}
-              <Phone size={18} color="white" fill="white" />
-              Gọi ngay
+              <Phone size={18} color="white" fill="white" /> Gọi ngay
             </a>
             <a
               href="mailto:info@promacprinting.com"
               className="w-full h-[36px] bg-[#00C851] rounded-[10px] flex items-center justify-center gap-[10px] text-black font-medium text-[16px] hover:bg-green-500 transition-colors"
             >
-              {/* Thay ảnh lỗi bằng Icon Mail từ Lucide */}
-              <Mail size={18} color="black" />
-              Gửi email
+              <Mail size={18} color="black" /> Gửi email
             </a>
           </div>
         </div>

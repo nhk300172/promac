@@ -1,3 +1,4 @@
+// src/features/introduction/achievements/OurAwards.tsx
 // --- IMPORT 4 ẢNH GIẢI THƯỞNG ---
 import award1 from "../../../assets/awards/award1.jpg";
 import award2 from "../../../assets/awards/award2.jpg";
@@ -33,11 +34,12 @@ const AWARDS_DATA = [
 
 export const OurAwards = () => {
   return (
-    <section className="w-full flex justify-center">
+    <section className="w-full flex justify-center px-4 xl:px-0">
       {/* =================================================================
-          1. MOBILE VERSION (< 1024px) - THEO FIGMA MỚI
+          1. MOBILE VERSION (< 768px)
+          - Thay đổi: lg:hidden -> md:hidden (Chỉ hiện trên điện thoại)
           ================================================================= */}
-      <div className="flex flex-col items-center w-full lg:hidden px-[24px]">
+      <div className="flex flex-col items-center w-full md:hidden px-[24px]">
         {/* Header Mobile */}
         <h2 className="font-lato font-bold text-[#000000] text-[28px] leading-[34px] text-center mb-[32px]">
           Giải thưởng & Sự công nhận
@@ -71,10 +73,47 @@ export const OurAwards = () => {
       </div>
 
       {/* =================================================================
-          2. DESKTOP VERSION (>= 1024px) - GIỮ NGUYÊN CODE CŨ
+          2. TABLET & IPAD PRO VERSION (768px -> 1279px) - KHỐI MỚI
+          - Fluid Layout (Linh hoạt)
+          - Tablet (md): Grid 2 cột
+          - iPad Pro (lg): Grid 4 cột (tự co giãn)
+          ================================================================= */}
+      <div className="hidden md:flex xl:hidden flex-col items-center w-full max-w-[1000px]">
+        <h2 className="font-lato font-bold text-[#1D2130] text-center text-[40px] leading-[120%] mb-[48px]">
+          Giải thưởng & sự công nhận
+        </h2>
+
+        {/* Grid System linh hoạt */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-[30px] gap-y-[50px] w-full">
+          {AWARDS_DATA.map((item, index) => (
+            <div key={index} className="flex flex-col items-center w-full">
+              <div className="flex items-center justify-center mb-[18px] h-[92px] w-full">
+                <img
+                  src={item.img}
+                  alt={item.title}
+                  className="h-full w-auto object-contain hover:scale-110 transition-transform duration-300"
+                />
+              </div>
+              <span className="font-roboto font-bold text-[#1D2130] text-center text-[24px] leading-[160%] mb-[4px]">
+                {item.year}
+              </span>
+              <h3 className="font-roboto font-bold text-[#1D2130] text-center text-[18px] leading-[160%]">
+                {item.title}
+              </h3>
+              <p className="font-roboto font-medium text-[#1D2130] text-center uppercase opacity-60 text-[14px] mt-[4px]">
+                {item.location}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* =================================================================
+          3. DESKTOP VERSION (>= 1280px) - GIỮ NGUYÊN CODE CŨ
+          - Thay đổi: hidden lg:flex -> hidden xl:flex
           ================================================================= */}
       <div
-        className="hidden lg:flex flex-col items-center"
+        className="hidden xl:flex flex-col items-center"
         style={{ width: "1127px" }}
       >
         <h2
@@ -98,7 +137,7 @@ export const OurAwards = () => {
                 <img
                   src={item.img}
                   alt={item.title}
-                  className="h-full w-auto object-contain"
+                  className="h-full w-auto object-contain hover:scale-110 transition-transform duration-300"
                 />
               </div>
               <span

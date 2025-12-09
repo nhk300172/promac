@@ -1,3 +1,4 @@
+// src/components/layout/Header.tsx
 import { useState } from "react";
 import { ChevronDown, ChevronLeft, ChevronRight, Menu, X } from "lucide-react";
 import { cn } from "../../lib/utils";
@@ -97,91 +98,89 @@ export const Header = () => {
   };
 
   return (
-    <div className="relative w-full flex justify-center z-50 bg-white">
-      {/* 1. MOBILE & TABLET HEADER (Có Logo) */}
-      {/* Thêm class md:h-[80px] để header cao hơn một chút trên tablet */}
-      <header className="lg:hidden relative w-full h-[72px] md:h-[80px] bg-white border-b border-[#E3E7EF] flex items-center justify-between px-[22px] md:px-[32px]">
-        <div
-          className="overflow-hidden flex-shrink-0"
-          style={{
-            // Tăng kích thước logo trên Tablet (md)
-            width: "66px", // Mobile
-            height: "18px",
-            // md:width: "90px", // Tablet (Ví dụ nếu bạn muốn to hơn)
-            // md:height: "25px"
-          }}
-        >
+    <div className="relative w-full flex justify-center z-50 bg-white shadow-sm">
+      {/* 1. MOBILE & TABLET HEADER */}
+      {/* lg:hidden -> Ẩn trên Desktop */}
+      <header className="lg:hidden relative w-full h-[72px] md:h-[80px] bg-white border-b border-[#E3E7EF] flex items-center justify-between px-[20px] md:px-[32px]">
+        {/* Logo Wrapper */}
+        <div className="flex-shrink-0">
           <NavLink to="/" onClick={closeMenu}>
             <img
               src={logo}
               alt="Promac"
-              className="w-full h-full object-contain"
+              // Responsive size cho logo: Mobile nhỏ, Tablet to hơn chút
+              className="w-[100px] h-auto md:w-[120px] object-contain"
             />
           </NavLink>
         </div>
 
+        {/* Menu Button */}
         <button
-          className="flex items-center justify-center text-[#111B29]"
-          style={{
-            width: "24px",
-            height: "24px",
-            // Bỏ top/right tuyệt đối để dùng flexbox căn chỉnh chuẩn hơn trên mọi màn hình
-          }}
+          className="flex items-center justify-center text-[#111B29] p-2 hover:bg-gray-100 rounded-md transition-colors"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-label={mobileMenuOpen ? "Đóng menu" : "Mở menu"}
         >
           {mobileMenuOpen ? (
-            <X size={24} strokeWidth={2} className="md:w-[28px] md:h-[28px]" />
+            <X size={28} strokeWidth={2} />
           ) : (
-            <Menu
-              size={24}
-              strokeWidth={2}
-              className="md:w-[28px] md:h-[28px]"
-            />
+            <Menu size={28} strokeWidth={2} />
           )}
         </button>
       </header>
 
-      {/* 2. DESKTOP HEADER (KHÔNG CÓ LOGO) - Giữ nguyên */}
-      <header className="hidden lg:flex items-center justify-between w-full max-w-[1434px] h-[102px] px-[93px] shadow-[0px_4px_12px_0px_#00000040]">
+      {/* 2. DESKTOP HEADER */}
+      {/* hidden lg:flex -> Chỉ hiện trên Desktop */}
+      {/* Thêm max-w-[1440px] để giới hạn độ rộng trên màn hình siêu lớn */}
+      <header className="hidden lg:flex items-center justify-between w-full max-w-[1440px] h-[102px] px-[40px] xl:px-[93px]">
+        {/* Logo Desktop (Nếu thiết kế yêu cầu không có logo ở header desktop thì giữ nguyên logic cũ là ẩn, nhưng thường nên có) */}
+        {/* Nếu muốn hiện logo ở Desktop thì uncomment đoạn dưới: */}
+        {/* <div className="w-[150px]">
+             <NavLink to="/"><img src={logo} alt="Promac" className="w-full" /></NavLink>
+           </div> 
+        */}
+
+        {/* Navigation */}
         <nav
-          className="flex items-center"
-          style={{ marginLeft: "130px", gap: "40px" }}
+          className="flex items-center w-full justify-center" // Căn giữa menu
+          style={{ gap: "30px" }} // Giảm gap mặc định để an toàn
         >
-          {NAV_ITEMS.map((item, index) => {
-            if (item.type === "dropdown")
-              return <ServicesDropdown key={index} label={item.label} />;
-            return (
-              <NavLink
-                key={index}
-                to={item.path}
-                className={({ isActive }) =>
-                  cn(
-                    "flex items-center justify-center font-inter font-bold text-[18px] leading-[100%] transition-colors duration-200",
-                    isActive
-                      ? "text-[#FF0000] underline decoration-solid"
-                      : "text-[#000000] hover:text-[#FF0000] no-underline"
-                  )
-                }
-                style={{ gap: "5px" }}
-              >
-                {({ isActive }) => (
-                  <>
-                    <span className="block pt-[2px]">{item.label}</span>
-                    {item.hasArrow && (
-                      <div className="w-[20px] h-[20px] flex items-center justify-center">
-                        <ChevronDown
-                          size={20}
-                          color={isActive ? "#FF0000" : "#000000"}
-                          strokeWidth={2}
-                        />
-                      </div>
-                    )}
-                  </>
-                )}
-              </NavLink>
-            );
-          })}
+          {/* Wrapper flex với gap responsive: lg:gap-6 xl:gap-10 */}
+          <div className="flex items-center gap-6 xl:gap-10">
+            {NAV_ITEMS.map((item, index) => {
+              if (item.type === "dropdown")
+                return <ServicesDropdown key={index} label={item.label} />;
+              return (
+                <NavLink
+                  key={index}
+                  to={item.path}
+                  className={({ isActive }) =>
+                    cn(
+                      "flex items-center justify-center font-inter font-bold text-[16px] xl:text-[18px] leading-[100%] transition-colors duration-200 whitespace-nowrap", // text size responsive
+                      isActive
+                        ? "text-[#FF0000] underline decoration-solid decoration-2 underline-offset-4"
+                        : "text-[#000000] hover:text-[#FF0000] no-underline"
+                    )
+                  }
+                  style={{ gap: "5px" }}
+                >
+                  {({ isActive }) => (
+                    <>
+                      <span className="block pt-[2px]">{item.label}</span>
+                      {item.hasArrow && (
+                        <div className="w-[20px] h-[20px] flex items-center justify-center">
+                          <ChevronDown
+                            size={18} // Giảm size icon chút cho tinh tế
+                            color={isActive ? "#FF0000" : "#000000"}
+                            strokeWidth={2}
+                          />
+                        </div>
+                      )}
+                    </>
+                  )}
+                </NavLink>
+              );
+            })}
+          </div>
         </nav>
       </header>
 
@@ -196,25 +195,22 @@ export const Header = () => {
             )}
           >
             {NAV_ITEMS.map((item, index) => {
+              // Item Dropdown (có mũi tên)
               if (item.type === "dropdown") {
                 return (
                   <button
                     key={index}
                     onClick={() => openSubMenu(item.label)}
-                    className="flex w-full items-center justify-between bg-white transition-colors active:bg-gray-50 border-b border-[#E3E7EF] md:px-[40px]"
-                    style={{ padding: "13px 24px", height: "56px" }} // Mobile padding
+                    className="flex w-full items-center justify-between bg-white transition-colors active:bg-gray-50 border-b border-[#E3E7EF] px-[24px] md:px-[40px] py-[16px]"
                   >
-                    <span className="font-inter font-semibold text-[18px] md:text-[20px] text-[#111B29]">
+                    <span className="font-inter font-semibold text-[16px] md:text-[18px] text-[#111B29]">
                       {item.label}
                     </span>
-                    <ChevronRight
-                      size={20}
-                      className="text-[#111B29] md:w-[24px] md:h-[24px]"
-                      strokeWidth={2}
-                    />
+                    <ChevronRight size={20} className="text-[#9CA3AF]" />
                   </button>
                 );
               }
+              // Item Link thường
               return (
                 <NavLink
                   key={index}
@@ -222,22 +218,25 @@ export const Header = () => {
                   onClick={closeMenu}
                   className={({ isActive }) =>
                     cn(
-                      "flex w-full items-center justify-between bg-white transition-colors active:bg-gray-50 border-b border-[#E3E7EF] md:px-[40px]",
-                      isActive ? "text-[#FF0000]" : "text-[#111B29]"
+                      "flex w-full items-center justify-between bg-white transition-colors active:bg-gray-50 border-b border-[#E3E7EF] px-[24px] md:px-[40px] py-[16px]",
+                      isActive
+                        ? "text-[#FF0000] bg-red-50/50"
+                        : "text-[#111B29]"
                     )
                   }
-                  style={{ padding: "13px 24px", height: "56px" }}
                 >
-                  <span className="font-inter font-semibold text-[18px] md:text-[20px]">
+                  <span className="font-inter font-semibold text-[16px] md:text-[18px]">
                     {item.label}
                   </span>
                 </NavLink>
               );
             })}
-            <div className="mt-[40px] px-[24px] md:px-[40px] md:mt-[60px]">
+
+            {/* Button CTA trong Menu Mobile */}
+            <div className="mt-[30px] px-[24px] md:px-[40px]">
               <NavLink to="/bao-gia" onClick={closeMenu}>
-                <button className="w-full h-[56px] md:h-[64px] bg-[#FF0000] rounded-[8px] flex items-center justify-center shadow-lg active:scale-95 transition-transform">
-                  <span className="font-inter font-bold text-[18px] md:text-[20px] text-white">
+                <button className="w-full h-[50px] md:h-[56px] bg-[#FF0000] rounded-[8px] flex items-center justify-center shadow-md active:scale-95 transition-transform hover:bg-red-700">
+                  <span className="font-inter font-bold text-[16px] md:text-[18px] text-white">
                     Yêu cầu Báo giá
                   </span>
                 </button>
@@ -254,34 +253,31 @@ export const Header = () => {
                 currentView === menuLabel ? "translate-x-0" : "translate-x-full"
               )}
             >
-              {/* HEADER SUBMENU */}
-              <div
-                className="flex items-center gap-[8px] w-full bg-white border-b border-[#E3E7EF] md:px-[40px]"
-                style={{ padding: "13px 24px", height: "56px" }}
-              >
+              {/* Header Submenu (Nút Back) */}
+              <div className="flex items-center gap-[10px] w-full bg-gray-50 border-b border-[#E3E7EF] px-[24px] md:px-[40px] py-[16px] sticky top-0 z-10">
                 <button
                   onClick={backToMainMenu}
-                  className="flex items-center justify-center w-[20px] h-[20px] md:w-[24px] md:h-[24px]"
+                  className="flex items-center justify-center p-1 rounded-full hover:bg-gray-200 transition-colors"
                   aria-label="Quay lại"
                 >
                   <ChevronLeft
-                    size={20}
-                    className="text-[#111B29] md:w-[24px] md:h-[24px]"
+                    size={24}
+                    className="text-[#111B29]"
                     strokeWidth={2}
                   />
                 </button>
-                <span className="font-inter font-semibold text-[18px] md:text-[20px] text-[#111B29] leading-[165%]">
+                <span className="font-inter font-bold text-[18px] md:text-[20px] text-[#111B29]">
                   {menuLabel}
                 </span>
               </div>
 
-              {/* LIST ITEMS */}
-              <div className="flex flex-col w-full pt-[16px] md:pt-[24px]">
+              {/* List Items */}
+              <div className="flex flex-col w-full py-[10px]">
                 {MOBILE_SUB_MENUS[menuLabel].map((group, gIdx) => (
-                  <div key={gIdx} className="flex flex-col mb-[16px]">
+                  <div key={gIdx} className="flex flex-col mb-[20px]">
                     {/* Group Title */}
                     {group.groupTitle && (
-                      <div className="px-[24px] md:px-[40px] mb-[4px] font-inter font-semibold text-[12px] md:text-[14px] text-[#97A3B7] tracking-[0.5px] leading-[150%]">
+                      <div className="px-[24px] md:px-[40px] mb-[8px] mt-[10px] font-inter font-bold text-[12px] md:text-[14px] text-[#6B7280] uppercase tracking-wider">
                         {group.groupTitle}
                       </div>
                     )}
@@ -294,8 +290,10 @@ export const Header = () => {
                         onClick={closeMenu}
                         className={({ isActive }) =>
                           cn(
-                            "flex items-center py-[9px] px-[24px] md:px-[40px] md:py-[12px] text-[16px] md:text-[18px] font-semibold transition-colors leading-[150%]",
-                            isActive ? "text-[#FF0000]" : "text-[#111B29]"
+                            "flex items-center py-[12px] px-[24px] md:px-[40px] text-[16px] md:text-[18px] font-medium transition-colors hover:bg-gray-50",
+                            isActive
+                              ? "text-[#FF0000] bg-red-50/30"
+                              : "text-[#374151]"
                           )
                         }
                       >
@@ -303,18 +301,15 @@ export const Header = () => {
                       </NavLink>
                     ))}
 
-                    {/* QR CODE IMAGE (Render nếu có) */}
+                    {/* QR CODE */}
                     {group.bottomImage && (
-                      <div
-                        className="mt-[16px] ml-[24px] md:ml-[40px]"
-                        style={{
-                          width: "138px",
-                          height: "126px",
-                          backgroundImage: `url(${group.bottomImage})`,
-                          backgroundSize: "contain",
-                          backgroundRepeat: "no-repeat",
-                        }}
-                      />
+                      <div className="mt-[20px] ml-[24px] md:ml-[40px]">
+                        <img
+                          src={group.bottomImage}
+                          alt="QR Code"
+                          className="w-[120px] h-[120px] object-contain border border-gray-200 p-2 rounded-lg"
+                        />
+                      </div>
                     )}
                   </div>
                 ))}

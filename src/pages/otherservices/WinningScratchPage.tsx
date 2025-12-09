@@ -3,6 +3,7 @@ import React from "react";
 import { WinningScratchHero } from "../../features/otherservices/winning/WinningScratchHero";
 import { WinningScratchContent } from "../../features/otherservices/winning/WinningScratchContent";
 import { WinningScratchPortfolio } from "../../features/otherservices/winning/WinningScratchPortfolio";
+import { ContactBanner } from "../../components/layout/ContactBanner";
 
 export const WinningScratchPage: React.FC = () => {
   return (
@@ -10,6 +11,7 @@ export const WinningScratchPage: React.FC = () => {
       <WinningScratchHero />
       <WinningScratchContent />
       <WinningScratchPortfolio />
+      <ContactBanner />
     </div>
   );
 };

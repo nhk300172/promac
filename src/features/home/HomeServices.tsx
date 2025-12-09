@@ -4,6 +4,7 @@ import { Check } from "lucide-react";
 import project1 from "../../assets/printingservices/project1.png";
 import project2 from "../../assets/printingservices/project2.png";
 import project3 from "../../assets/printingservices/project3.png";
+
 // 1. DỮ LIỆU DỊCH VỤ CHÍNH
 const MAIN_SERVICES = [
   {
@@ -17,7 +18,7 @@ const MAIN_SERVICES = [
     ],
   },
   {
-    title: "In hộp cứng cao cấp", // (Giữ nguyên data của bạn)
+    title: "In hộp cứng cao cấp",
     desc: "The consensus mechanism that connects stacks and bitcoin. The consensus mechanism that connects stacks and b...",
     image: project1,
     features: [
@@ -50,25 +51,25 @@ export const HomeServices = () => {
   return (
     <section className="w-full flex flex-col items-center">
       {/* =================================================================
-          1. MOBILE VERSION (< 1024px)
-          - Layout: Theo Figma Mobile.
-          - Icon: Đồng bộ Check Đỏ từ Desktop xuống.
+          1. MOBILE & TABLET VERSION (< 1024px)
+          - Mobile (< 768px): List dọc.
+          - Tablet (768px - 1023px): Grid 2 cột (Hoặc 3 cột nếu đủ chỗ).
           ================================================================= */}
-      <div className="flex flex-col items-center w-full lg:hidden px-[10px]">
+      <div className="flex flex-col items-center w-full lg:hidden px-[20px]">
         {/* HEADER */}
-        <h2 className="font-inter font-bold text-[28px] leading-[34px] text-[#000000] text-center mb-[24px]">
+        <h2 className="font-inter font-bold text-[28px] leading-[34px] md:text-[40px] text-[#000000] text-center mb-[24px]">
           Dịch vụ cốt lõi
         </h2>
 
-        {/* LIST SERVICES */}
-        <div className="flex flex-col gap-[32px] w-full items-center">
+        {/* LIST SERVICES (Responsive Grid) */}
+        <div className="flex flex-col md:grid md:grid-cols-2 md:gap-[24px] gap-[32px] w-full items-center md:items-stretch">
           {MAIN_SERVICES.map((service, index) => (
             <div
               key={index}
-              className="flex flex-col items-center bg-[#F5F5F5] rounded-[40px] p-[22px] w-full max-w-[370px]"
+              className="flex flex-col items-center bg-[#F5F5F5] rounded-[40px] p-[22px] w-full max-w-[370px] md:max-w-full mx-auto h-full"
             >
               {/* IMAGE */}
-              <div className="w-full h-[228px] mb-[24px] rounded-[15px] overflow-hidden">
+              <div className="w-full h-[228px] mb-[24px] rounded-[15px] overflow-hidden relative shrink-0">
                 <img
                   src={service.image}
                   alt={service.title}
@@ -77,22 +78,18 @@ export const HomeServices = () => {
               </div>
 
               {/* CONTENT */}
-              <div className="flex flex-col items-start w-full gap-[14px]">
-                {/* Title */}
+              <div className="flex flex-col items-start w-full gap-[14px] flex-grow">
                 <h3 className="font-inter font-bold text-[18px] leading-[22px] text-[#000000]">
                   {service.title}
                 </h3>
 
-                {/* Desc */}
                 <p className="font-inter font-normal text-[15px] leading-[20px] text-[#000000] line-clamp-3">
                   {service.desc}
                 </p>
 
-                {/* Features List */}
                 <div className="flex flex-col gap-[10px] w-full my-[10px]">
                   {service.features.map((feature, idx) => (
                     <div key={idx} className="flex items-start gap-[12px]">
-                      {/* --- SỬA LẠI ICON CHECK CHO GIỐNG DESKTOP --- */}
                       <Check
                         size={20}
                         color="#FF0000"
@@ -107,12 +104,11 @@ export const HomeServices = () => {
                 </div>
 
                 {/* Button "Xem chi tiết" */}
-                <div className="flex flex-col ml-[98px] items-start cursor-pointer group mt-[10px]">
+                <div className="flex flex-col ml-[98px] md:ml-0 md:mt-auto md:self-center items-start cursor-pointer group mt-[10px]">
                   <div className="flex items-center gap-[8px]">
                     <span className="font-inter font-semibold text-[15px] leading-[18px] text-[#FF0000]">
                       Xem chi tiết
                     </span>
-                    {/* Arrow Icon */}
                     <div className="transition-transform group-hover:translate-x-1">
                       <svg
                         width="10"
@@ -152,8 +148,8 @@ export const HomeServices = () => {
           </span>
         </button>
 
-        {/* OTHER SERVICES (MOBILE) - Grid 2 cột */}
-        <div className="flex flex-col items-center w-full max-w-[370px]">
+        {/* OTHER SERVICES (MOBILE & TABLET) */}
+        <div className="flex flex-col items-center w-full max-w-[370px] md:max-w-[600px]">
           <h3 className="font-inter font-semibold text-[24px] text-[#000000] mb-[30px] text-center">
             Các dịch vụ in khác
           </h3>
@@ -175,9 +171,10 @@ export const HomeServices = () => {
       </div>
 
       {/* =================================================================
-          2. DESKTOP VERSION (>= 1024px) - GIỮ NGUYÊN 100%
+          2. DESKTOP & IPAD PRO VERSION (>= 1024px)
+          - Đã điều chỉnh Width linh hoạt cho iPad Pro.
           ================================================================= */}
-      <div className="hidden lg:flex flex-col items-center">
+      <div className="hidden lg:flex flex-col items-center w-full px-4 xl:px-0">
         <h2
           className="font-inter font-bold text-[#000000] text-center"
           style={{ fontSize: "56px", lineHeight: "110%", marginBottom: "67px" }}
@@ -188,7 +185,8 @@ export const HomeServices = () => {
         <div
           className="grid grid-cols-3"
           style={{
-            width: "1340px",
+            width: "100%",
+            maxWidth: "1340px", // Thay width cứng thành max-w
             gap: "40px",
             marginBottom: "50px",
           }}
@@ -204,9 +202,10 @@ export const HomeServices = () => {
               }}
             >
               <div
-                className="w-full mb-[32px]"
+                className="w-full mb-[32px] relative"
                 style={{
-                  width: "392px",
+                  // Dùng aspect ratio hoặc width % để ảnh co giãn trên iPad
+                  width: "100%",
                   height: "275px",
                   borderRadius: "15px",
                   overflow: "hidden",
@@ -245,8 +244,12 @@ export const HomeServices = () => {
                 <div className="flex flex-col gap-[10px] w-full mb-[30px]">
                   {service.features.map((feature, idx) => (
                     <div key={idx} className="flex items-center gap-[12px]">
-                      {/* ICON GỐC CỦA DESKTOP */}
-                      <Check size={24} color="#FF0000" strokeWidth={4} />
+                      <Check
+                        size={24}
+                        color="#FF0000"
+                        strokeWidth={4}
+                        className="shrink-0"
+                      />
                       <span className="font-inter font-normal text-[18px] text-[#000000] leading-[22px]">
                         {feature}
                       </span>
@@ -306,7 +309,7 @@ export const HomeServices = () => {
           </span>
         </button>
 
-        <div className="w-[1340px] flex flex-col items-start">
+        <div className="w-full max-w-[1340px] flex flex-col items-start">
           <h3
             className="font-inter font-semibold text-[#000000]"
             style={{

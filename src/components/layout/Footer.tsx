@@ -1,4 +1,4 @@
-// --- IMPORT HÌNH ẢNH ICONS ---
+// src/components/layout/Footer.tsx
 import telephoneIcon from "../../assets/footer/telephoneicon.png";
 import twitterIcon from "../../assets/footer/twittericon.png";
 import instagramIcon from "../../assets/footer/instagramicon.png";
@@ -40,9 +40,9 @@ export const Footer = () => {
   return (
     <footer className="w-full flex flex-col items-center font-sans text-promac-black bg-white !overflow-hidden">
       {/* =================================================================
-          1. MOBILE VERSION (< 1024px) - THEO FIGMA MỚI
+          1. MOBILE VERSION (< 768px) - GIỮ NGUYÊN
           ================================================================= */}
-      <div className="w-full bg-[#FFF8F9] rounded-t-[40px] pt-[48px] pb-[80px] flex flex-col items-center lg:hidden">
+      <div className="w-full bg-[#FFF8F9] rounded-t-[40px] pt-[48px] pb-[80px] flex flex-col items-center md:hidden">
         {/* LINKS SECTIONS */}
         <div className="flex flex-col gap-[40px] w-full max-w-[265px] mb-[50px]">
           {FOOTER_LINKS.map((section, index) => (
@@ -172,15 +172,141 @@ export const Footer = () => {
               </a>
             </div>
           </div>
-
-          {/* Floating Phone Button (Absolute Bottom Left like Figma) */}
         </div>
       </div>
 
       {/* =================================================================
-          2. DESKTOP VERSION (>= 1024px) - GIỮ NGUYÊN CODE CŨ
+          2. TABLET & IPAD PRO VERSION (768px -> 1279px) - KHỐI MỚI
+          - Tablet (md): Căn giữa
+          - iPad Pro (lg): Căn trái (Theo yêu cầu)
           ================================================================= */}
-      <div className="hidden lg:flex w-full bg-[#FFF8F9] rounded-t-[30px] pt-[64px] pb-[80px] z-20 relative flex-col items-center">
+      <div className="hidden md:flex xl:hidden w-full bg-[#FFF8F9] rounded-t-[40px] pt-[60px] pb-[80px] flex-col items-center px-[40px]">
+        <div className="w-full max-w-[1000px] flex flex-col gap-[60px]">
+          {/* ROW 1: LINKS (Grid 4 cột - Title Căn giữa ở Tablet, Căn trái ở iPad Pro) */}
+          <div className="grid grid-cols-4 gap-[20px] w-full">
+            {FOOTER_LINKS.map((section, index) => (
+              <div
+                key={index}
+                className="flex flex-col gap-[18px] items-center text-center lg:items-start lg:text-left"
+              >
+                <div className="flex flex-col items-center lg:items-start gap-[12px] w-full">
+                  <h3 className="font-inter font-bold text-[18px] text-[#FF0000] w-full border-b-2 border-[#E5E5E5] pb-2">
+                    {section.title}
+                  </h3>
+                </div>
+                <ul className="flex flex-col gap-[12px] items-center lg:items-start w-full">
+                  {section.items.map((item, idx) => (
+                    <li key={idx}>
+                      <a
+                        href="#"
+                        className="text-[16px] text-black hover:text-[#FF0000] transition-colors"
+                      >
+                        {item}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+
+          <div className="w-full h-[1px] bg-black opacity-20"></div>
+
+          {/* ROW 2: INFO & MAP (Grid 2 cột) */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-[40px] w-full">
+            {/* Info Column */}
+            {/* Tablet: items-center text-center | iPad Pro: lg:items-start lg:text-left */}
+            <div className="flex flex-col gap-[20px] items-center text-center lg:items-start lg:text-left">
+              <div className="w-full max-w-[350px] lg:max-w-full border-b-2 border-[#E5E5E5] pb-2">
+                <h3 className="font-bold text-[24px] text-[#FF0000]">
+                  Thông tin công ty
+                </h3>
+              </div>
+
+              <div className="flex flex-col gap-[12px] text-[16px] text-black">
+                <p className="font-semibold">Công ty TNHH Kỹ thuật in Promac</p>
+                <p>
+                  <span className="font-semibold">Địa chỉ: </span> 236/59 Điện
+                  Biên Phủ, P.17, Q.Bình Thạnh, TP.HCM
+                </p>
+                <p>
+                  <span className="font-semibold">SĐT: </span>{" "}
+                  <span className="text-[#FF0000]">0903 006 409</span> - (028)
+                  22272416
+                </p>
+                <p>
+                  <span className="font-semibold">Email: </span>{" "}
+                  info@promacprinting.com
+                </p>
+                <p>
+                  <span className="font-semibold">Thời gian: </span> T2 - T7
+                  (8:00 - 17:30)
+                </p>
+              </div>
+
+              {/* Socials */}
+              {/* Tablet: items-center | iPad Pro: lg:items-start */}
+              <div className="mt-4 flex flex-col items-center lg:items-start">
+                <h3 className="font-bold text-[24px] text-[#FF0000] mb-4">
+                  Liên kết mạng xã hội
+                </h3>
+                {/* Tablet: justify-center | iPad Pro: lg:justify-start */}
+                <div className="flex gap-[20px] items-center justify-center lg:justify-start">
+                  <a href="#">
+                    <img
+                      src={twitterIcon}
+                      className="w-[30px] h-[30px] opacity-70 hover:opacity-100 transition-opacity"
+                      alt="Tw"
+                    />
+                  </a>
+                  <a href="#">
+                    <img
+                      src={instagramIcon}
+                      className="w-[30px] h-[30px] opacity-70 hover:opacity-100 transition-opacity"
+                      alt="Ins"
+                    />
+                  </a>
+                  <a href="#">
+                    <img
+                      src={facebookIcon}
+                      className="w-[30px] h-[30px] opacity-70 hover:opacity-100 transition-opacity"
+                      alt="Fb"
+                    />
+                  </a>
+                  <a href="#">
+                    <img
+                      src={zaloIcon}
+                      className="w-[45px] h-[45px] opacity-70 hover:opacity-100 transition-opacity"
+                      alt="Zalo"
+                    />
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Map Column */}
+            {/* Tablet: items-center | iPad Pro: lg:items-start */}
+            <div className="flex flex-col gap-[20px] items-center lg:items-start">
+              {/* Tablet: text-center | iPad Pro: lg:text-left */}
+              <div className="w-full max-w-[350px] lg:max-w-full border-b-2 border-[#E5E5E5] pb-2 text-center lg:text-left">
+                <h3 className="font-bold text-[24px] text-[#FF0000]">Bản đồ</h3>
+              </div>
+              <div className="w-full h-[280px] bg-gray-200 rounded-lg overflow-hidden shadow-sm">
+                <img
+                  src={mapImage}
+                  alt="Bản đồ"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* =================================================================
+          3. DESKTOP VERSION (>= 1280px) - GIỮ NGUYÊN
+          ================================================================= */}
+      <div className="hidden xl:flex w-full bg-[#FFF8F9] rounded-t-[30px] pt-[64px] pb-[80px] z-20 relative flex-col items-center">
         {/* Links Area */}
         <div className="w-full max-w-[1277px] grid grid-cols-4 gap-[75px] mb-[54px]">
           {FOOTER_LINKS.map((section, index) => (
@@ -276,15 +402,14 @@ export const Footer = () => {
             </div>
 
             <div className="flex gap-[20px] justify-center mb-10">
-              {/* Social Icons */}
               <a
                 href="#"
                 className="block w-[70px] h-[70px] opacity-70 hover:opacity-100 transition-opacity"
               >
                 <img
                   src={twitterIcon}
-                  alt="Twitter"
                   className="w-full h-full object-contain"
+                  alt="Twitter"
                 />
               </a>
               <a
@@ -293,8 +418,8 @@ export const Footer = () => {
               >
                 <img
                   src={instagramIcon}
-                  alt="Instagram"
                   className="w-full h-full object-contain"
+                  alt="Instagram"
                 />
               </a>
               <a
@@ -303,8 +428,8 @@ export const Footer = () => {
               >
                 <img
                   src={facebookIcon}
-                  alt="Facebook"
                   className="w-full h-full object-contain"
+                  alt="Facebook"
                 />
               </a>
               <a
@@ -313,8 +438,8 @@ export const Footer = () => {
               >
                 <img
                   src={zaloIcon}
-                  alt="Zalo"
                   className="w-full h-full object-contain"
+                  alt="Zalo"
                 />
               </a>
             </div>
@@ -327,8 +452,8 @@ export const Footer = () => {
               >
                 <img
                   src={telephoneIcon}
-                  alt="Liên hệ ngay"
                   className="w-full h-full object-contain"
+                  alt="Liên hệ ngay"
                 />
               </button>
             </div>

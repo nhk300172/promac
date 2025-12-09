@@ -1,3 +1,4 @@
+// src/features/news/NewsHero.tsx
 import React from "react";
 import { Phone, Mail } from "lucide-react";
 
@@ -6,9 +7,10 @@ export const NewsHero: React.FC = () => {
     // Wrapper chung
     <div className="w-full flex justify-center mt-[20px] lg:mt-[40px]">
       {/* =================================================================
-          1. MOBILE VERSION (< 1024px) - THEO FIGMA DỌC
+          1. MOBILE VERSION (< 768px)
+          - Thay đổi: lg:hidden -> md:hidden (Chỉ hiện trên điện thoại nhỏ)
           ================================================================= */}
-      <section className="flex flex-col items-center w-full max-w-[375px] bg-[#FFF5F6] rounded-[30px] pt-[40px] pb-[60px] px-[23px] lg:hidden mb-[20px]">
+      <section className="flex flex-col items-center w-full max-w-[375px] bg-[#FFF5F6] rounded-[30px] pt-[40px] pb-[60px] px-[23px] md:hidden mb-[20px]">
         {/* Title Group */}
         <div className="flex flex-col items-center gap-[16px] text-center mb-[50px]">
           <h1 className="font-inter font-bold text-[28px] leading-[34px] text-[#FF0000]">
@@ -70,15 +72,79 @@ export const NewsHero: React.FC = () => {
       </section>
 
       {/* =================================================================
-          2. DESKTOP VERSION (>= 1024px) - GIỮ NGUYÊN CODE CŨ
+          2. TABLET & IPAD PRO VERSION (768px -> 1279px) - KHỐI MỚI
+          - Fluid Layout (Linh hoạt), dùng Flexbox thay vì Absolute
+          ================================================================= */}
+      <section className="hidden md:flex xl:hidden flex-col items-center w-full max-w-[900px] bg-[#FFF5F6] rounded-[30px] py-[60px] px-[40px] mb-[40px] mx-4 shadow-sm">
+        {/* Title Group */}
+        <div className="flex flex-col items-center text-center mb-[40px]">
+          <h1 className="font-inter font-extrabold text-[#FF0000] text-[36px] lg:text-[40px] leading-[1.2] mb-[16px]">
+            Trung Tâm Kiến Thức
+          </h1>
+          <p className="font-inter font-semibold text-[#374151] text-[16px] lg:text-[18px] max-w-[600px]">
+            Khẳng định nội dung có giá trị chuyên môn cao. Nơi tìm kiếm giải
+            pháp và tiêu chuẩn in ấn B2B.
+          </p>
+        </div>
+
+        {/* Button */}
+        <button className="flex items-center justify-center bg-[#FF0000] rounded-[20px] shadow-[0px_0px_14px_#FF0000] mb-[40px] active:scale-95 transition-transform w-[220px] h-[60px]">
+          <span className="font-inter font-bold text-[18px] text-[#F5F5F5]">
+            Yêu cầu Báo giá
+          </span>
+        </button>
+
+        {/* Divider */}
+        <div className="w-full max-w-[600px] h-[1px] bg-black/50 border border-black/50 mb-[30px]"></div>
+
+        {/* Contact Info (Horizontal) */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-[30px] sm:gap-[50px]">
+          {/* Phone Group */}
+          <div className="flex items-center gap-[12px]">
+            <div className="w-[24px] flex justify-center">
+              <Phone className="w-6 h-6 text-black/50" strokeWidth={2} />
+            </div>
+            <div className="flex items-center gap-[12px]">
+              <a
+                href="tel:02822272416"
+                className="font-inter font-normal text-[16px] text-black/50 underline hover:text-red-500 transition-colors"
+              >
+                (028) 22272416
+              </a>
+              <div className="w-[1px] h-[20px] bg-black/50"></div>
+              <a
+                href="tel:0906838869"
+                className="font-inter font-normal text-[16px] text-black/50 underline hover:text-red-500 transition-colors"
+              >
+                0906838869
+              </a>
+            </div>
+          </div>
+
+          {/* Mail Group */}
+          <div className="flex items-center gap-[12px]">
+            <div className="w-[24px] flex justify-center">
+              <Mail className="w-6 h-6 text-black/50" strokeWidth={2} />
+            </div>
+            <a
+              href="mailto:info@promacprinting.com"
+              className="font-inter font-normal text-[16px] text-black/50 hover:text-red-500 transition-colors underline"
+            >
+              info@promacprinting.com
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* =================================================================
+          3. DESKTOP VERSION (>= 1280px) - GIỮ NGUYÊN CODE CŨ
+          - Thay đổi: hidden lg:block -> hidden xl:block
           ================================================================= */}
       <section
-        className="hidden lg:block relative"
+        className="hidden xl:block relative mx-auto bg-[#FFF5F6] rounded-[30px]"
         style={{
           width: "1379px",
           height: "451px",
-          backgroundColor: "#FFF5F6",
-          borderRadius: "30px",
         }}
       >
         {/* Title Section */}
@@ -109,13 +175,13 @@ export const NewsHero: React.FC = () => {
 
         {/* 2. CTA Button (Frame 12643) */}
         <button
-          className="ml-[530px] mt-[32px] flex flex-col items-center justify-center bg-[#FF0000] text-[#F5F5F5] transition-transform hover:scale-105 active:scale-95"
+          className="ml-[530px] mt-[32px] flex flex-col items-center justify-center bg-[#FF0000] text-[#F5F5F5] transition-transform hover:scale-105 active:scale-95 mx-auto"
           style={{
             width: "309.82px",
             height: "70.53px",
             borderRadius: "20px",
             border: "1px solid #FFF5F6",
-            boxShadow: "0px 0px 14px #FF0000", // Hiệu ứng glow đỏ chuẩn Figma
+            boxShadow: "0px 0px 14px #FF0000",
             gap: "12px",
           }}
         >
@@ -140,7 +206,7 @@ export const NewsHero: React.FC = () => {
             height: "0px",
             border: "1px solid rgba(0, 0, 0, 0.5)",
             left: "50%",
-            transform: "translateX(-50%)", // Căn giữa divider
+            transform: "translateX(-50%)",
           }}
         />
 
@@ -177,7 +243,7 @@ export const NewsHero: React.FC = () => {
             </div>
             <a
               href="mailto:info@promacprinting.com"
-              className="font-normal text-black/50 hover:text-[#FF0000] transition-colors text-[16px] leading-[19px]"
+              className="font-normal text-black/50 hover:text-[#FF0000] transition-colors text-[16px] leading-[19px] underline"
               style={{ fontFamily: "Inter" }}
             >
               info@promacprinting.com

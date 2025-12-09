@@ -2,6 +2,7 @@ import React from "react";
 import { DecalHero } from "../../features/coreservices/decal/DecalHero";
 import { DecalContent } from "../../features/coreservices/decal/DecalContent";
 import { DecalPortfolio } from "../../features/coreservices/decal/DecalPortfolio";
+import { ContactBanner } from "../../components/layout/ContactBanner";
 
 export const DecalPage: React.FC = () => {
   return (
@@ -9,6 +10,7 @@ export const DecalPage: React.FC = () => {
       <DecalHero />
       <DecalContent />
       <DecalPortfolio />
+      <ContactBanner />
     </div>
   );
 };

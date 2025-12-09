@@ -1,3 +1,4 @@
+// src/components/layout/ContactBanner.tsx
 import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 
@@ -54,23 +55,24 @@ export const ContactBanner = () => {
   return (
     <section className="w-full flex flex-col items-center overflow-hidden bg-white ">
       {/* =================================================================
-          1. MOBILE VERSION (< 1024px) - THEO FIGMA MỚI
+          1. MOBILE & TABLET VERSION (< 1024px)
+          - Tablet: Tăng kích thước chữ và container
           ================================================================= */}
-      <div className="flex flex-col items-center w-full lg:hidden  pb-[100px] relative overflow-hidden h-[700px] mt-[-20px]">
+      <div className="flex flex-col items-center w-full lg:hidden pb-[100px] relative overflow-hidden h-[700px] mt-[-20px]">
         {/* TEXT CONTENT */}
         <div className="flex flex-col items-center text-center w-full px-5 mt-[20px] mb-[40px] z-10 relative">
-          <h2 className="font-inter font-bold text-[28px] leading-[34px] text-black mb-[24px] max-w-[326px]">
+          <h2 className="font-inter text-[28px] md:text-[40px] leading-[34px] md:leading-[48px] text-black mb-[24px] max-w-[326px] md:max-w-[600px]">
             Hãy liên hệ với chúng tôi để được hỗ trợ
           </h2>
 
-          <p className="font-inter font-medium text-[16px] leading-[25px] text-[#64607D] tracking-[-0.02em] max-w-[326px]">
+          <p className="font-inter font-medium text-[16px] md:text-[18px] leading-[25px] md:leading-[28px] text-[#64607D] tracking-[-0.02em] max-w-[326px] md:max-w-[600px]">
             Yet bed any for travelling assistance indulgence unpleasing. Not
             thoughts all exercise blessing. Indulgence way everything joy.
           </p>
         </div>
 
         {/* BUTTONS GROUP (Z-Index 10) */}
-        <div className="flex flex-col gap-[24px] z-10 relative">
+        <div className="flex flex-col md:flex-row gap-[24px] z-10 relative">
           <Link to="/bao-gia">
             <button className="flex items-center justify-center w-[156px] h-[45px] bg-[#FF0000] rounded-[20px] shadow-[0px_0px_14px_#FF0000] active:scale-95 transition-transform">
               <span className="font-inter font-bold text-[16px] text-[#F5F5F5]">
@@ -89,13 +91,12 @@ export const ContactBanner = () => {
         </div>
 
         {/* --- BACKGROUND IMAGES CONTAINER (Z-Index 0) --- */}
-        {/* Figma: Left -255px, Top (tương đối dưới nút) */}
         <div
-          className="absolute left-[-255px] bottom-[0px] w-[2030px] h-[258px] pointer-events-none opacity-80 "
+          className="absolute left-[-255px] md:left-0 bottom-[0px] w-[2030px] md:w-full h-[258px] pointer-events-none opacity-80 flex justify-center"
           style={{ zIndex: 0 }}
         >
-          {/* ROW 1 (Top 0) */}
-          <div className="absolute top-0 left-[85px] w-[2030px] h-[115px]">
+          {/* Tablet: Dùng ảnh tĩnh đơn giản hơn hoặc giữ nguyên layout mobile nhưng căn giữa */}
+          <div className="absolute top-0 left-[85px] md:left-1/2 md:-translate-x-1/2 w-[2030px] h-[115px]">
             {/* Ảnh 1 */}
             <div
               className="absolute top-0 w-[340px] h-[110px] bg-gray-200 rounded-[512px] bg-cover bg-center"
@@ -131,7 +132,7 @@ export const ContactBanner = () => {
           </div>
 
           {/* ROW 2 (Top 138) */}
-          <div className="absolute top-[138px] left-[-130px] w-[2030px] h-[120px]">
+          <div className="absolute top-[138px] left-[-130px] md:left-1/2 md:-translate-x-1/2 w-[2030px] h-[120px]">
             {/* Ảnh 5 */}
             <div
               className="absolute top-[-0.39px] w-[343px] h-[111px] bg-gray-200 rounded-[512px] bg-cover bg-center"
@@ -169,15 +170,16 @@ export const ContactBanner = () => {
       </div>
 
       {/* =================================================================
-          2. DESKTOP VERSION (>= 1024px) - GIỮ NGUYÊN CODE CŨ
+          2. DESKTOP & IPAD PRO VERSION (>= 1024px)
+          - Sử dụng w-full để hỗ trợ màn hình iPad Pro mà không bị tràn
           ================================================================= */}
-      <div className="hidden lg:flex w-full pt-[31px] pb-20 flex-col items-center relative z-10">
+      <div className="hidden lg:flex w-full pt-[31px] pb-20 flex-col items-center relative z-10 overflow-hidden">
         {/* Title Section */}
         <div className="flex flex-col items-center gap-2 mb-9 px-4">
-          <h2 className="text-[56px] font-normal leading-[115px] tracking-[-5px] text-center text-black">
+          <h2 className="text-[40px] md:text-[56px] font-normal leading-[115%] tracking-[-2px] md:tracking-[-5px] text-center text-black">
             Hãy liên hệ với chúng tôi để được hỗ trợ
           </h2>
-          <p className="text-[20px] font-normal leading-[31px] text-center text-black/65 max-w-[683px]">
+          <p className="text-[18px] md:text-[20px] font-normal leading-[31px] text-center text-black/65 max-w-[683px]">
             A webinar platform designed for marketers to host jaw-dropping
             experiences that drive revenue.
           </p>
@@ -203,7 +205,7 @@ export const ContactBanner = () => {
           </Link>
         </div>
 
-        {/* KHUNG SLIDER KÉO THẢ */}
+        {/* KHUNG SLIDER KÉO THẢ (Full Width) */}
         <div
           className={`w-full relative h-[360px] !overflow-hidden select-none ${
             isDown ? "cursor-grabbing" : "cursor-grab"
@@ -216,12 +218,13 @@ export const ContactBanner = () => {
           onMouseMove={handleMouseMove}
         >
           <div
-            className="absolute top-0 left-0 h-full flex flex-col justify-between"
+            className="absolute top-0 left-0 h-full flex flex-col justify-between w-full"
             style={{
               transform: `translateX(${currentTranslate}px)`,
-              width: `${ITEM_WIDTH * DISPLAY_IMAGES.length}px`,
+              width: `${ITEM_WIDTH * DISPLAY_IMAGES.length}px`, // Chiều rộng tổng của slider
             }}
           >
+            {/* Hàng 1 */}
             <div className="flex gap-[24px] pl-[calc(50vw-245px)]">
               {DISPLAY_IMAGES.map((imgSrc, idx) => (
                 <div
@@ -234,6 +237,7 @@ export const ContactBanner = () => {
                 />
               ))}
             </div>
+            {/* Hàng 2 */}
             <div className="flex gap-[24px] pl-[calc(50vw-245px)] ml-[245px]">
               {DISPLAY_IMAGES.map((imgSrc, idx) => (
                 <div

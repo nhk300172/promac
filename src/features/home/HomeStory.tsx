@@ -5,15 +5,14 @@ import mainVisual from "../../assets/main-visual.jpg";
 
 export const HomeStory = () => {
   return (
-    <div className="w-full flex justify-center mt-[20px] lg:mt-[0]">
+    <div className="w-full flex justify-center mt-[20px] xl:mt-[0]">
       {/* =================================================================
-          1. MOBILE VERSION (< 1024px) - THEO HÌNH ẢNH THỰC TẾ
-          - Text màu đen, chỉ từ PROMAC màu đỏ.
+          1. MOBILE VERSION (< 768px)
+          - Giữ nguyên logic cũ: Flex cột, max-w-[375px]
           ================================================================= */}
-      <section className="flex flex-col items-center bg-[#F5F5F5] rounded-[40px] px-[23px] py-[55px] w-full max-w-[375px] mx-auto lg:hidden">
-        {/* Container nội dung */}
+      <section className="flex flex-col items-center bg-[#F5F5F5] rounded-[40px] px-[23px] py-[55px] w-full max-w-[375px] mx-auto md:hidden">
         <div className="flex flex-col items-center gap-[50px] w-full">
-          {/* 1. IMAGE */}
+          {/* IMAGE */}
           <div className="w-full h-[242px] bg-gray-300 rounded-[10px] flex items-center justify-center overflow-hidden shrink-0">
             <img
               src={mainVisual}
@@ -22,15 +21,12 @@ export const HomeStory = () => {
             />
           </div>
 
-          {/* 2. TEXT CONTENT */}
+          {/* TEXT CONTENT */}
           <div className="flex flex-col items-center gap-[32px] w-full">
-            {/* Title & Desc Group */}
             <div className="flex flex-col items-center gap-[24px] w-full ">
               <h2 className="font-inter font-bold text-[28px] leading-[34px] text-[#FF0000] text-center">
                 Câu chuyện của chúng tôi
               </h2>
-
-              {/* SỬA MÀU TEXT: Đen (#000000), PROMAC Đỏ (#FF0000) */}
               <p className="font-inter font-normal text-[15px] leading-[18px] text-[#000000] ">
                 <span className="text-[#FF0000] font-bold">PROMAC</span> đã và
                 đang đáp ứng nhu cầu in ấn của khu vực Amravati và các vùng lân
@@ -46,8 +42,6 @@ export const HomeStory = () => {
                 dịch vụ in ấn chuyên nghiệp.
               </p>
             </div>
-
-            {/* Button */}
             <button className="flex items-center justify-center gap-2 w-[171px] h-[45px] bg-[#FF0000] rounded-[20px] shadow-[0px_0px_14px_#FF0000] active:scale-95 transition-transform">
               <span className="font-inter font-bold text-[16px] text-[#F5F5F5]">
                 Tìm hiểu thêm
@@ -59,10 +53,49 @@ export const HomeStory = () => {
       </section>
 
       {/* =================================================================
-          2. DESKTOP VERSION (>= 1024px) - GIỮ NGUYÊN CODE CŨ
+          2. TABLET & IPAD PRO VERSION (768px -> 1279px) - MỚI
+          - Layout ngang (Flex Row) giống Desktop nhưng linh hoạt (Fluid)
+          - Không dùng Absolute để tránh vỡ layout khi co giãn
+          ================================================================= */}
+      <section className="hidden md:flex xl:hidden flex-row items-center bg-[#F5F5F5] rounded-[30px] p-[40px] w-full max-w-[720px] lg:max-w-[960px] mx-auto gap-[40px]">
+        {/* IMAGE LEFT */}
+        <div className="w-[45%] h-[350px] lg:h-[400px] bg-gray-300 rounded-[10px] overflow-hidden shrink-0">
+          <img
+            src={mainVisual}
+            alt="Promac Story Tablet"
+            className="w-full h-full object-cover"
+          />
+        </div>
+
+        {/* CONTENT RIGHT */}
+        <div className="flex flex-col items-start w-[55%]">
+          <h2 className="font-inter font-bold text-[#FF0000] text-[24px] lg:text-[28px] mb-[24px] uppercase">
+            CÂU CHUYỆN CỦA CHÚNG TÔI
+          </h2>
+          <p className="font-inter font-normal text-[#000000] text-[14px] lg:text-[16px] leading-[1.5] mb-[32px] text-justify">
+            <span className="text-[#FF0000] font-bold">PROMAC</span> đã và đang
+            đáp ứng nhu cầu in ấn của khu vực Amravati và các vùng lân cận với
+            sự tận tâm và chuyên nghiệp.
+            <br />
+            <br />
+            Cam kết của chúng tôi về chất lượng, giao hàng đúng hẹn và sự hài
+            lòng của khách hàng đã giúp chúng tôi trở thành lựa chọn hàng đầu.
+          </p>
+          <button className="flex items-center justify-center gap-2 bg-[#FF0000] rounded-[20px] px-6 py-3 shadow-lg hover:scale-105 transition-transform">
+            <span className="font-inter font-bold text-[16px] text-[#F5F5F5]">
+              Tìm hiểu thêm
+            </span>
+            <ArrowRight size={20} className="text-white" strokeWidth={3} />
+          </button>
+        </div>
+      </section>
+
+      {/* =================================================================
+          3. DESKTOP VERSION (>= 1280px) - GIỮ NGUYÊN 100% CODE CŨ
+          - Chỉ đổi lg:block thành xl:block để tránh trùng lặp với iPad Pro
           ================================================================= */}
       <section
-        className="hidden lg:block relative"
+        className="hidden xl:block relative" // <--- Đổi lg:block thành xl:block
         style={{
           width: "1379px",
           height: "626px",

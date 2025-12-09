@@ -1,33 +1,32 @@
-// src/features/coreservices/hardbox/HardBoxPortfolio.tsx
+// src/features/otherservices/variable/VariableScratchPortfolio.tsx
 import React from "react";
 
 // --- IMPORT ẢNH ---
-// Bạn nhớ thêm ảnh vào folder này nhé
 import project1 from "../../../assets/printingservices/project1.png";
 import project2 from "../../../assets/printingservices/project2.png";
 import project3 from "../../../assets/printingservices/project3.png";
 
 export const VariableScratchPortfolio: React.FC = () => {
   return (
-    <section className="w-full flex justify-center pb-[100px]">
-      <div className="flex flex-col items-center w-[1473px]">
-        {/* 1. HEADER SECTION */}
-        <div className="text-center mb-[100px] max-w-[1354px]">
-          <h2 className="font-inter font-semibold text-[56px] leading-[60px] text-black tracking-[-0.03em] mb-[29px]">
-            Một số mẫu thẻ cào biến đổi Team Promac đã thực hiện .
+    <section className="w-full flex justify-center pb-[60px] lg:pb-[100px] px-4 xl:px-0">
+      <div className="flex flex-col items-center w-full max-w-[1473px]">
+        {/* 1. HEADER SECTION (Responsive Text Size) */}
+        <div className="text-center mb-[60px] lg:mb-[100px] max-w-[1354px]">
+          <h2 className="font-inter font-semibold text-[32px] md:text-[40px] xl:text-[56px] leading-[1.2] xl:leading-[60px] text-black tracking-[-0.03em] mb-[20px] xl:mb-[29px]">
+            Một số mẫu thẻ biến đổi chữ Team Promac đã thực hiện .
           </h2>
-          <p className="font-inter font-normal text-[20px] leading-[31px] text-black/65 text-center mx-auto max-w-[683px]">
+          <p className="font-inter font-normal text-[16px] md:text-[18px] xl:text-[20px] leading-[1.5] xl:leading-[31px] text-black/65 text-center mx-auto max-w-[683px]">
             A webinar platform designed for marketers to host jaw-dropping
             experiences that drive revenue.
           </p>
         </div>
 
-        {/* 2. PROJECTS LIST (Zig-Zag Layout) */}
-        <div className="flex flex-col gap-[70px] w-full mb-[100px]">
+        {/* 2. PROJECTS LIST (Responsive Layout) */}
+        <div className="flex flex-col gap-[60px] lg:gap-[70px] w-full mb-[40px] lg:mb-[50px]">
           {/* ITEM 1: Ảnh Trái - Chữ Phải */}
-          <div className="flex items-center justify-between w-full">
-            {/* Ảnh */}
-            <div className="w-[727px] h-[518px] bg-gray-200 overflow-hidden">
+          <div className="flex flex-col lg:flex-row items-center justify-between w-full gap-[30px] lg:gap-0">
+            {/* Ảnh (Fluid Width on Tablet/Mobile) */}
+            <div className="w-full lg:w-[48%] xl:w-[727px] aspect-[727/518] bg-gray-200 overflow-hidden rounded-[20px] lg:rounded-none">
               <img
                 src={project1}
                 alt="Branding Design"
@@ -35,11 +34,11 @@ export const VariableScratchPortfolio: React.FC = () => {
               />
             </div>
             {/* Text */}
-            <div className="w-[551px] flex flex-col gap-[35px]">
-              <h3 className="font-manrope font-bold text-[48px] leading-[54px] tracking-[-0.025em] text-black">
+            <div className="w-full lg:w-[45%] xl:w-[551px] flex flex-col gap-[16px] lg:gap-[35px] text-center lg:text-left">
+              <h3 className="font-manrope font-bold text-[32px] lg:text-[48px] leading-[1.2] tracking-[-0.025em] text-black">
                 Branding Design
               </h3>
-              <p className="font-manrope font-normal text-[22px] leading-[36px] tracking-[-0.025em] text-[#A4A4A4]">
+              <p className="font-manrope font-normal text-[16px] lg:text-[22px] leading-[1.6] tracking-[-0.025em] text-[#A4A4A4]">
                 Build a unique website Teamollo.Webflow template. Build a unique
                 website Teamollo.Webflow template. Build a unique website
                 Teamollo.Webflow template
@@ -47,10 +46,10 @@ export const VariableScratchPortfolio: React.FC = () => {
             </div>
           </div>
 
-          {/* ITEM 2: Chữ Trái - Ảnh Phải (Đảo ngược) */}
-          <div className="flex items-center justify-between w-full flex-row-reverse">
+          {/* ITEM 2: Chữ Trái - Ảnh Phải (Đảo ngược trên Desktop, Xuôi trên Mobile) */}
+          <div className="flex flex-col lg:flex-row-reverse items-center justify-between w-full gap-[30px] lg:gap-0">
             {/* Ảnh */}
-            <div className="w-[686px] h-[516px] bg-gray-200 overflow-hidden">
+            <div className="w-full lg:w-[48%] xl:w-[686px] aspect-[686/516] bg-gray-200 overflow-hidden rounded-[20px] lg:rounded-none">
               <img
                 src={project2}
                 alt="Packaging Design"
@@ -58,11 +57,11 @@ export const VariableScratchPortfolio: React.FC = () => {
               />
             </div>
             {/* Text */}
-            <div className="w-[687px] flex flex-col gap-[35px]">
-              <h3 className="font-manrope font-bold text-[48px] leading-[54px] tracking-[-0.025em] text-black">
+            <div className="w-full lg:w-[45%] xl:w-[687px] flex flex-col gap-[16px] lg:gap-[35px] text-center lg:text-left">
+              <h3 className="font-manrope font-bold text-[32px] lg:text-[48px] leading-[1.2] tracking-[-0.025em] text-black">
                 Packaging Design
               </h3>
-              <p className="font-manrope font-normal text-[22px] leading-[36px] tracking-[-0.025em] text-[#A4A4A4]">
+              <p className="font-manrope font-normal text-[16px] lg:text-[22px] leading-[1.6] tracking-[-0.025em] text-[#A4A4A4]">
                 Build a unique website Teamollo.Webflow template. Build a unique
                 website Teamollo.Webflow template. Build a unique website
                 Teamollo.Webflow template
@@ -71,9 +70,9 @@ export const VariableScratchPortfolio: React.FC = () => {
           </div>
 
           {/* ITEM 3: Ảnh Trái - Chữ Phải */}
-          <div className="flex items-center justify-between w-full">
+          <div className="flex flex-col lg:flex-row items-center justify-between w-full gap-[30px] lg:gap-0">
             {/* Ảnh */}
-            <div className="w-[727px] h-[575px] bg-gray-200 overflow-hidden">
+            <div className="w-full lg:w-[48%] xl:w-[727px] aspect-[727/575] bg-gray-200 overflow-hidden rounded-[20px] lg:rounded-none">
               <img
                 src={project3}
                 alt="Braning Identity"
@@ -81,11 +80,11 @@ export const VariableScratchPortfolio: React.FC = () => {
               />
             </div>
             {/* Text */}
-            <div className="w-[551px] flex flex-col gap-[35px]">
-              <h3 className="font-manrope font-bold text-[48px] leading-[54px] tracking-[-0.025em] text-black">
+            <div className="w-full lg:w-[45%] xl:w-[551px] flex flex-col gap-[16px] lg:gap-[35px] text-center lg:text-left">
+              <h3 className="font-manrope font-bold text-[32px] lg:text-[48px] leading-[1.2] tracking-[-0.025em] text-black">
                 Braning Identity
               </h3>
-              <p className="font-manrope font-normal text-[22px] leading-[36px] tracking-[-0.025em] text-[#A4A4A4]">
+              <p className="font-manrope font-normal text-[16px] lg:text-[22px] leading-[1.6] tracking-[-0.025em] text-[#A4A4A4]">
                 Build a unique website Teamollo.Webflow template. Build a unique
                 website Teamollo.Webflow template. Build a unique website
                 Teamollo.Webflow template
@@ -95,7 +94,8 @@ export const VariableScratchPortfolio: React.FC = () => {
         </div>
 
         {/* 3. BUTTON "Xem tất cả" */}
-        <button className="w-[162px] h-[47px] bg-[#FF0000] rounded-[47px] flex items-center justify-center hover:bg-red-700 transition-colors">
+        {/* FIX: Thay transition-colors + transition-transform thành transition-all */}
+        <button className="w-[162px] h-[47px] bg-[#FF0000] rounded-[47px] flex items-center justify-center hover:bg-red-700 shadow-lg active:scale-95 transition-all duration-300">
           <span className="font-inter font-semibold text-[16px] leading-[30px] tracking-[-0.02em] text-white">
             Xem tất cả
           </span>

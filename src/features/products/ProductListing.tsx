@@ -1,4 +1,4 @@
-//src/features/products/ProductListing.tsx
+// src/features/products/ProductListing.tsx
 import React, { useState } from "react";
 import { ChevronLeft, ChevronRight, Search } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -12,12 +12,11 @@ import product3 from "../../assets/products/product3.png";
 // Danh sách ảnh để lặp
 const productImages = [product1, product2, product3];
 
-// 1. DỮ LIỆU MẪU (Tăng lên 60 sản phẩm để đủ 5 trang)
+// 1. DỮ LIỆU MẪU (60 sản phẩm)
 const PRODUCT_DATA = Array.from({ length: 60 }).map((_, i) => ({
   id: i + 1,
-  title: `Sản phẩm số ${i + 1}: Our SaaS Product Just Launched!`, // Thêm số để dễ phân biệt
+  title: `Sản phẩm số ${i + 1}: Our SaaS Product Just Launched!`,
   slug: `san-pham-so-${i + 1}`,
-  // Lấy ảnh theo vòng lặp 1, 2, 3...
   image: productImages[i % productImages.length],
   oldPrice: "45.000đ",
   newPrice: "39.000đ/cái",
@@ -58,8 +57,9 @@ export const ProductListing: React.FC = () => {
     window.scrollTo(0, 0);
   };
 
+  // Style nút phân trang responsive
   const navBtnStyle = (disabled: boolean) => `
-    flex items-center justify-center gap-[4px] h-[40px] rounded-[10px] transition-all border
+    flex items-center justify-center gap-[4px] h-[36px] md:h-[40px] rounded-[10px] transition-all border px-3
     ${
       disabled
         ? "bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed"
@@ -68,12 +68,9 @@ export const ProductListing: React.FC = () => {
   `;
 
   return (
-    <section className="w-full flex flex-col items-center">
-      {/* =================================================================
-          1. MOBILE VERSION (< 1024px)
-          ================================================================= */}
-      <div className="flex flex-col items-center w-full lg:hidden px-[20px] pt-[40px] pb-[60px]">
-        {/* HEADER MOBILE */}
+    <section className="w-full flex flex-col items-center px-4 xl:px-0">
+      {/* 1. MOBILE LIST (< 768px) */}
+      <div className="flex flex-col items-center w-full md:hidden px-[20px] pt-[40px] pb-[40px]">
         <div className="flex flex-col items-center text-center mb-[40px] w-full max-w-[326px]">
           <h2 className="font-inter font-bold text-[28px] leading-[34px] text-[#000000] mb-[24px]">
             Danh mục sản phẩm
@@ -84,9 +81,9 @@ export const ProductListing: React.FC = () => {
           </p>
         </div>
 
-        {/* SEARCH BAR MOBILE */}
+        {/* Search Bar Mobile */}
         <div className="w-[322px] h-[56px] relative mb-[40px]">
-          <div className="w-full h-full border border-[#4D80C4] rounded-[6px] bg-white flex items-center pl-[20px] pr-[60px]">
+          <div className="w-full h-full border border-[#4D80C4] rounded-[6px] bg-white flex items-center pl-[12px] pr-[60px]">
             <input
               type="text"
               placeholder="Chọn chủ đề hoặc gõ từ khóa"
@@ -99,15 +96,14 @@ export const ProductListing: React.FC = () => {
           </button>
         </div>
 
-        {/* PRODUCT LIST MOBILE */}
-        <div className="flex flex-col gap-[40px] w-full items-center mb-[40px]">
+        {/* List Items */}
+        <div className="flex flex-col gap-[40px] w-full items-center mb-[20px]">
           {currentProducts.map((item) => (
             <div
               key={item.id}
               onClick={() => goToDetail(item.slug)}
               className="flex flex-col w-[326px] cursor-pointer group"
             >
-              {/* Image */}
               <div className="w-full h-[230px] bg-[#F2F2F2] rounded-[4px] relative overflow-hidden mb-[8px]">
                 <img
                   src={item.image}
@@ -115,13 +111,9 @@ export const ProductListing: React.FC = () => {
                   className="w-full h-full object-cover"
                 />
               </div>
-
-              {/* Title */}
               <h3 className="font-inter font-semibold text-[18px] leading-[22px] text-[#000000] tracking-[-0.04em] mb-[8px] line-clamp-2">
                 {item.title}
               </h3>
-
-              {/* Price */}
               <div className="flex items-center gap-[5px]">
                 <span className="font-montserrat font-bold text-[16px] text-[#BDBDBD] line-through decoration-transparent">
                   {item.oldPrice}
@@ -134,19 +126,55 @@ export const ProductListing: React.FC = () => {
           ))}
         </div>
 
-        {/* BUTTON MOBILE */}
-        <button className="flex items-center justify-center bg-[#FF0000] rounded-[47px] w-[132px] h-[45px] shadow-lg active:scale-95 transition-transform">
-          <span className="font-inter font-semibold text-[16px] text-white tracking-[-0.02em]">
-            Xem thêm
-          </span>
-        </button>
+        {/* ĐÃ XÓA NÚT "XEM THÊM" */}
       </div>
 
-      {/* =================================================================
-          2. DESKTOP VERSION (>= 1024px)
-          ================================================================= */}
-      <div className="hidden lg:flex flex-col items-center w-full">
-        {/* TITLE */}
+      {/* 2. TABLET LIST (768px - 1280px) */}
+      <div className="hidden md:flex xl:hidden flex-col items-center w-full max-w-[1000px] mb-[40px]">
+        <div className="flex flex-col items-center text-center mt-[60px] mb-[60px] w-full max-w-[800px]">
+          <h2 className="font-bold text-[#0E0E0E] text-[40px] leading-[140%]">
+            Danh mục sản phẩm
+          </h2>
+          <p className="font-semibold text-[#000000] mt-[20px] text-[18px] leading-[24px]">
+            Khám phá danh mục sản phẩm đa dạng của chúng tôi, thể hiện chất
+            lượng in ấn vượt trội.
+          </p>
+        </div>
+        <div className="mb-[60px] w-full flex justify-center">
+          <ProjectSearchFilter onSearch={handleSearchFilter} />
+        </div>
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-[30px] w-full">
+          {currentProducts.map((item) => (
+            <div
+              key={item.id}
+              onClick={() => goToDetail(item.slug)}
+              className="flex flex-col w-full group cursor-pointer"
+            >
+              <div className="w-full aspect-[380/266] bg-[#F2F2F2] rounded-[4px] relative overflow-hidden mb-[16px]">
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <h3 className="font-inter font-medium text-[#000000] text-[20px] leading-[1.3] mb-[12px] group-hover:text-[#FF0000] transition-colors line-clamp-2 min-h-[52px]">
+                {item.title}
+              </h3>
+              <div className="flex items-center gap-[5px]">
+                <span className="font-montserrat font-bold text-[16px] text-[#BDBDBD] line-through decoration-transparent">
+                  {item.oldPrice}
+                </span>
+                <span className="font-montserrat font-bold text-[18px] text-[#FF0000]">
+                  {item.newPrice}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* 3. DESKTOP LIST (>= 1280px) */}
+      <div className="hidden xl:flex flex-col items-center w-full">
         <div className="flex flex-col items-center text-center mt-[100px] mb-[80px] w-[1074px]">
           <h2
             className="font-bold text-[#0E0E0E]"
@@ -170,162 +198,128 @@ export const ProductListing: React.FC = () => {
             lượng in ấn vượt trội trên nhiều lĩnh vực và ngành nghề khác nhau.
           </p>
         </div>
-
-        {/* SEARCH */}
-        <div className="mb-[100px]">
+        <div className="mb-[100px] w-full flex justify-center">
           <ProjectSearchFilter onSearch={handleSearchFilter} />
         </div>
 
-        {/* GRID */}
         <div
-          className="grid grid-cols-3 mb-[100px]"
+          className="grid grid-cols-3 mb-[60px]"
           style={{ width: "1318px", columnGap: "22px", rowGap: "50px" }}
         >
-          {currentProducts.length > 0 ? (
-            currentProducts.map((item) => (
-              <div
-                key={item.id}
-                className="flex flex-col w-[380px] cursor-pointer group"
-                onClick={() => goToDetail(item.slug)}
-                style={{ gap: "24px", height: "406px" }}
-              >
-                {/* 1. Image */}
-                <div className="w-[380px] h-[266px] bg-[#F2F2F2] rounded-[4px] relative overflow-hidden shrink-0">
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-
-                {/* 2. Title */}
-                <div
-                  style={{
-                    width: "380px",
-                    height: "58px",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "flex-start",
-                    justifyContent: "flex-start",
-                    gap: "12px",
-                  }}
-                >
-                  <h3
-                    className="group-hover:text-[#FF0000] transition-colors line-clamp-2"
-                    style={{
-                      fontFamily: "Inter",
-                      fontWeight: 500,
-                      fontSize: "24px",
-                      lineHeight: "29px",
-                      letterSpacing: "-0.04em",
-                      color: "#000000",
-                      width: "380px",
-                      height: "58px",
-                    }}
-                  >
-                    {item.title}
-                  </h3>
-                </div>
-
-                {/* 3. Prices */}
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "flex-start",
-                    padding: "5px 3px",
-                    gap: "5px",
-                    width: "240px",
-                    height: "34px",
-                  }}
-                >
-                  <span
-                    style={{
-                      width: "106px",
-                      height: "24px",
-                      fontFamily: "Montserrat",
-                      fontWeight: 700,
-                      fontSize: "20px",
-                      lineHeight: "24px",
-                      textAlign: "center",
-                      letterSpacing: "0.1px",
-                      color: "#BDBDBD",
-                      textDecoration: "line-through",
-                    }}
-                  >
-                    {item.oldPrice}
-                  </span>
-                  <span
-                    style={{
-                      width: "123px",
-                      height: "24px",
-                      fontFamily: "Montserrat",
-                      fontWeight: 700,
-                      fontSize: "20px",
-                      lineHeight: "24px",
-                      textAlign: "center",
-                      letterSpacing: "0.1px",
-                      color: "#FF0000",
-                    }}
-                  >
-                    {item.newPrice}
-                  </span>
-                </div>
+          {currentProducts.map((item) => (
+            <div
+              key={item.id}
+              className="flex flex-col w-[380px] cursor-pointer group"
+              onClick={() => goToDetail(item.slug)}
+              style={{ gap: "24px", height: "406px" }}
+            >
+              <div className="w-[380px] h-[266px] bg-[#F2F2F2] rounded-[4px] relative overflow-hidden shrink-0">
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
               </div>
-            ))
-          ) : (
-            <div className="col-span-3 text-center text-gray-500 text-xl py-10">
-              Không tìm thấy sản phẩm nào.
+              <div
+                style={{
+                  width: "380px",
+                  height: "58px",
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                <h3
+                  className="group-hover:text-[#FF0000] transition-colors line-clamp-2"
+                  style={{
+                    fontFamily: "Inter",
+                    fontWeight: 500,
+                    fontSize: "24px",
+                    lineHeight: "29px",
+                  }}
+                >
+                  {item.title}
+                </h3>
+              </div>
+              <div
+                style={{ display: "flex", flexDirection: "row", gap: "5px" }}
+              >
+                <span
+                  style={{
+                    fontFamily: "Montserrat",
+                    fontWeight: 700,
+                    fontSize: "20px",
+                    color: "#BDBDBD",
+                    textDecoration: "line-through",
+                  }}
+                >
+                  {item.oldPrice}
+                </span>
+                <span
+                  style={{
+                    fontFamily: "Montserrat",
+                    fontWeight: 700,
+                    fontSize: "20px",
+                    color: "#FF0000",
+                  }}
+                >
+                  {item.newPrice}
+                </span>
+              </div>
             </div>
-          )}
+          ))}
         </div>
-
-        {/* PAGINATION */}
-        {totalPages > 1 && (
-          <div className="flex items-center gap-[32px] mb-[100px]">
-            <button
-              onClick={handlePrev}
-              disabled={currentPage === 1}
-              className={`${navBtnStyle(currentPage === 1)} w-[115px]`}
-            >
-              <ChevronLeft className="w-[16px] h-[16px]" />
-              <span className="font-inter font-normal text-[14px]">
-                Previous
-              </span>
-            </button>
-
-            <div className="flex items-center gap-[10px]">
-              {Array.from({ length: totalPages }).map((_, index) => {
-                const pageNum = index + 1;
-                const isActive = currentPage === pageNum;
-                return (
-                  <button
-                    key={pageNum}
-                    onClick={() => handlePageChange(pageNum)}
-                    className={`w-[40px] h-[40px] flex items-center justify-center border rounded-[10px] font-inter text-[14px] transition-all
-                      ${
-                        isActive
-                          ? "border-[#FF0000] text-[#FF0000] font-bold"
-                          : "border-[#828282] text-[#828282] hover:bg-gray-100"
-                      }`}
-                  >
-                    {pageNum}
-                  </button>
-                );
-              })}
-            </div>
-
-            <button
-              onClick={handleNext}
-              disabled={currentPage === totalPages}
-              className={`${navBtnStyle(currentPage === totalPages)} w-[91px]`}
-            >
-              <span className="font-inter font-normal text-[14px]">Next</span>
-              <ChevronRight className="w-[16px] h-[16px]" />
-            </button>
-          </div>
-        )}
       </div>
+
+      {/* 4. SHARED PAGINATION (HIỂN THỊ CHUNG) */}
+      {totalPages > 1 && (
+        <div className="flex flex-wrap justify-center items-center gap-[15px] md:gap-[32px] mb-[60px] lg:mb-[100px] w-full">
+          <button
+            onClick={handlePrev}
+            disabled={currentPage === 1}
+            className={`${navBtnStyle(
+              currentPage === 1
+            )} w-auto min-w-[40px] md:w-[115px]`}
+          >
+            <ChevronLeft className="w-[16px] h-[16px]" />
+            <span className="hidden md:inline font-inter font-normal text-[14px]">
+              Previous
+            </span>
+          </button>
+
+          <div className="flex items-center gap-[5px] md:gap-[10px]">
+            {Array.from({ length: totalPages }).map((_, index) => {
+              const pageNum = index + 1;
+              const isActive = currentPage === pageNum;
+              return (
+                <button
+                  key={pageNum}
+                  onClick={() => handlePageChange(pageNum)}
+                  className={`w-[36px] h-[36px] md:w-[40px] md:h-[40px] flex items-center justify-center border rounded-[10px] font-inter text-[14px] transition-all ${
+                    isActive
+                      ? "border-[#FF0000] text-[#FF0000] font-bold"
+                      : "border-[#828282] text-[#828282] hover:bg-gray-100"
+                  }`}
+                >
+                  {pageNum}
+                </button>
+              );
+            })}
+          </div>
+
+          <button
+            onClick={handleNext}
+            disabled={currentPage === totalPages}
+            className={`${navBtnStyle(
+              currentPage === totalPages
+            )} w-auto min-w-[40px] md:w-[91px]`}
+          >
+            <span className="hidden md:inline font-inter font-normal text-[14px]">
+              Next
+            </span>
+            <ChevronRight className="w-[16px] h-[16px]" />
+          </button>
+        </div>
+      )}
     </section>
   );
 };

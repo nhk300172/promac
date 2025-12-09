@@ -1,21 +1,25 @@
-//src/features/home/HomeBanner.tsx
+// src/features/home/HomeBanner.tsx
 import { Mail, Phone } from "lucide-react";
-
 import mainVisual from "../../assets/main-visual.jpg";
-// --- QUAN TRỌNG: PHẦN MOBILE MỚI ---
-const MobileBanner = () => {
+
+// --- COMPONENT MOBILE & TABLET (Đã đổi tên cho chuẩn) ---
+const MobileAndTabletBanner = () => {
   return (
-    // Container Mobile (lg:hidden)
-    // Width: 100% (max 375px), Padding: 101px 23px (Figma)
-    <div className="flex flex-col items-center w-full max-w-[375px] bg-[#FFF5F6] rounded-[30px] pt-[40px] pb-[60px] px-[23px] mx-auto lg:hidden">
+    <div
+      className="flex flex-col md:flex-row md:items-center md:justify-between 
+                 w-full max-w-[375px] md:max-w-[740px] lg:max-w-[960px] 
+                 bg-[#FFF5F6] rounded-[30px] 
+                 pt-[40px] pb-[60px] px-[23px] md:p-[40px] 
+                 mx-auto xl:hidden" // <--- THAY ĐỔI: lg:hidden -> xl:hidden (Hiện cho cả iPad Pro)
+    >
       {/* 1. TEXT CONTENT GROUP */}
-      <div className="flex flex-col items-center gap-[32px] w-full mb-[50px]">
+      <div className="flex flex-col items-center md:items-start gap-[32px] w-full mb-[50px] md:mb-0 md:w-1/2">
         {/* Title + Subtitle Group */}
-        <div className="flex flex-col items-center gap-[24px] w-full text-center">
-          <h1 className="font-inter font-bold text-[28px] leading-[34px] text-[#FF0000]">
+        <div className="flex flex-col items-center md:items-start gap-[24px] w-full text-center md:text-left">
+          <h1 className="font-inter font-bold text-[28px] md:text-[36px] lg:text-[48px] leading-[34px] md:leading-[42px] lg:leading-[56px] text-[#FF0000]">
             PROMAC: In ấn Kỹ thuật Cao
           </h1>
-          <p className="font-inter font-semibold text-[16px] leading-[19px] text-[#374151]">
+          <p className="font-inter font-semibold text-[16px] md:text-[18px] lg:text-[20px] leading-[19px] text-[#374151]">
             Đối tác đáng tin cậy của bạn về dịch vụ in ấn chuyên nghiệp tại
             PROMAC
           </p>
@@ -32,27 +36,23 @@ const MobileBanner = () => {
         <div className="w-full h-[1px] bg-black/50 opacity-50 border border-black/50"></div>
 
         {/* Contact Info Group */}
-        <div className="flex flex-col items-start gap-[14px] w-full pl-[10px]">
+        <div className="flex flex-col items-start gap-[14px] w-full pl-[10px] md:pl-0">
           {/* Phone Row */}
           <div className="flex items-center relative h-[21px]">
-            {/* Icon Phone */}
             <div className="w-[20px] h-[21px] flex items-center justify-center mr-[12px]">
               <Phone size={20} className="text-black/50" />
             </div>
-
-            {/* Phone Numbers */}
             <div className="flex items-center gap-[12px]">
               <a
                 href="tel:02822272416"
-                className="font-inter font-normal text-[16px] leading-[19px] text-black/50 underline"
+                className="font-inter font-normal text-[16px] leading-[19px] text-black/50 underline hover:text-[#FF0000]"
               >
                 (028) 22272416
               </a>
-              {/* Vertical Line */}
               <div className="w-[1px] h-[20px] bg-black/50"></div>
               <a
                 href="tel:0906838869"
-                className="font-inter font-normal text-[16px] leading-[19px] text-black/50 underline"
+                className="font-inter font-normal text-[16px] leading-[19px] text-black/50 underline hover:text-[#FF0000]"
               >
                 0906838869
               </a>
@@ -61,14 +61,12 @@ const MobileBanner = () => {
 
           {/* Email Row */}
           <div className="flex items-center relative h-[21px]">
-            {/* Icon Mail */}
             <div className="w-[22px] h-[21px] flex items-center justify-center mr-[12px]">
               <Mail size={20} className="text-black/50" />
             </div>
-
             <a
               href="mailto:info@promacprinting.com"
-              className="font-inter font-normal underline text-[16px] leading-[19px] text-black/50"
+              className="font-inter font-normal underline text-[16px] leading-[19px] text-black/50 hover:text-[#FF0000]"
             >
               info@promacprinting.com
             </a>
@@ -76,15 +74,16 @@ const MobileBanner = () => {
         </div>
       </div>
 
-      {/* 2. IMAGE (Order 1 in Figma - Bottom) */}
+      {/* 2. IMAGE */}
       <div
-        className="w-full h-[242px] bg-gray-200 rounded-[10px] flex items-center justify-center overflow-hidden shadow-sm"
-        style={{ width: "328px" }}
+        className="bg-gray-200 rounded-[10px] flex items-center justify-center overflow-hidden shadow-sm
+                   w-full max-w-[328px] h-[242px]
+                   md:max-w-full md:w-1/2 md:h-[350px]
+                   lg:h-[450px]" // Thêm chiều cao cho iPad Pro
       >
-        {/* Thẻ img */}
         <img
           src={mainVisual}
-          alt="Promac Banner Mobile"
+          alt="Promac Banner"
           className="w-full h-full object-cover"
         />
       </div>
@@ -96,12 +95,12 @@ const MobileBanner = () => {
 export const HomeBanner = () => {
   return (
     <div className="w-full flex justify-center mt-[20px] lg:mt-[41px]">
-      {/* 1. MOBILE BANNER (Tách riêng) */}
-      <MobileBanner />
+      {/* 1. MOBILE & TABLET & IPAD PRO BANNER */}
+      <MobileAndTabletBanner />
 
-      {/* 2. DESKTOP BANNER (Giữ nguyên code cũ 100%) */}
+      {/* 2. DESKTOP BANNER (Chỉ hiện từ xl - 1280px trở lên) */}
       <section
-        className="hidden lg:block relative"
+        className="hidden xl:block relative" // <--- THAY ĐỔI: lg:block -> xl:block
         style={{
           width: "1437px",
           height: "600px",
@@ -109,7 +108,6 @@ export const HomeBanner = () => {
           borderRadius: "30px",
         }}
       >
-        {/* --- DESKTOP CONTENT (Code gốc của bạn) --- */}
         <div
           className="absolute bg-gray-200 flex items-center justify-center overflow-hidden"
           style={{
@@ -200,7 +198,7 @@ export const HomeBanner = () => {
           </div>
           <a
             href="tel:02822272416"
-            className="font-inter font-normal underline ml-[12px]"
+            className="font-inter font-normal underline ml-[12px] hover:text-[#FF0000]"
             style={{ fontSize: "16px", color: "rgba(0,0,0,0.5)" }}
           >
             (028) 22272416
@@ -215,7 +213,7 @@ export const HomeBanner = () => {
           />
           <a
             href="tel:0906838869"
-            className="font-inter font-normal underline"
+            className="font-inter font-normal underline hover:text-[#FF0000]"
             style={{ fontSize: "16px", color: "rgba(0,0,0,0.5)" }}
           >
             0906838869
@@ -238,7 +236,7 @@ export const HomeBanner = () => {
           </div>
           <a
             href="mailto:info@promacprinting.com"
-            className="font-inter font-normal underline ml-[12px]"
+            className="font-inter font-normal underline ml-[12px] hover:text-[#FF0000]"
             style={{ fontSize: "16px", color: "rgba(0,0,0,0.5)" }}
           >
             info@promacprinting.com

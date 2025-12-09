@@ -1,4 +1,4 @@
-//src/features/policies/privacypolicy/PrivacyPolicyContent.tsx
+// src/features/policies/privacypolicy/PrivacyPolicyContent.tsx
 import React from "react";
 
 // --- IMPORT HÌNH ẢNH ---
@@ -77,28 +77,30 @@ const TERMS_DATA = [
 
 export const PrivacyPolicyContent: React.FC = () => {
   return (
-    <section className="w-full flex justify-center pb-[60px] lg:pb-[100px]">
+    <section className="w-full flex justify-center pb-[60px] lg:pb-[100px] px-4 xl:px-0">
       {/* =================================================================
-          1. MOBILE VERSION (< 1024px) - THEO FIGMA DỌC
+          1. MOBILE VERSION (< 768px)
+          - ĐÃ SỬA LỖI: Dùng Flexbox thay vì Absolute cho tiêu đề
           ================================================================= */}
-      <div className="flex flex-col items-center w-full lg:hidden px-[20px]">
+      <div className="flex flex-col items-center w-full md:hidden px-[20px]">
         {/* CONTAINER TRẮNG MOBILE */}
         <div className="flex flex-col items-center bg-white rounded-[50px] shadow-[0px_12px_8px_rgba(0,0,0,0.25)] w-full max-w-[375px] px-[23px] py-[47px]">
           {/* Header Mobile */}
           <h2 className="font-inter font-bold text-[28px] leading-[34px] text-[#000000] text-center mb-[40px]">
-            Bảo Mật Thông Tin
+            Chính Sách Bảo Mật Thông Tin
           </h2>
 
           {/* Terms List Mobile */}
           <div className="flex flex-col gap-[40px] w-full">
             {TERMS_DATA.map((term) => (
-              <div key={term.id} className="flex flex-col w-full items-end">
-                {/* Title Group (Right aligned per Figma) */}
-                <div className="relative w-full h-[45px] mb-[24px]">
+              <div key={term.id} className="flex flex-col w-full">
+                {/* Title Group - SỬA LỖI Ở ĐÂY */}
+                <div className="flex items-start gap-[12px] mb-[16px] w-full">
                   {/* Border Red Left */}
-                  <div className="absolute left-[4px] top-0 w-[3px] h-[31px] bg-[#FF0000] -rotate-1"></div>
-                  {/* Title Right */}
-                  <h3 className="mr-[-30px] absolute right-0 top-[1px] w-[306px] font-roboto font-extrabold text-[18px] leading-[120%] text-[#FF0000] uppercase ">
+                  <div className="w-[3px] h-[24px] bg-[#FF0000] -rotate-1 shrink-0 mt-1"></div>
+
+                  {/* Title Right - Tự động xuống dòng, không bị fix width */}
+                  <h3 className="font-roboto font-extrabold text-[18px] leading-[1.3] text-[#FF0000] uppercase text-left">
                     {term.title}
                   </h3>
                 </div>
@@ -113,7 +115,7 @@ export const PrivacyPolicyContent: React.FC = () => {
                     return (
                       <p
                         key={idx}
-                        className="font-inter font-normal text-[15px] leading-[28px] text-[#000000] mb-[10px] text-left"
+                        className="font-inter font-normal text-[15px] leading-[28px] text-[#000000] mb-[10px] text-justify"
                       >
                         {isBullet ? `• ${displayText}` : displayText}
                       </p>
@@ -138,10 +140,68 @@ export const PrivacyPolicyContent: React.FC = () => {
       </div>
 
       {/* =================================================================
-          2. DESKTOP VERSION (>= 1024px) - GIỮ NGUYÊN CODE CŨ
+          2. TABLET & IPAD PRO VERSION (768px -> 1279px)
+          - Đã có Flexbox, không bị lỗi
+          ================================================================= */}
+      <div className="hidden md:flex xl:hidden relative bg-white flex-col items-center w-full max-w-[1000px] rounded-[50px] shadow-lg p-[40px] lg:p-[60px]">
+        <h2 className="font-inter font-semibold text-center text-[#253D4E] text-[32px] lg:text-[40px] leading-[1.2] mb-[40px]">
+          Chính Sách Bảo Mật Thông Tin
+        </h2>
+
+        <div className="flex flex-col gap-[40px] w-full">
+          {TERMS_DATA.map((term) => (
+            <div key={term.id} className="flex flex-col w-full">
+              <div className="flex items-start gap-[15px] mb-[20px]">
+                <div className="w-[3px] h-[29px] bg-[#FF0000] -rotate-1 mt-1 shrink-0" />
+                <h2 className="font-roboto font-extrabold text-[#FF0000] uppercase text-[20px] lg:text-[24px] leading-[1.2]">
+                  {term.title}
+                </h2>
+              </div>
+
+              <div className="pl-[20px] mb-[20px]">
+                {term.content.map((paragraph, idx) => {
+                  const isBullet = paragraph.trim().startsWith("-");
+                  const displayText = isBullet
+                    ? paragraph.replace("-", "").trim()
+                    : paragraph;
+                  return isBullet ? (
+                    <ul key={idx} className="list-disc pl-8 mb-[10px]">
+                      <li className="font-lexend font-light text-black text-justify text-[16px] lg:text-[18px] leading-[1.6]">
+                        {displayText}
+                      </li>
+                    </ul>
+                  ) : (
+                    <p
+                      key={idx}
+                      className="font-lexend font-light text-black mb-[10px] text-justify text-[16px] lg:text-[18px] leading-[1.6]"
+                    >
+                      {displayText}
+                    </p>
+                  );
+                })}
+              </div>
+
+              {term.image && (
+                <div className="w-full flex justify-center mb-[20px]">
+                  <div className="overflow-hidden flex items-center justify-center w-full max-w-[800px] rounded-[12px] shadow-sm aspect-[2/1]">
+                    <img
+                      src={term.image}
+                      alt={term.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* =================================================================
+          3. DESKTOP VERSION (>= 1280px) - GIỮ NGUYÊN CODE CŨ
           ================================================================= */}
       <div
-        className="hidden lg:flex relative bg-white flex-col items-center"
+        className="hidden xl:flex relative bg-white flex-col items-center"
         style={{
           width: "1376px",
           minHeight: "1000px",

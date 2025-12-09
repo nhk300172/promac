@@ -1,4 +1,4 @@
-//src/features/home/HomeTestimonials.tsx
+// src/features/home/HomeTestimonials.tsx
 import { useState } from "react";
 import { Star, ArrowLeft, ArrowRight } from "lucide-react";
 
@@ -15,7 +15,7 @@ const TESTIMONIALS = [
       "PROMAC là đối tác in ấn tin cậy của chúng tôi hơn 2 năm qua. Chất lượng tuyệt vời và luôn giao hàng đúng hẹn. Rất đáng để giới thiệu!",
     name: "Công ty A",
     position: "Sharma Enterprises",
-    avatar: imgCongTyA, // Sử dụng ảnh thật
+    avatar: imgCongTyA,
   },
   {
     id: 2,
@@ -23,7 +23,7 @@ const TESTIMONIALS = [
       "Dịch vụ tuyệt vời! Họ hiểu rõ yêu cầu của chúng tôi và mang đến chính xác những gì cần thiết. Đội ngũ thiết kế rất sáng tạo và chuyên nghiệp.",
     name: "Khách hàng B",
     position: "Sharma Enterprises",
-    avatar: imgKhachHangB, // Sử dụng ảnh thật
+    avatar: imgKhachHangB,
   },
   {
     id: 3,
@@ -31,7 +31,7 @@ const TESTIMONIALS = [
       "Dịch vụ in ấn tốt nhất tại HCM. Chất lượng tuyệt hảo, giá cả cạnh tranh và chăm sóc khách hàng xuất sắc. Họ đảm nhận mọi khâu từ thiết kế đến giao hàng.",
     name: "Công ty C",
     position: "Sharma Enterprises",
-    avatar: imgCongTyC, // Sử dụng ảnh thật
+    avatar: imgCongTyC,
   },
   {
     id: 4,
@@ -39,7 +39,7 @@ const TESTIMONIALS = [
       "Sản phẩm in ấn sắc nét, màu sắc trung thực. Chúng tôi đã tăng doanh số bán hàng nhờ bao bì sản phẩm đẹp mắt do PROMAC thiết kế.",
     name: "Đối tác D",
     position: "Retail Group",
-    avatar: "bg-yellow-200", // Fallback màu
+    avatar: "bg-yellow-200",
   },
   {
     id: 5,
@@ -47,7 +47,7 @@ const TESTIMONIALS = [
       "Quy trình làm việc chuyên nghiệp, báo giá nhanh chóng. Tôi rất ấn tượng với sự hỗ trợ nhiệt tình của đội ngũ tư vấn viên.",
     name: "Khách hàng E",
     position: "Tech Solutions",
-    avatar: "bg-purple-200", // Fallback màu
+    avatar: "bg-purple-200",
   },
   {
     id: 6,
@@ -55,12 +55,40 @@ const TESTIMONIALS = [
       "Giao hàng cực kỳ nhanh, cứu nguy cho sự kiện của chúng tôi vào phút chót. Cảm ơn PROMAC rất nhiều!",
     name: "Công ty F",
     position: "Event Agency",
-    avatar: "bg-red-200", // Fallback màu
+    avatar: "bg-red-200",
   },
 ];
 
+// --- COMPONENT CON: ICON QUOTE (Tái sử dụng) ---
+const QuoteIcon = ({ id }: { id: number }) => (
+  <svg
+    width="40"
+    height="40"
+    viewBox="0 0 24 24"
+    fill="none"
+    className="opacity-80"
+  >
+    <defs>
+      <linearGradient
+        id={`quote-gradient-${id}`}
+        x1="0"
+        y1="0"
+        x2="100%"
+        y2="0%"
+      >
+        <stop offset="0%" stopColor="#FF7A00" />
+        <stop offset="100%" stopColor="#FF0000" />
+      </linearGradient>
+    </defs>
+    <path
+      d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H15.017C14.4647 8 14.017 7.55228 14.017 7V3H19.017C21.2261 3 23.017 4.79086 23.017 7V15C23.017 18.3137 20.3307 21 17.017 21H14.017ZM5.01697 21L5.01697 18C5.01697 16.8954 5.9124 16 7.01697 16H10.017C10.5693 16 11.017 15.5523 11.017 15V9C11.017 8.44772 10.5693 8 10.017 8H6.01697C5.46468 8 5.01697 7.55228 5.01697 7V3H10.017C12.2261 3 14.017 4.79086 14.017 7V15C14.017 18.3137 11.3307 21 8.01697 21H5.01697Z"
+      fill={`url(#quote-gradient-${id})`}
+    />
+  </svg>
+);
+
 export const HomeTestimonials = () => {
-  // --- STATE DESKTOP SLIDER ---
+  // State cho Desktop Slider
   const [currentIndex, setCurrentIndex] = useState(0);
   const VISIBLE_ITEMS = 3;
   const isStart = currentIndex === 0;
@@ -74,46 +102,20 @@ export const HomeTestimonials = () => {
     if (!isStart) setCurrentIndex((prev) => prev - VISIBLE_ITEMS);
   };
 
-  // Icon SVG Quote (Reused)
-  const QuoteIcon = ({ id }: { id: number }) => (
-    <svg
-      width="40"
-      height="40"
-      viewBox="0 0 24 24"
-      fill="none"
-      className="opacity-80"
-    >
-      <defs>
-        <linearGradient
-          id={`quote-gradient-${id}`}
-          x1="0"
-          y1="0"
-          x2="100%"
-          y2="0%"
-        >
-          <stop offset="0%" stopColor="#FF7A00" />
-          <stop offset="100%" stopColor="#FF0000" />
-        </linearGradient>
-      </defs>
-      <path
-        d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H15.017C14.4647 8 14.017 7.55228 14.017 7V3H19.017C21.2261 3 23.017 4.79086 23.017 7V15C23.017 18.3137 20.3307 21 17.017 21H14.017ZM5.01697 21L5.01697 18C5.01697 16.8954 5.9124 16 7.01697 16H10.017C10.5693 16 11.017 15.5523 11.017 15V9C11.017 8.44772 10.5693 8 10.017 8H6.01697C5.46468 8 5.01697 7.55228 5.01697 7V3H10.017C12.2261 3 14.017 4.79086 14.017 7V15C14.017 18.3137 11.3307 21 8.01697 21H5.01697Z"
-        fill={`url(#quote-gradient-${id})`}
-      />
-    </svg>
-  );
-
   return (
     <section className="w-full flex flex-col items-center">
       {/* =================================================================
-          1. MOBILE VERSION (< 1024px)
+          1. RESPONSIVE SWIPE VERSION (Mobile + Tablet + iPad Pro)
+          - Hiển thị cho màn hình < 1280px (xl)
+          - Tablet/iPad sẽ có thẻ to hơn và padding rộng hơn
           ================================================================= */}
-      <div className="flex flex-col items-center w-full lg:hidden px-[20px]">
-        {/* HEADER MOBILE */}
-        <div className="flex flex-col items-center text-center mb-[24px]">
-          <h2 className="font-inter font-bold text-[28px] leading-[32px] text-[#000000] mb-[24px]">
+      <div className="flex flex-col items-center w-full xl:hidden px-[20px] md:px-[40px]">
+        {/* HEADER */}
+        <div className="flex flex-col items-center text-center mb-[24px] md:mb-[40px] max-w-[337px] md:max-w-[700px]">
+          <h2 className="font-inter font-bold text-[28px] leading-[32px] md:text-[40px] md:leading-[48px] text-[#000000] mb-[24px]">
             Khách hàng nói gì về PROMAC
           </h2>
-          <p className="font-inter font-medium text-[16px] leading-[19px] text-[#64607D] text-center max-w-[337px]">
+          <p className="font-inter font-medium text-[16px] leading-[19px] md:text-[18px] md:leading-[26px] text-[#64607D] text-center">
             Hãy xem khách hàng nói gì về PROMAC – những đánh giá chân thực về
             chất lượng và dịch vụ in ấn của chúng tôi.
           </p>
@@ -121,16 +123,17 @@ export const HomeTestimonials = () => {
 
         {/* SWIPE CONTAINER */}
         <div
-          className="flex w-full overflow-x-auto gap-[14px] pb-[40px] px-[4px] snap-x snap-mandatory hide-scrollbar"
+          className="flex w-full overflow-x-auto gap-[14px] md:gap-[24px] pb-[40px] px-[4px] snap-x snap-mandatory hide-scrollbar"
           style={{ scrollPaddingLeft: "0px" }}
         >
           {TESTIMONIALS.map((item, index) => (
             <div
               key={index}
-              className="flex flex-col shrink-0 bg-white rounded-[20px] p-[25px] snap-center shadow-[0px_8px_16px_rgba(0,0,0,0.15)]"
+              className="flex flex-col shrink-0 bg-white rounded-[20px] p-[25px] md:p-[32px] snap-center shadow-[0px_8px_16px_rgba(0,0,0,0.15)]"
               style={{
-                width: "269px",
-                height: "367px",
+                // Responsive Width: Mobile 269px -> Tablet/iPad 340px
+                width: "clamp(269px, 45vw, 340px)",
+                height: "367px", // Giữ nguyên chiều cao hoặc tăng nếu cần
               }}
             >
               <div className="mb-[8px]">
@@ -143,12 +146,12 @@ export const HomeTestimonials = () => {
                 ))}
               </div>
 
-              <p className="font-inter font-normal text-[15px] leading-[18px] text-[#000000] mb-[24px] flex-grow">
+              <p className="font-inter font-normal text-[15px] md:text-[16px] leading-[18px] md:leading-[22px] text-[#000000] mb-[24px] flex-grow">
                 “{item.content}”
               </p>
 
               <div className="flex flex-col items-center gap-[11px] mt-auto">
-                {/* Check Avatar Type */}
+                {/* Avatar */}
                 {item.avatar.startsWith("/") ||
                 item.avatar.startsWith("data") ? (
                   <img
@@ -163,7 +166,7 @@ export const HomeTestimonials = () => {
                 )}
 
                 <div className="flex flex-col items-center">
-                  <span className="font-inter font-medium text-[15px] text-[#000000] text-center">
+                  <span className="font-inter font-medium text-[15px] md:text-[16px] text-[#000000] text-center">
                     {item.name}
                   </span>
                   <span className="font-inter font-normal text-[15px] text-[#000000] text-center opacity-70">
@@ -175,22 +178,19 @@ export const HomeTestimonials = () => {
           ))}
         </div>
 
+        {/* Hide Scrollbar CSS */}
         <style>{`
-            .hide-scrollbar::-webkit-scrollbar {
-              display: none;
-            }
-            .hide-scrollbar {
-              -ms-overflow-style: none;
-              scrollbar-width: none;
-            }
+            .hide-scrollbar::-webkit-scrollbar { display: none; }
+            .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         `}</style>
       </div>
 
       {/* =================================================================
-          2. DESKTOP VERSION (>= 1024px)
+          2. DESKTOP VERSION (>= 1280px) - Slider Nút Bấm
+          - Chỉ hiển thị từ breakpoint xl trở lên để không bị vỡ trên iPad Pro
           ================================================================= */}
       <div
-        className="hidden lg:flex relative flex-col items-center"
+        className="hidden xl:flex relative flex-col items-center"
         style={{
           width: "1373px",
           height: "772px",
@@ -260,7 +260,6 @@ export const HomeTestimonials = () => {
                 </p>
 
                 <div className="flex items-center mt-auto">
-                  {/* Check Avatar Type */}
                   {item.avatar.startsWith("/") ||
                   item.avatar.startsWith("data") ? (
                     <img
@@ -301,7 +300,6 @@ export const HomeTestimonials = () => {
                         : "bg-[#4A5F9F] hover:bg-[#1F3A8A] cursor-pointer"
                     }`}
             style={{ width: "80px", height: "80px" }}
-            aria-label="Xem đánh giá trước"
           >
             <ArrowLeft size={34} color="#FFFFFF" strokeWidth={3} />
           </button>
@@ -316,7 +314,6 @@ export const HomeTestimonials = () => {
                         : "bg-[#4A5F9F] hover:bg-[#1F3A8A] cursor-pointer"
                     }`}
             style={{ width: "80px", height: "80px" }}
-            aria-label="Xem đánh giá tiếp theo"
           >
             <ArrowRight size={34} color="#FFFFFF" strokeWidth={3} />
           </button>

@@ -47,11 +47,12 @@ export const ProjectDetailRelated: React.FC = () => {
   };
 
   return (
-    <section className="w-full flex flex-col items-center">
+    <section className="w-full flex flex-col items-center px-4 xl:px-0">
       {/* =================================================================
-          1. MOBILE VERSION (< 1024px) - THEO FIGMA DỌC
+          1. MOBILE VERSION (< 768px)
+          - Changed lg:hidden to md:hidden
           ================================================================= */}
-      <div className="flex flex-col items-center w-full lg:hidden px-[23px] mb-[60px]">
+      <div className="flex flex-col items-center w-full md:hidden px-[23px] mb-[60px]">
         {/* Header Mobile */}
         <div className="flex flex-col items-center text-center mb-[40px] w-full max-w-[326px]">
           <h2 className="font-inter font-bold text-[28px] leading-[34px] text-[#000000] mb-[24px]">
@@ -138,19 +139,93 @@ export const ProjectDetailRelated: React.FC = () => {
             </div>
           ))}
         </div>
-
-        {/* Button "Xem thêm" Mobile */}
-        <button className="flex items-center justify-center bg-[#FF0000] rounded-[47px] w-[132px] h-[45px] shadow-lg active:scale-95 transition-transform">
-          <span className="font-inter font-semibold text-[16px] text-white tracking-[-0.02em]">
-            Xem thêm
-          </span>
-        </button>
       </div>
 
       {/* =================================================================
-          2. DESKTOP VERSION (>= 1024px) - GIỮ NGUYÊN CODE CŨ
+          2. TABLET & IPAD PRO VERSION (768px -> 1279px) - KHỐI MỚI
+          - Fluid Layout, Grid 3 cột
           ================================================================= */}
-      <div className="hidden lg:flex w-[1260px] flex-col gap-[32px] mb-[100px]">
+      <div className="hidden md:flex xl:hidden flex-col items-center w-full max-w-[1000px] mb-[100px]">
+        <h2 className="font-inter font-bold text-[#000000] text-[40px] leading-[1.2] tracking-[-1px] mb-[48px] text-center">
+          Tìm hiểu thêm nhiều dự án khác
+        </h2>
+
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-[30px] w-full">
+          {RELATED_PROJECTS.map((item) => (
+            <div
+              key={item.id}
+              onClick={() => handleCardClick(item.slug)}
+              className="flex flex-col w-full group cursor-pointer"
+            >
+              {/* Thumbnail */}
+              <div className="w-full aspect-[380/268] bg-[#F2F2F2] rounded-[4px] mb-[20px] relative overflow-hidden">
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+
+              {/* Content */}
+              <div className="flex flex-col">
+                <div className="flex items-center gap-[4px] mb-[12px]">
+                  <span className="font-inter font-semibold text-[16px] text-[#4F4F4F]">
+                    {item.date}
+                  </span>
+                  <span className="mx-1">|</span>
+                  <span className="font-inter font-semibold text-[16px] text-[#4F4F4F]">
+                    {item.client}
+                  </span>
+                </div>
+
+                <h3 className="font-inter font-medium text-[#000000] text-[20px] leading-[1.3] mb-[12px] group-hover:text-[#FF0000] transition-colors line-clamp-2">
+                  {item.title}
+                </h3>
+
+                <p className="font-inter font-normal text-[#828282] text-[16px] leading-[1.6] mb-[20px] line-clamp-3">
+                  {item.desc}
+                </p>
+
+                <div className="flex items-center gap-[8px] group/btn">
+                  <span className="font-inter font-bold text-[16px] text-[#FF0000]">
+                    Xem chi tiết
+                  </span>
+                  <div className="relative w-[18px] h-[10px] flex items-center transition-transform group-hover/btn:translate-x-1">
+                    <svg
+                      width="18"
+                      height="10"
+                      viewBox="0 0 18 10"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M1 5H17"
+                        stroke="#FF0000"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                      <path
+                        d="M13 1L17 5L13 9"
+                        stroke="#FF0000"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* =================================================================
+          3. DESKTOP VERSION (>= 1280px) - GIỮ NGUYÊN CODE CŨ
+          - Changed hidden lg:flex to hidden xl:flex
+          ================================================================= */}
+      <div className="hidden xl:flex w-[1260px] flex-col gap-[32px] mb-[100px]">
         {/* Header */}
         <h2 className="font-inter font-normal text-[#000000] text-[56px] leading-[115px] tracking-[-5px]">
           Tìm hiểu thêm nhiều dự án khác

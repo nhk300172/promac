@@ -2,6 +2,7 @@ import React from "react";
 import { VoucherHero } from "../../features/coreservices/voucher/VoucherHero";
 import { VoucherContent } from "../../features/coreservices/voucher/VoucherContent";
 import { VoucherPortfolio } from "../../features/coreservices/voucher/VoucherPortfolio";
+import { ContactBanner } from "../../components/layout/ContactBanner";
 
 export const VoucherPage: React.FC = () => {
   return (
@@ -9,6 +10,7 @@ export const VoucherPage: React.FC = () => {
       <VoucherHero />
       <VoucherContent />
       <VoucherPortfolio />
+      <ContactBanner />
     </div>
   );
 };

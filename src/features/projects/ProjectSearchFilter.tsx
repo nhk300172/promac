@@ -1,12 +1,12 @@
-// File: src/features/projects/listing/ProjectSearchFilter.tsx
+// src/features/projects/listing/ProjectSearchFilter.tsx
 import React, { useState, useRef, useEffect } from "react";
 import { Search } from "lucide-react";
 
-// Dữ liệu danh mục cho DỰ ÁN (Có thể giống hoặc khác Tin tức)
+// Dữ liệu danh mục cho DỰ ÁN
 const PROJECT_CATEGORIES = [
   { id: "all", label: "Tất cả", type: "highlight" },
   { id: "print", label: "In ấn", type: "normal" },
-  { id: "packaging", label: "Bao bì & Hộp", type: "normal" }, // Ví dụ đổi category chút cho hợp dự án
+  { id: "packaging", label: "Bao bì & Hộp", type: "normal" },
   { id: "brand", label: "Bộ nhận diện thương hiệu", type: "normal" },
   { id: "event", label: "Vật phẩm sự kiện", type: "normal" },
 ];
@@ -46,7 +46,14 @@ export const ProjectSearchFilter: React.FC<Props> = ({ onSearch }) => {
   };
 
   return (
-    <div ref={wrapperRef} className="relative w-[611px] z-50">
+    // THAY ĐỔI:
+    // 1. w-full max-w-[800px]: Responsive width (giống NewsSearchFilter)
+    // 2. mx-auto: Căn giữa
+    // 3. px-4 md:px-0: Padding an toàn cho mobile
+    <div
+      ref={wrapperRef}
+      className="relative w-full max-w-[750px] z-50 mx-auto px-4 md:px-0"
+    >
       <style>{`
         .custom-scrollbar::-webkit-scrollbar { width: 6px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
@@ -55,31 +62,36 @@ export const ProjectSearchFilter: React.FC<Props> = ({ onSearch }) => {
       `}</style>
 
       {/* INPUT */}
-      <div className="w-full h-[56px] relative">
-        <div className="w-full h-full border border-[#4D80C4] rounded-[6px] bg-white flex items-center pl-[20px] pr-[60px]">
+      <div className="w-full h-[56px] relative shadow-sm">
+        <div className="w-full h-full border border-[#4D80C4] rounded-[6px] bg-white flex items-center transition-all focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500 relative">
           <input
             type="text"
             placeholder="Chọn chủ đề hoặc gõ từ khóa"
             value={inputValue}
             onChange={handleChange}
             onClick={() => setIsOpen(true)}
-            className="w-full h-full outline-none text-[18px] text-black placeholder-[#959595] font-inter"
+            // Text size responsive: 16px mobile / 18px desktop
+            // Padding responsive: pl-[16px] pr-[60px]
+            className="w-full h-full outline-none bg-transparent font-inter font-normal text-[16px] md:text-[18px] text-black placeholder-[#959595] rounded-[6px] pl-[16px] pr-[60px]"
           />
+
+          {/* Search Button */}
+          <button
+            onClick={() => onSearch(inputValue)}
+            className="absolute right-[8px] top-[8px] w-[46px] h-[40px] bg-[#FF0000] rounded-[3px] flex items-center justify-center hover:bg-red-700 transition-colors cursor-pointer z-10"
+            aria-label="Tìm kiếm dự án"
+          >
+            <Search className="w-[20px] h-[20px] text-white" strokeWidth={3} />
+          </button>
         </div>
-        <button
-          onClick={() => onSearch(inputValue)}
-          className="absolute right-[9px] top-[8px] w-[46px] h-[40px] bg-[#FF0000] rounded-[3px] flex items-center justify-center hover:bg-red-700 transition-colors cursor-pointer"
-          aria-label="Tìm kiếm dự án"
-        >
-          <Search className="w-[20px] h-[20px] text-white" strokeWidth={3} />
-        </button>
       </div>
 
       {/* DROPDOWN */}
       {isOpen && (
         <div
-          className="absolute top-[65px] left-0 w-[433px] bg-white border border-[#BDBDBD] rounded-[5px] shadow-lg overflow-hidden"
-          style={{ height: "200px" }}
+          // THAY ĐỔI: w-full (luôn bằng width input)
+          className="absolute top-[65px] left-0 w-full bg-white border border-[#BDBDBD] rounded-[5px] shadow-lg overflow-hidden z-50"
+          style={{ height: "200px" }} // Giảm height chút cho gọn vì ít mục hơn News
         >
           <div className="w-full h-full overflow-y-auto custom-scrollbar p-[5px]">
             <div className="flex flex-col gap-[2px]">

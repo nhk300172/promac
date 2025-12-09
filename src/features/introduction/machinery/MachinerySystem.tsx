@@ -1,4 +1,4 @@
-// src/features/introduction/MachinerySystem.tsx
+// src/features/introduction/machinery/MachinerySystem.tsx
 
 // --- IMPORT HÌNH ẢNH MÁY MÓC ---
 import machine1 from "../../../assets/introduction-machinery/machinery1.png";
@@ -16,25 +16,30 @@ const MACHINES = [
 
 export const MachinerySystem = () => {
   return (
-    <section className="flex flex-col items-center bg-white w-full">
+    <section className="flex flex-col items-center bg-white w-full px-4 xl:px-0">
       {/* =================================================================
-          1. MOBILE VERSION (< 1024px) - DỌC 1 CỘT
+          1. MOBILE & TABLET VERSION (< 1024px)
+          - Mobile (< 768px): List dọc, chiều cao so le (nghệ thuật).
+          - Tablet (>= 768px): Grid 2 cột, chiều cao BẰNG NHAU (Fix lỗi lệch).
           ================================================================= */}
-      <div className="flex flex-col items-center w-full lg:hidden px-[25px] pt-[40px] pb-[60px]">
-        {/* Header Mobile */}
-        <div className="flex flex-col items-center text-center mb-[32px] w-full max-w-[326px]">
-          <h2 className="font-inter font-semibold text-[28px] leading-[36px] text-[#000000]">
+      <div className="flex flex-col items-center w-full lg:hidden pt-[40px] pb-[60px]">
+        {/* Header Mobile & Tablet */}
+        <div className="flex flex-col items-center text-center mb-[32px] w-full max-w-[700px]">
+          <h2 className="font-inter font-semibold text-[28px] md:text-[36px] leading-[36px] md:leading-[44px] text-[#000000]">
             Hệ thống máy móc hiện đại của chúng tôi
           </h2>
         </div>
 
-        {/* Machine List Mobile (Vertical) */}
-        <div className="flex flex-col gap-[18px] w-full max-w-[326px]">
+        {/* Machine List */}
+        <div className="w-full max-w-[326px] md:max-w-[700px] flex flex-col md:grid md:grid-cols-2 gap-[18px] md:gap-[24px]">
           {MACHINES.map((item, index) => (
             <div
               key={index}
-              className="relative w-full rounded-[12px] overflow-hidden shadow-sm"
-              style={{ height: item.height }} // Chiều cao so le theo Figma
+              // SỬA LỖI Ở ĐÂY: Thêm md:!h-[360px]
+              // - Mobile: Dùng style={{ height }} -> So le 353px/330px
+              // - Tablet (md): Dùng !h-[360px] -> Ép tất cả cao bằng nhau 360px
+              className="relative w-full rounded-[12px] overflow-hidden shadow-sm md:!h-[360px]"
+              style={{ height: item.height }}
             >
               <img
                 src={item.image}
@@ -52,11 +57,15 @@ export const MachinerySystem = () => {
       </div>
 
       {/* =================================================================
-          2. DESKTOP VERSION (>= 1024px) - GIỮ NGUYÊN CODE CŨ
+          2. DESKTOP & IPAD PRO VERSION (>= 1024px)
+          - Grid 3 cột, chiều cao bằng nhau (421px)
           ================================================================= */}
       <div
-        className="hidden lg:flex flex-col items-center"
-        style={{ width: "1440px", paddingBottom: "50px" }}
+        className="hidden lg:flex flex-col items-center w-full"
+        style={{
+          maxWidth: "1440px",
+          paddingBottom: "50px",
+        }}
       >
         <div className="flex flex-col items-center text-center mb-[68px]">
           <h2
@@ -64,8 +73,9 @@ export const MachinerySystem = () => {
             style={{
               fontSize: "50px",
               lineHeight: "100%",
-              width: "1023px",
-              whiteSpace: "nowrap",
+              maxWidth: "1023px",
+              width: "100%",
+              whiteSpace: "normal",
             }}
           >
             Hệ thống máy móc hiện đại của chúng tôi
@@ -73,8 +83,12 @@ export const MachinerySystem = () => {
         </div>
 
         <div
-          className="grid grid-cols-3"
-          style={{ width: "1280px", columnGap: "23.5px", rowGap: "68px" }}
+          className="grid grid-cols-3 w-full"
+          style={{
+            maxWidth: "1280px",
+            columnGap: "24px",
+            rowGap: "68px",
+          }}
         >
           {MACHINES.map((item, index) => {
             const isMiddleItem = index % 3 === 1;
@@ -83,8 +97,10 @@ export const MachinerySystem = () => {
             return (
               <div
                 key={index}
-                className="relative group cursor-pointer"
-                style={{ width: "411px", height: "421px" }}
+                className="relative group cursor-pointer w-full"
+                style={{
+                  height: "421px", // Desktop cao đều nhau
+                }}
               >
                 <div
                   className="w-full h-full overflow-hidden"

@@ -1,3 +1,4 @@
+// src/features/news/details/NewsDetailContent.tsx
 import React, { useMemo } from "react";
 import { ChevronRight } from "lucide-react";
 import { useParams, Link } from "react-router-dom";
@@ -85,89 +86,93 @@ export const NewsDetailContent: React.FC = () => {
   return (
     <section className="w-full flex flex-col items-center bg-white pb-[60px] lg:pb-[100px]">
       {/* ============================================================
-          1. MOBILE VERSION (< 1024px) - THEO FIGMA MỚI
+          1. MOBILE & TABLET VERSION (< 1024px)
+          - Changed lg:hidden to lg:hidden (Giữ nguyên vì Tablet < 1024px vẫn dùng layout dọc này tốt)
+          - Tablet: Tăng max-w lên 700px để không bị bé quá
           ============================================================ */}
-      <div className="flex flex-col w-full px-[24px] lg:hidden">
-        {/* Breadcrumb Mobile */}
-        <div className="flex flex-col items-start gap-[4px] mt-[12px] mb-[20px]">
-          <div className="flex items-center flex-wrap gap-[4px] w-full">
-            <Link
-              to="/"
-              className="font-inter font-normal text-[15px] leading-[24px] text-[#8E8E8E]"
-            >
-              Trang chủ
-            </Link>
-            <ChevronRight size={14} className="text-[#8E8E8E]" />
-            <Link
-              to="/tin-tuc"
-              className="font-inter font-normal text-[15px] leading-[24px] text-[#9E9E9E]"
-            >
-              Tin Tức
-            </Link>
-            <ChevronRight size={14} className="text-[#9E9E9E]" />
-            <span className="font-inter font-normal text-[15px] leading-[24px] text-[#9E9E9E]">
+      <div className="flex flex-col w-full px-[24px] lg:hidden items-center">
+        <div className="w-full max-w-[700px]">
+          {" "}
+          {/* Wrapper giới hạn width cho Tablet */}
+          {/* Breadcrumb Mobile */}
+          <div className="flex flex-col items-start gap-[4px] mt-[12px] mb-[20px]">
+            <div className="flex items-center flex-wrap gap-[4px] w-full">
+              <Link
+                to="/"
+                className="font-inter font-normal text-[15px] leading-[24px] text-[#8E8E8E]"
+              >
+                Trang chủ
+              </Link>
+              <ChevronRight size={14} className="text-[#8E8E8E]" />
+              <Link
+                to="/tin-tuc"
+                className="font-inter font-normal text-[15px] leading-[24px] text-[#9E9E9E]"
+              >
+                Tin Tức
+              </Link>
+              <ChevronRight size={14} className="text-[#9E9E9E]" />
+              <span className="font-inter font-normal text-[15px] leading-[24px] text-[#9E9E9E]">
+                {newsItem.tag}
+              </span>
+            </div>
+            <div className="flex items-center gap-[4px] w-full">
+              <ChevronRight size={14} className="text-[#9E9E9E]" />
+              <span className="font-inter font-semibold text-[15px] leading-[18px] text-[#FF0000]/80 tracking-[-0.04em] line-clamp-1">
+                {newsItem.title}
+              </span>
+            </div>
+          </div>
+          {/* Header Mobile */}
+          <div className="flex flex-col gap-[16px] mb-[24px]">
+            <span className="font-quicksand font-bold text-[16px] leading-[19px] text-[#FF0000]">
               {newsItem.tag}
             </span>
-          </div>
-          <div className="flex items-center gap-[4px] w-full">
-            <ChevronRight size={14} className="text-[#9E9E9E]" />
-            <span className="font-inter font-semibold text-[15px] leading-[18px] text-[#FF0000]/80 tracking-[-0.04em] line-clamp-1">
+            <h1 className="font-inter font-medium text-[28px] md:text-[36px] leading-[34px] md:leading-[44px] text-black tracking-[-0.04em]">
               {newsItem.title}
-            </span>
+            </h1>
           </div>
-        </div>
-
-        {/* Header Mobile */}
-        <div className="flex flex-col gap-[16px] mb-[24px]">
-          <span className="font-quicksand font-bold text-[16px] leading-[19px] text-[#FF0000]">
-            {newsItem.tag}
-          </span>
-          <h1 className="font-inter font-medium text-[28px] leading-[34px] text-black tracking-[-0.04em]">
-            {newsItem.title}
-          </h1>
-        </div>
-
-        {/* Featured Image Mobile */}
-        <div className="w-full h-[228px] bg-[#F2F2F2] rounded-[4px] overflow-hidden relative mb-[24px]">
-          <img
-            src={newsItem.image}
-            alt={newsItem.title}
-            className="w-full h-full object-cover"
-          />
-        </div>
-
-        {/* Content Mobile */}
-        <div className="flex flex-col gap-[24px]">
-          <p className="font-inter text-[15px] leading-[24px] text-[#253D4E] font-bold">
-            {newsItem.intro}
-          </p>
-          <p className="font-inter font-normal text-[15px] leading-[24px] text-[#253D4E]">
-            We've reviewed and ranked all of the best smartwatches on the market
-            right now...
-          </p>
-
-          {/* Image In-Content Mobile */}
-          <div className="w-full h-[228px] bg-[#F2F2F2] rounded-[4px] overflow-hidden relative my-[10px]">
+          {/* Featured Image Mobile */}
+          <div className="w-full aspect-[327/228] bg-[#F2F2F2] rounded-[4px] overflow-hidden relative mb-[24px]">
             <img
-              src={newsItem.secondaryImage}
-              alt="Content detail"
+              src={newsItem.image}
+              alt={newsItem.title}
               className="w-full h-full object-cover"
             />
           </div>
+          {/* Content Mobile */}
+          <div className="flex flex-col gap-[24px]">
+            <p className="font-inter text-[15px] md:text-[18px] leading-[24px] md:leading-[28px] text-[#253D4E] font-bold">
+              {newsItem.intro}
+            </p>
+            <p className="font-inter font-normal text-[15px] md:text-[18px] leading-[24px] md:leading-[28px] text-[#253D4E]">
+              We've reviewed and ranked all of the best smartwatches on the
+              market right now...
+            </p>
 
-          <p className="font-lato font-normal text-[17px] leading-[24px] text-[#253D4E]">
-            Tortor, lobortis semper viverra ac, molestie tortor laoreet amet
-            euismod...
-          </p>
+            {/* Image In-Content Mobile */}
+            <div className="w-full aspect-[327/228] bg-[#F2F2F2] rounded-[4px] overflow-hidden relative my-[10px]">
+              <img
+                src={newsItem.secondaryImage}
+                alt="Content detail"
+                className="w-full h-full object-cover"
+              />
+            </div>
+
+            <p className="font-lato font-normal text-[17px] md:text-[18px] leading-[24px] md:leading-[28px] text-[#253D4E]">
+              Tortor, lobortis semper viverra ac, molestie tortor laoreet amet
+              euismod...
+            </p>
+          </div>
         </div>
       </div>
 
       {/* ============================================================
-          2. DESKTOP VERSION (>= 1024px) - GIỮ NGUYÊN CODE CŨ
+          2. DESKTOP & IPAD PRO VERSION (>= 1024px)
+          - Sử dụng Fluid Width để hỗ trợ iPad Pro
           ============================================================ */}
-      <div className="hidden lg:flex flex-col items-center w-full">
-        {/* BREADCRUMB */}
-        <div className="w-[1299px] flex items-center gap-[8px] mt-[21px] mb-[40px]">
+      <div className="hidden lg:flex flex-col items-center w-full px-8 xl:px-0">
+        {/* BREADCRUMB (Fluid max-w-1299px) */}
+        <div className="w-full max-w-[1299px] flex items-center gap-[8px] mt-[21px] mb-[40px] flex-wrap">
           <Link
             to="/"
             className="flex items-center gap-[8px] text-[#8E8E8E] hover:text-red-500 transition-colors"
@@ -188,7 +193,7 @@ export const NewsDetailContent: React.FC = () => {
           </div>
           <div className="flex items-center">
             <span
-              className="font-inter font-semibold text-[16px] truncate max-w-[600px]"
+              className="font-inter font-semibold text-[16px] truncate max-w-[300px] xl:max-w-[600px]"
               style={{
                 color: "rgba(255, 0, 0, 0.8)",
                 letterSpacing: "-0.04em",
@@ -199,24 +204,24 @@ export const NewsDetailContent: React.FC = () => {
           </div>
         </div>
 
-        {/* ARTICLE HEADER */}
-        <div className="relative w-[1299px] h-[145px] mb-[40px]">
+        {/* ARTICLE HEADER (Fluid) */}
+        <div className="relative w-full max-w-[1299px] h-auto mb-[40px] flex flex-col items-start gap-4">
           <span
-            className="absolute left-[12px] top-[-1px] font-bold text-[16px] leading-[19px] text-[#FF0000] flex items-center w-[88px] h-[20px]"
+            className="font-bold text-[16px] leading-[19px] text-[#FF0000] flex items-center h-[20px]"
             style={{ fontFamily: "Quicksand" }}
           >
             {newsItem.tag}
           </span>
           <h1
-            className="absolute left-[12px] top-[28px] w-[1265px] h-[98px] text-[40px] leading-[48px] font-medium text-black flex items-center"
+            className="w-full text-[32px] lg:text-[40px] leading-[1.2] font-medium text-black"
             style={{ fontFamily: "Inter", letterSpacing: "-0.04em" }}
           >
             {newsItem.title}
           </h1>
         </div>
 
-        {/* FEATURED IMAGE */}
-        <div className="w-[890px] h-[415px] bg-[#F2F2F2] rounded-[15px] overflow-hidden relative mb-[60px] mt-[-50px]">
+        {/* FEATURED IMAGE (Fluid max-w-890px) */}
+        <div className="w-full max-w-[890px] aspect-[890/415] bg-[#F2F2F2] rounded-[15px] overflow-hidden relative mb-[60px]">
           <img
             src={newsItem.image}
             alt={newsItem.title}
@@ -224,16 +229,16 @@ export const NewsDetailContent: React.FC = () => {
           />
         </div>
 
-        {/* MAIN CONTENT */}
-        <div className="w-[897px] flex flex-col relative">
+        {/* MAIN CONTENT (Fluid max-w-897px) */}
+        <div className="w-full max-w-[897px] flex flex-col relative px-4 lg:px-0">
           <p
-            className="text-[#253D4E] text-[24px] leading-[32px] mb-[32px] pl-[12px] font-bold"
+            className="text-[#253D4E] text-[20px] lg:text-[24px] leading-[32px] mb-[32px] font-bold"
             style={{ fontFamily: "Lato" }}
           >
             {newsItem.intro}
           </p>
           <p
-            className="text-[#253D4E] text-[17px] leading-[24px] mb-[32px] pl-[12px]"
+            className="text-[#253D4E] text-[17px] leading-[24px] mb-[32px]"
             style={{ fontFamily: "Lato" }}
           >
             We've reviewed and ranked all of the best smartwatches on the market
@@ -241,7 +246,7 @@ export const NewsDetailContent: React.FC = () => {
           </p>
 
           {/* Second Image */}
-          <div className="w-[890px] h-[415px] bg-[#F2F2F2] rounded-[15px] overflow-hidden relative mb-[40px] ml-[12px]">
+          <div className="w-full aspect-[890/415] bg-[#F2F2F2] rounded-[15px] overflow-hidden relative mb-[40px]">
             <img
               src={newsItem.secondaryImage}
               alt="Content detail"
@@ -250,7 +255,7 @@ export const NewsDetailContent: React.FC = () => {
           </div>
 
           <p
-            className="text-[#253D4E] text-[17px] leading-[24px] mb-[32px] pl-[12px]"
+            className="text-[#253D4E] text-[17px] leading-[24px] mb-[32px]"
             style={{ fontFamily: "Lato" }}
           >
             Tortor, lobortis semper viverra ac, molestie tortor laoreet amet...

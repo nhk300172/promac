@@ -1,8 +1,9 @@
+// src/features/introduction/about/AboutUs.tsx
 import React from "react";
 import { CheckCircle, Users, ShieldCheck, Zap } from "lucide-react";
 import { inan } from "../../../assets";
 
-// Component con cho Item Giá trị cốt lõi (Dùng chung cho gọn)
+// --- COMPONENT CON: CORE VALUE ITEM ---
 const CoreValueItem = ({
   icon,
   title,
@@ -17,13 +18,13 @@ const CoreValueItem = ({
   return (
     <div
       className={`flex items-center gap-[16px] ${
-        isMobile ? "w-full max-w-[326px]" : "w-[355px] h-[50px] items-start"
+        isMobile ? "w-full" : "w-[355px] h-[50px] items-start"
       }`}
     >
       <div className="flex-shrink-0 w-[50px] h-[50px] flex items-center justify-center">
         {icon}
       </div>
-      <div className="flex flex-col items-start gap-[8px]">
+      <div className="flex flex-col items-start gap-[4px]">
         <span className="font-inter font-medium text-[16px] leading-[19px] text-black">
           {title}
         </span>
@@ -41,46 +42,49 @@ const CoreValueItem = ({
 
 export const AboutUs = () => {
   return (
-    <div className="w-full flex justify-center">
+    <div className="w-full flex justify-center px-4 xl:px-0">
       {/* =================================================================
-          1. MOBILE VERSION (< 1024px) - THEO FIGMA MỚI
+          1. RESPONSIVE VERSION (Mobile + Tablet + iPad Pro)
+          - Hiển thị từ 0px đến 1279px
+          - Sử dụng Flexbox/Grid linh hoạt, không dùng Absolute cứng
           ================================================================= */}
-      <section className="flex flex-col items-center w-full px-[20px] lg:hidden mb-[60px]">
-        {/* TEXT CONTENT */}
-        <div className="flex flex-col items-center w-full max-w-[328px] gap-[40px] mb-[40px]">
-          {/* Intro Text */}
-          <div className="flex flex-col items-center gap-[24px]">
-            <h2 className="font-inter font-bold text-[28px] leading-[34px] text-[#000000] text-center">
-              Chúng Tôi Là AI
-            </h2>
-            <p className="font-inter font-normal text-[15px] leading-[28px] text-[#000000] text-justify">
-              Công Ty TNHH Kỹ Thuật In Promac thành lập từ năm 2015 cho đến nay
-              là sự kết hợp của nhiều chuyên gia trong lĩnh vực in ấn, thiết kế,
-              kỹ thuật số, bảo mật thông tin,.. có nhiều năm kinh nghiệm. Chúng
-              tôi là đối tác của các nhà cung cấp máy in, máy dán nhãn, nguyên
-              vật liệu có công nghệ tiên tiến nhất trên thị trường. Năng lực của
-              chúng tôi là đã thực hiện được những đơn hàng lớn đối với những
-              khách hàng danh tiếng trong nước.
-              <br />- IN PROMAC có thể cung cấp tất cả các giải pháp in thẻ cào
-              của quý khách. Từ in thẻ cào trúng thưởng, phiếu bốc thăm trúng
-              thưởng, in voucher phiếu mua hàng, voucher tích điểm tích hợp
-              nhiều tiện ích như thẻ có mã vạch, in code QR,.. mời quý khách
-              tham khảo thêm chi tiết trong mục sản phẩm của trang website.
-            </p>
-          </div>
+      <section className="flex flex-col items-center w-full xl:hidden mb-[60px] max-w-[800px]">
+        {/* HEADER TEXT */}
+        <div className="flex flex-col items-center gap-[24px] mb-[40px] ">
+          <h2 className="font-inter font-bold text-[28px] md:text-[40px] leading-[34px] md:leading-[48px] text-[#000000]">
+            Chúng Tôi Là Ai
+          </h2>
+          <p className="font-inter font-normal text-[15px] leading-[28px] text-[#000000] text-justify">
+            Công Ty TNHH Kỹ Thuật In Promac thành lập từ năm 2015 cho đến nay là
+            sự kết hợp của nhiều chuyên gia trong lĩnh vực in ấn, thiết kế, kỹ
+            thuật số, bảo mật thông tin,.. có nhiều năm kinh nghiệm. Chúng tôi
+            là đối tác của các nhà cung cấp máy in, máy dán nhãn, nguyên vật
+            liệu có công nghệ tiên tiến nhất trên thị trường. Năng lực của chúng
+            tôi là đã thực hiện được những đơn hàng lớn đối với những khách hàng
+            danh tiếng trong nước.
+            <br />- IN PROMAC có thể cung cấp tất cả các giải pháp in thẻ cào
+            của quý khách. Từ in thẻ cào trúng thưởng, phiếu bốc thăm trúng
+            thưởng, in voucher phiếu mua hàng, voucher tích điểm tích hợp nhiều
+            tiện ích như thẻ có mã vạch, in code QR,.. mời quý khách tham khảo
+            thêm chi tiết trong mục sản phẩm của trang website.
+          </p>
+        </div>
 
-          {/* Core Values */}
-          <div className="flex flex-col items-center w-full gap-[32px]">
-            <h3 className="font-inter font-bold text-[24px] leading-[29px] text-[#FF0000] text-center">
-              Gía trị cốt lõi
+        {/* CONTENT CONTAINER (Tablet: Chia đôi màn hình) */}
+        <div className="flex flex-col md:flex-row items-center md:items-start gap-[40px] w-full">
+          {/* LEFT: CORE VALUES */}
+          <div className="flex flex-col items-center md:items-start w-full md:w-1/2 gap-[32px]">
+            <h3 className="font-inter font-bold text-[24px] md:text-[28px] text-[#FF0000]">
+              Giá trị cốt lõi
             </h3>
 
-            <div className="flex flex-col items-end gap-[24px] w-full">
+            {/* Grid 1 cột trên Mobile, 1 cột trên Tablet nhỏ, nhưng căn chỉnh đẹp */}
+            <div className="flex flex-col gap-[24px] w-full">
               <CoreValueItem
                 isMobile
                 icon={<ShieldCheck size={46} className="text-black" />}
                 title="Sự hài lòng của khách hàng"
-                desc="Thành công của bạn là ưu tiên của chúng tôi."
+                desc="Thành công của bạn là ưu tiên."
               />
               <CoreValueItem
                 isMobile
@@ -92,57 +96,59 @@ export const AboutUs = () => {
                 isMobile
                 icon={<Zap size={50} className="text-black" />}
                 title="Giao hàng đúng hạn"
-                desc="Luôn đúng thời gian trong mọi đơn hàng"
+                desc="Luôn đúng thời gian."
               />
               <CoreValueItem
                 isMobile
                 icon={<CheckCircle size={50} className="text-black" />}
                 title="Đội ngũ chuyên nghiệp"
-                desc="Những chuyên gia lành nghề và tận tâm."
+                desc="Chuyên gia lành nghề và tận tâm."
               />
             </div>
           </div>
-        </div>
 
-        {/* IMAGE (MOBILE) */}
-        {/* Frame 100 Mobile */}
-        <div className="relative w-[315px] h-[341px]">
-          {/* Background Red Circle */}
-          <div
-            className="absolute rounded-full bg-[#FF383C]"
-            style={{
-              width: "149px",
-              height: "149px",
-              left: "135px",
-              top: "1px",
-              zIndex: 0,
-            }}
-          />
-          {/* Main Image Circle */}
-          <div
-            className="absolute rounded-full overflow-hidden border-[5px] border-[#FF383C] shadow-[0px_4px_4px_rgba(0,0,0,0.25)]"
-            style={{
-              width: "313px",
-              height: "312px",
-              left: "2px",
-              top: "25px",
-              zIndex: 1,
-            }}
-          >
-            <img
-              src={inan}
-              alt="Promac Team"
-              className="w-full h-full object-cover"
-            />
+          {/* RIGHT: IMAGE (Responsive Circle) */}
+          <div className="w-full md:w-1/2 flex justify-center md:justify-end">
+            <div className="relative w-[315px] h-[341px] md:w-[350px] md:h-[380px]">
+              {/* Red Circle BG */}
+              <div
+                className="absolute rounded-full bg-[#FF383C]"
+                style={{
+                  width: "50%",
+                  height: "50%",
+                  right: "0",
+                  top: "0",
+                  zIndex: 0,
+                }}
+              />
+              {/* Main Image */}
+              <div
+                className="absolute rounded-full overflow-hidden border-[5px] border-[#FF383C] shadow-md"
+                style={{
+                  width: "90%",
+                  height: "90%",
+                  left: "0",
+                  bottom: "0",
+                  zIndex: 1,
+                }}
+              >
+                <img
+                  src={inan}
+                  alt="Promac Team"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* =================================================================
-          2. DESKTOP VERSION (>= 1024px) - GIỮ NGUYÊN CODE CŨ
+          2. DESKTOP VERSION (>= 1280px) - GIỮ NGUYÊN CODE GỐC
+          - Chỉ đổi lg:flex thành xl:flex để tránh vỡ trên iPad Pro
           ================================================================= */}
       <section
-        className="hidden lg:flex justify-center items-center bg-white"
+        className="hidden xl:flex justify-center items-center bg-white"
         style={{
           width: "1436px",
           height: "704px",
@@ -162,7 +168,7 @@ export const AboutUs = () => {
             }}
           >
             <h2
-              className="font-poppins font-bold text-black "
+              className="font-poppins font-bold text-black"
               style={{
                 width: "404px",
                 height: "78px",
@@ -174,7 +180,7 @@ export const AboutUs = () => {
             </h2>
 
             <p
-              className="font-roboto font-normal text-black text-justify"
+              className="font-roboto font-normal text-black"
               style={{
                 fontSize: "18px",
                 lineHeight: "28px",

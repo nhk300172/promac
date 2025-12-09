@@ -2,6 +2,7 @@ import React from "react";
 import { HardBoxHero } from "../../features/coreservices/hardbox/HardBoxHero";
 import { HardBoxContent } from "../../features/coreservices/hardbox/HardBoxContent";
 import { HardBoxPortfolio } from "../../features/coreservices/hardbox/HardBoxPortfolio";
+import { ContactBanner } from "../../components/layout/ContactBanner";
 
 export const HardBoxPage: React.FC = () => {
   return (
@@ -9,6 +10,7 @@ export const HardBoxPage: React.FC = () => {
       <HardBoxHero />
       <HardBoxContent />
       <HardBoxPortfolio />
+      <ContactBanner />
     </div>
   );
 };

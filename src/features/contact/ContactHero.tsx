@@ -1,3 +1,4 @@
+// src/features/contact/ContactHero.tsx
 import React from "react";
 import { Phone, Mail } from "lucide-react";
 
@@ -6,9 +7,10 @@ export const ContactHero: React.FC = () => {
     // Wrapper căn giữa
     <div className="w-full flex justify-center mt-[20px] lg:mt-[40px]">
       {/* =================================================================
-          1. MOBILE VERSION (< 1024px) - THEO FIGMA MỚI
+          1. MOBILE VERSION (< 768px)
+          - Thay đổi: lg:hidden -> md:hidden (Chỉ hiện trên điện thoại nhỏ)
           ================================================================= */}
-      <section className="flex flex-col items-center w-full max-w-[375px] bg-[#FFF5F6] rounded-[30px] pt-[40px] pb-[60px] px-[23px] lg:hidden">
+      <section className="flex flex-col items-center w-full max-w-[375px] bg-[#FFF5F6] rounded-[30px] pt-[40px] pb-[60px] px-[23px] md:hidden">
         {/* Title Group */}
         <div className="flex flex-col items-center gap-[16px] text-center mb-[50px]">
           <h1 className="font-inter font-bold text-[28px] leading-[34px] text-[#FF0000]">
@@ -70,10 +72,77 @@ export const ContactHero: React.FC = () => {
       </section>
 
       {/* =================================================================
-          2. DESKTOP VERSION (>= 1024px) - GIỮ NGUYÊN CODE CŨ
+          2. TABLET & IPAD PRO VERSION (768px -> 1279px) - KHỐI MỚI
+          - Fluid Width: Co giãn linh hoạt, không dùng width cứng.
+          - Layout giống Desktop nhưng dùng Flexbox an toàn hơn.
+          ================================================================= */}
+      <section className="hidden md:flex xl:hidden flex-col items-center w-full max-w-[900px] bg-[#FFF5F6] rounded-[30px] py-[60px] px-[40px] mx-4 shadow-sm">
+        {/* Title Section */}
+        <div className="flex flex-col items-center gap-4 mb-8 text-center">
+          <h1 className="font-inter font-extrabold text-[#FF0000] text-[36px] lg:text-[40px] leading-[1.2]">
+            Liên Hệ & Tư Vấn Kỹ Thuật
+          </h1>
+          <p className="font-inter font-semibold text-[#374151] text-[18px] max-w-[600px]">
+            Chúng tôi sẵn sàng hỗ trợ bạn qua Hotline, Email, hoặc tại Văn
+            phòng.
+          </p>
+        </div>
+
+        {/* CTA Button */}
+        <button className="flex flex-col justify-center items-center bg-[#FF0000] rounded-[20px] shadow-[0px_0px_14px_#FF0000] mb-[40px] active:scale-95 transition-transform w-[220px] h-[60px]">
+          <span className="font-inter font-bold text-[18px] text-[#F5F5F5]">
+            Yêu cầu Báo giá
+          </span>
+        </button>
+
+        {/* Divider */}
+        <div className="w-full max-w-[600px] h-[1px] bg-black/50 border border-black/50 mb-[30px]"></div>
+
+        {/* Contact Info Row (Horizontal) */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-[30px] sm:gap-[50px]">
+          {/* Phone Group */}
+          <div className="flex items-center gap-[12px]">
+            <div className="w-[24px] flex justify-center">
+              <Phone className="w-6 h-6 text-black/50" />
+            </div>
+            <div className="flex items-center gap-[12px]">
+              <a
+                href="tel:02822272416"
+                className="font-inter font-normal text-[16px] text-black/50 underline hover:text-red-500 transition-colors"
+              >
+                (028) 22272416
+              </a>
+              <div className="w-[1px] h-[20px] bg-black/50"></div>
+              <a
+                href="tel:0906838869"
+                className="font-inter font-normal text-[16px] text-black/50 underline hover:text-red-500 transition-colors"
+              >
+                0906838869
+              </a>
+            </div>
+          </div>
+
+          {/* Mail Group */}
+          <div className="flex items-center gap-[12px]">
+            <div className="w-[24px] flex justify-center">
+              <Mail className="w-6 h-6 text-black/50" />
+            </div>
+            <a
+              href="mailto:info@promacprinting.com"
+              className="font-inter font-normal text-[16px] text-black/50 hover:text-red-500 transition-colors"
+            >
+              info@promacprinting.com
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* =================================================================
+          3. DESKTOP VERSION (>= 1280px) - GIỮ NGUYÊN CODE CŨ
+          - Thay đổi: hidden lg:flex -> hidden xl:flex (Chỉ hiện khi màn hình đủ rộng)
           ================================================================= */}
       <section
-        className="hidden lg:flex relative flex-col items-center bg-[#FFF5F6] rounded-[30px]"
+        className="hidden xl:flex relative flex-col items-center bg-[#FFF5F6] rounded-[30px]"
         style={{
           width: "1379px",
           height: "451px",

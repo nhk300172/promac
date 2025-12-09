@@ -1,3 +1,4 @@
+// src/pages/product/ProductPage.tsx
 import React from "react";
 import { ProductHero } from "../../features/products/ProductHero";
 import { ProductListing } from "../../features/products/ProductListing";

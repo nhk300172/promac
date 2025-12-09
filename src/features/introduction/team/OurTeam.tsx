@@ -1,6 +1,7 @@
-// src/features/introduction/OurTeam.tsx
+// src/features/introduction/team/OurTeam.tsx
 
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { useState } from "react";
 
 // IMPORT HÌNH ẢNH
 import imgLeonard from "../../../assets/introduction-team/leonardjohndavies.png";
@@ -11,7 +12,6 @@ import imgFreddy from "../../../assets/introduction-team/freddybusby.png";
 import imgDale from "../../../assets/introduction-team/dalebanks.png";
 import imgMiriam from "../../../assets/introduction-team/miriammiddleton.png";
 import imgEllen from "../../../assets/introduction-team/ellenwalton.png";
-import { useState } from "react";
 
 const TEAM_MEMBERS = [
   {
@@ -78,11 +78,12 @@ export const OurTeam = () => {
   };
 
   return (
-    <section className="flex flex-col items-center bg-white w-full">
+    <section className="flex flex-col items-center bg-white w-full px-4 xl:px-0">
       {/* =================================================================
-          1. MOBILE VERSION (< 1024px) - SLIDER 1 CỘT
+          1. MOBILE VERSION (< 768px)
+          - Đổi từ lg:hidden thành md:hidden để chỉ hiện trên điện thoại
           ================================================================= */}
-      <div className="flex flex-col items-center w-full lg:hidden px-[25px] pt-[40px] pb-[60px]">
+      <div className="flex flex-col items-center w-full md:hidden px-[25px] pt-[40px] pb-[60px]">
         {/* Header */}
         <div className="flex flex-col items-center text-center mb-[40px] w-full max-w-[326px]">
           <h2 className="font-inter font-bold text-[28px] leading-[36px] text-[#000000] mb-[24px]">
@@ -94,9 +95,8 @@ export const OurTeam = () => {
           </p>
         </div>
 
-        {/* Member Card (Hiển thị 1 người tại một thời điểm) */}
+        {/* Member Card */}
         <div className="flex flex-col items-center w-full max-w-[326px] mb-[40px]">
-          {/* Image */}
           <div className="w-[296px] h-[320px] rounded-[8px] overflow-hidden mb-[18px] bg-gray-200">
             <img
               src={TEAM_MEMBERS[currentMember].image}
@@ -105,7 +105,6 @@ export const OurTeam = () => {
             />
           </div>
 
-          {/* Info */}
           <div className="flex flex-col items-center text-center gap-[8px]">
             <h3 className="font-inter font-medium text-[18px] text-[#1D2130]">
               {TEAM_MEMBERS[currentMember].name}
@@ -137,10 +136,53 @@ export const OurTeam = () => {
       </div>
 
       {/* =================================================================
-          2. DESKTOP VERSION (>= 1024px) - GRID 4 CỘT CŨ
+          2. TABLET & IPAD PRO VERSION (768px -> 1279px) - KHỐI MỚI
+          - Layout Fluid Grid (Lưới co giãn)
+          - Tablet: 2 cột | iPad Pro: 3 cột
+          ================================================================= */}
+      <div className="hidden md:flex xl:hidden flex-col items-center w-full mb-[80px]">
+        {/* Header Tablet */}
+        <div className="flex flex-col items-center text-center mb-[60px] max-w-[700px]">
+          <h2 className="font-roboto font-bold text-[#1D2130] text-[40px] leading-[120%] mb-[20px]">
+            Đội ngũ của chúng tôi
+          </h2>
+          <p className="font-roboto font-normal text-black opacity-60 text-[16px] leading-[160%]">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+            varius enim in eros elementum tristique.
+          </p>
+        </div>
+
+        {/* Fluid Grid */}
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-[24px] gap-y-[60px] w-full max-w-[1000px]">
+          {TEAM_MEMBERS.map((member, index) => (
+            <div key={index} className="flex flex-col items-center">
+              <div className="w-full aspect-[296/320] rounded-[8px] overflow-hidden mb-[16px] bg-gray-200 shadow-md">
+                <img
+                  src={member.image}
+                  alt={member.name}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <h3 className="font-roboto font-medium text-[#1D2130] text-[20px] mb-[4px] text-center">
+                {member.name}
+              </h3>
+              <p className="font-roboto font-medium text-[#1D2130] opacity-60 uppercase text-[12px] mb-[8px] text-center">
+                {member.role}
+              </p>
+              <p className="font-roboto font-black text-black opacity-60 text-[12px] text-center max-w-[250px]">
+                {member.desc}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* =================================================================
+          3. DESKTOP VERSION (>= 1280px) - GIỮ NGUYÊN CODE CŨ
+          - Đổi hidden lg:flex -> hidden xl:flex để tránh vỡ layout trên iPad Pro
           ================================================================= */}
       <div
-        className="hidden lg:flex flex-col items-center"
+        className="hidden xl:flex flex-col items-center"
         style={{ width: "1440px", paddingBottom: "100px" }}
       >
         <div className="flex flex-col items-center text-center mb-[48px]">

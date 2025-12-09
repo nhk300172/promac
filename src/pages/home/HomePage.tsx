@@ -1,3 +1,4 @@
+// src/pages/home/HomePage.tsx
 import { HomeBanner } from "../../features/home/HomeBanner";
 import { HomeExperience } from "../../features/home/HomeExperience";
 import { HomeNews } from "../../features/home/HomeNews";
@@ -13,51 +14,68 @@ import { ContactBanner } from "../../components/layout/ContactBanner";
 export const HomePage = () => {
   return (
     <div
-      className="relative bg-white mx-auto overflow-hidden" // Thêm mx-auto để căn giữa màn hình to, overflow-hidden để tránh trượt ngang
-      style={{
-        width: "100%", // Mobile: Full width
-        maxWidth: "1440px", // Desktop: Max 1440px
-        minHeight: "100vh",
-      }}
+      // SỬA LẠI: Dùng Tailwind class thay cho inline style width/minHeight
+      className="relative bg-white mx-auto overflow-hidden w-full max-w-[1440px] min-h-screen"
     >
-      {/* Banner chính của trang chủ */}
+      {/* Banner chính */}
       <HomeBanner />
 
-      <div style={{ marginTop: "39px" }}>
+      {/* Welcome Section */}
+      {/* Mobile: 20px | Tablet: 30px | Desktop: 39px */}
+      <div className="mt-[20px] md:mt-[30px] lg:mt-[39px]">
         <HomeWelcome />
       </div>
-      <div style={{ marginTop: "41px" }}>
+
+      {/* Story Section */}
+      {/* Mobile: 20px | Tablet: 30px | Desktop: 41px */}
+      <div className="mt-[20px] md:mt-[30px] lg:mt-[41px]">
         <HomeStory />
       </div>
 
-      <div style={{ marginTop: "68px" }}>
+      {/* Services Section */}
+      {/* Mobile: 40px | Tablet: 50px | Desktop: 68px */}
+      <div className="mt-[40px] md:mt-[50px] lg:mt-[68px]">
         <HomeServices />
       </div>
 
-      <div style={{ marginTop: "140px" }}>
+      {/* Why Choose Us */}
+      {/* Mobile: 60px | Tablet: 100px | Desktop: 140px (Khoảng cách lớn cần giảm mạnh trên mobile) */}
+      <div className="mt-[60px] md:mt-[100px] lg:mt-[140px]">
         <HomeWhyChoose />
       </div>
 
-      <div style={{ marginTop: "100px" }}>
+      {/* Experience */}
+      {/* Mobile: 50px | Tablet: 80px | Desktop: 100px */}
+      <div className="mt-[50px] md:mt-[80px] lg:mt-[100px]">
         <HomeExperience />
       </div>
-      <div style={{ marginTop: "20px" }}>
+
+      {/* Process */}
+      {/* Giữ nguyên vì khoảng cách nhỏ */}
+      <div className="mt-[20px]">
         <HomeProcess />
       </div>
-      <div style={{ marginTop: "10px" }}>
+
+      {/* Testimonials */}
+      {/* Giữ nguyên */}
+      <div className="mt-[10px]">
         <HomeTestimonials />
       </div>
-      <div style={{ marginTop: "30px" }}>
+
+      {/* Products */}
+      {/* Giữ nguyên */}
+      <div className="mt-[30px]">
         <HomeProducts />
       </div>
-      <div style={{ marginTop: "100px", marginBottom: "100px" }}>
-        {" "}
-        {/* Margin bottom để cách Footer */}
+
+      {/* News */}
+      {/* Mobile: 50px | Tablet: 80px | Desktop: 100px */}
+      <div className="mt-[50px] mb-[50px] md:mt-[80px] md:mb-[80px] lg:mt-[100px] lg:mb-[100px]">
         <HomeNews />
       </div>
+
+      {/* Contact Banner */}
       <div className="w-full">
-        {" "}
-        {/* Bọc ContactBanner để đảm bảo nó không bị lỗi width */}
         <ContactBanner />
       </div>
     </div>

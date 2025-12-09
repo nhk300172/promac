@@ -1,21 +1,21 @@
-//src/features/home/HomeExperience.tsx
+// src/features/home/HomeExperience.tsx
 
-// --- IMPORT HÌNH ẢNH DỰ ÁN ---
+// ... (Import ảnh giữ nguyên)
 import imgOnca from "../../assets/home-experience/onca.png";
-import imgVarne from "../../assets/home-experience/varine.png"; // Lưu ý tên file 'varine.png'
+import imgVarne from "../../assets/home-experience/varine.png";
 import imgBeetl from "../../assets/home-experience/beetl.png";
 import imgCoolfish from "../../assets/home-experience/coolfish.png";
 import imgNantes from "../../assets/home-experience/nantesmural.png";
 import imgVogue from "../../assets/home-experience/voguearabia2023.png";
 import imgFreeletics from "../../assets/home-experience/freeletics2021.png";
-import imgArab from "../../assets/home-experience/arabcharactersdesign.png"; // Tên dài đã check
+import imgArab from "../../assets/home-experience/arabcharactersdesign.png";
 import imgBagel from "../../assets/home-experience/bagel.png";
 import imgDomo from "../../assets/home-experience/domo.png";
 import imgTvShow from "../../assets/home-experience/tvshowduos.png";
 import imgAbcd from "../../assets/home-experience/abcd.png";
 
-// DỮ LIỆU DỰ ÁN (Đã gán ảnh)
 const PROJECTS = [
+  // ... (Data giữ nguyên)
   { title: "Onça", author: "", image: imgOnca },
   { title: "VARNE", author: "", image: imgVarne },
   {
@@ -24,7 +24,6 @@ const PROJECTS = [
     image: imgBeetl,
   },
   { title: "cool fish", author: "", image: imgCoolfish },
-
   { title: "NANTES MURAL", author: "", image: imgNantes },
   { title: "VOGUE ARABIA 2023", author: "", image: imgVogue },
   {
@@ -33,7 +32,6 @@ const PROJECTS = [
     image: imgFreeletics,
   },
   { title: "Arab Character Design", author: "", image: imgArab },
-
   { title: "Bagel - Metascale", author: "", image: imgBagel },
   { title: "Domo - Brand Identity", author: "", image: imgDomo },
   { title: "TV Show Duos", author: "", image: imgTvShow },
@@ -42,51 +40,24 @@ const PROJECTS = [
 
 export const HomeExperience = () => {
   return (
-    <section className="flex flex-col items-center w-full">
+    <section className="flex flex-col items-center w-full px-4 xl:px-0">
       {/* =================================================================
-          1. MOBILE VERSION (< 1024px)
+          1. HEADER SECTION (CHUNG CHO TABLET & DESKTOP)
           ================================================================= */}
-      <div className="flex flex-col items-center w-full lg:hidden px-[20px] pt-[40px]">
-        {/* HEADER MOBILE */}
-        <div className="flex flex-col items-center text-center mb-[40px] w-full max-w-[331px]">
-          <h2 className="font-inter font-bold text-[28px] leading-[34px] text-[#000000] mb-[24px]">
-            Kinh nghiệm dự án phong phú
-          </h2>
-          <p className="font-inter font-medium text-[16px] leading-[25px] text-[#64607D] text-center tracking-[-0.02em]">
-            Yet bed any for travelling assistance indulgence unpleasing. Not
-            thoughts all exercise blessing. Indulgence way everything joy.
-          </p>
-        </div>
+      <div className="flex flex-col items-center text-center mb-[40px] xl:mb-[60px] w-full max-w-[1392px]">
+        {/* Title */}
+        <h2 className="font-inter font-bold lg:font-extrabold text-[#000000] text-[28px] md:text-[40px] lg:text-[56px] leading-[110%] mb-[24px] lg:mb-[32px]">
+          Kinh nghiệm dự án phong phú
+        </h2>
 
-        {/* PROJECTS LIST MOBILE (Hiển thị 5 dự án đầu) */}
-        <div className="flex flex-col gap-[40px] w-full items-center mb-[40px]">
-          {PROJECTS.slice(0, 5).map((project, index) => (
-            <div
-              key={index}
-              className="flex flex-col items-center w-full max-w-[331px]"
-            >
-              {/* Thumbnail - Sử dụng thẻ IMG */}
-              <div
-                className="w-full bg-[#F2F2F2] rounded-[4px] overflow-hidden mb-[8px]"
-                style={{ height: "255px" }}
-              >
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover"
-                />
-              </div>
+        {/* Desc */}
+        <p className="font-inter font-medium text-[#64607D] text-[16px] md:text-[18px] lg:text-[20px] leading-[150%] max-w-[90%] lg:max-w-[1000px] mb-[32px]">
+          Yet bed any for travelling assistance indulgence unpleasing. Not
+          thoughts all exercise blessing. Indulgence way everything joy.
+        </p>
 
-              {/* Title */}
-              <h3 className="font-inter font-bold text-[15px] leading-[18px] text-[#191919] text-center">
-                {project.title}
-              </h3>
-            </div>
-          ))}
-        </div>
-
-        {/* BUTTON "Xem tất cả" */}
-        <button className="flex items-center justify-center bg-[#FF0000] rounded-[47px] w-[132px] h-[45px] shadow-lg active:scale-95 transition-transform">
+        {/* Button - Chỉ hiện trên Mobile (theo thiết kế cũ), nhưng nếu muốn hiện trên Tablet/iPad cũng được */}
+        <button className="flex items-center justify-center bg-[#FF0000] rounded-[47px] w-[132px] h-[45px] lg:w-[162px] lg:h-[47px] shadow-lg active:scale-95 transition-transform">
           <span className="font-inter font-semibold text-[16px] text-white tracking-[-0.02em]">
             Xem tất cả
           </span>
@@ -94,113 +65,44 @@ export const HomeExperience = () => {
       </div>
 
       {/* =================================================================
-          2. DESKTOP VERSION (>= 1024px)
+          2. PROJECTS GRID (RESPONSIVE)
+          - Mobile (< 768px): Flex cột (hoặc Grid 1 cột)
+          - Tablet (768px -> 1024px): Grid 2 cột
+          - iPad Pro (1024px -> 1280px): Grid 3 cột (Cho thoáng)
+          - Desktop (>= 1280px): Grid 4 cột (Chuẩn thiết kế gốc)
           ================================================================= */}
       <div
-        className="hidden lg:flex flex-col items-center w-full"
-        style={{ height: "1280px", width: "1440px" }}
+        className="w-full max-w-[1392px] grid gap-[20px] mb-[40px] xl:mb-0
+                   grid-cols-1 
+                   md:grid-cols-2 
+                   lg:grid-cols-3 
+                   xl:grid-cols-4"
       >
-        {/* HEADER SECTION */}
-        <div
-          className="flex flex-col items-center justify-center"
-          style={{
-            width: "1392px",
-            height: "264px",
-            marginBottom: "24px",
-          }}
-        >
-          <h2
-            className="font-inter font-extrabold text-[#000000]"
-            style={{
-              fontSize: "56px",
-              lineHeight: "60px",
-              marginBottom: "32px",
-            }}
+        {PROJECTS.map((project, index) => (
+          <div
+            key={index}
+            className="flex flex-col group cursor-pointer relative mx-auto w-full max-w-[333px]"
           >
-            Kinh nghiệm dự án phong phú
-          </h2>
-
-          <p
-            className="font-inter font-medium text-[#64607D]"
-            style={{
-              fontSize: "16px",
-              lineHeight: "30px",
-              marginBottom: "32px",
-              maxWidth: "1000px",
-              textAlign: "center",
-              whiteSpace: "nowrap",
-            }}
-          >
-            Yet bed any for travelling assistance indulgence unpleasing. Not
-            thoughts all exercise blessing. Indulgence way everything joy.
-          </p>
-
-          <button
-            className="flex items-center justify-center bg-[#FF0000] rounded-full hover:bg-red-700 transition-colors"
-            style={{
-              width: "162px",
-              height: "47px",
-            }}
-          >
-            <span className="font-inter font-semibold text-[16px] text-white">
-              Xem tất cả
-            </span>
-          </button>
-        </div>
-
-        {/* PROJECTS GRID */}
-        <div
-          className="grid grid-cols-4"
-          style={{
-            width: "1392px",
-            height: "953px",
-            gap: "20px",
-          }}
-        >
-          {PROJECTS.map((project, index) => (
-            <div
-              key={index}
-              className="flex flex-col group cursor-pointer relative"
-              style={{
-                width: "333px",
-                height: "321.47px",
-              }}
-            >
-              {/* Image Container - Sử dụng thẻ IMG */}
-              <div
-                className="w-full bg-[#F2F2F2] overflow-hidden relative"
-                style={{
-                  marginTop: "10px",
-                  height: "260.47px",
-                  borderRadius: "4px",
-                }}
-              >
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-
-              <div
-                className="flex flex-col justify-start"
-                style={{ marginTop: "8px" }}
-              >
-                <h3
-                  className="font-inter font-bold text-[#191919] truncate"
-                  style={{
-                    fontSize: "14px",
-                    lineHeight: "18px",
-                    textAlign: "left",
-                  }}
-                  title={project.title}
-                >
-                  {project.title}
-                </h3>
-              </div>
+            {/* Thumbnail */}
+            <div className="w-full bg-[#F2F2F2] rounded-[4px] overflow-hidden mb-[8px] relative aspect-[333/260]">
+              <img
+                src={project.image}
+                alt={project.title}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
             </div>
-          ))}
-        </div>
+
+            {/* Title */}
+            <div className="flex flex-col justify-start mt-[8px]">
+              <h3
+                className="font-inter font-bold text-[#191919] truncate text-[15px] md:text-[16px] xl:text-[14px] leading-[120%]"
+                title={project.title}
+              >
+                {project.title}
+              </h3>
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   );

@@ -3,6 +3,7 @@ import React from "react";
 import { ActivationScratchHero } from "../../features/otherservices/activation/ActivationScratchHero";
 import { ActivationScratchContent } from "../../features/otherservices/activation/ActivationScratchContent";
 import { ActivationScratchPortfolio } from "../../features/otherservices/activation/ActivationScratchPortfolio";
+import { ContactBanner } from "./../../components/layout/ContactBanner";
 
 export const ActivationScratchPage: React.FC = () => {
   return (
@@ -10,6 +11,7 @@ export const ActivationScratchPage: React.FC = () => {
       <ActivationScratchHero />
       <ActivationScratchContent />
       <ActivationScratchPortfolio />
+      <ContactBanner />
     </div>
   );
 };
