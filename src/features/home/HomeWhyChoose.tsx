@@ -49,18 +49,46 @@ const STATS = [
   { number: "10+", label: "Năm kinh nghiệm", color: "text-[#C98905]" },
   { number: "24/7", label: "Hỗ trợ mọi lúc", color: "text-[#00A63E]" },
 ];
-
+const CONTENT = {
+  title: "Tại sao lại lựa chọn PROMAC",
+  description:
+    "Kết hợp công nghệ hiện đại và tay nghề tinh xảo, chúng tôi mang đến giải pháp in ấn đẳng cấp giúp thương hiệu của bạn toả sáng.",
+};
 export const HomeWhyChoose = () => {
   return (
     <section className="w-full flex flex-col items-center px-4 xl:px-0">
-      {/* HEADER SECTION (Chung cho Tablet & Desktop) */}
-      <div className="flex flex-col items-center text-center mb-[40px] xl:mb-[60px] max-w-[1244px]">
-        <h2 className="font-inter font-bold text-[#0E0E0E] text-[28px] md:text-[40px] xl:text-[56px] leading-[110%] mb-[20px]">
-          Tại sao lại lựa chọn PROMAC
+      <div
+        className="
+        flex flex-col items-center 
+        w-full 
+        gap-[24px] lg:gap-[12px] 
+        pb-[40px]
+      "
+      >
+        {/* 1. HEADING */}
+        <h2
+          className="
+          font-inter font-bold text-center text-[#000000]
+          text-[28px] leading-[34px]               /* Mobile */
+          md:text-[40px] md:leading-[48px]         /* Tablet */
+          lg:text-[48px] lg:leading-[140%]         /* Desktop */
+          lg:max-w-[600px] lg:whitespace-nowrap    /* Desktop tweak */
+        "
+        >
+          {CONTENT.title}
         </h2>
-        <p className="font-inter font-medium text-[#64607D] text-[16px] md:text-[18px] xl:text-[20px] leading-[140%] max-w-[90%] xl:max-w-full">
-          “Kết hợp công nghệ hiện đại và tay nghề tinh xảo, chúng tôi mang đến
-          giải pháp in ấn đẳng cấp giúp thương hiệu của bạn tỏa sáng.”
+
+        {/* 2. DESCRIPTION */}
+        <p
+          className="
+          font-inter font-medium text-center text-[#555555]
+          text-[16px] leading-[19px]               /* Mobile */
+          md:text-[18px] md:leading-[26px]         /* Tablet */
+          lg:text-[20px] lg:leading-[26px]         /* Desktop */
+          max-w-[328px] md:max-w-[700px] lg:max-w-[800px] /* Width constraints */
+        "
+        >
+          {CONTENT.description}
         </p>
       </div>
 
@@ -71,7 +99,7 @@ export const HomeWhyChoose = () => {
           - Desktop Large (>= 1280px): Grid 3 cột (Layout gốc 1373px)
           ================================================================= */}
 
-      <div className="flex flex-col items-center bg-[#F5F5F5] rounded-[20px] shadow-lg w-full max-w-[1373px] py-[40px] px-[20px] xl:px-0">
+      <div className="flex flex-col items-center bg-[#FFD1D1] rounded-[20px] shadow-lg w-full max-w-[1373px] py-[40px] px-[20px] xl:px-0">
         <h3 className="font-inter font-extrabold text-center text-[#000000] opacity-80 text-[20px] md:text-[28px] xl:text-[32px] mb-[40px]">
           6 CAM KẾT CHẤT LƯỢNG VÀ RỦI RO CHO KHÁCH HÀNG B2B
         </h3>

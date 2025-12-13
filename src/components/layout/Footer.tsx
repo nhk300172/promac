@@ -42,7 +42,7 @@ export const Footer = () => {
       {/* =================================================================
           1. MOBILE VERSION (< 768px) - GIỮ NGUYÊN
           ================================================================= */}
-      <div className="w-full bg-[#FFF8F9] rounded-t-[40px] pt-[48px] pb-[80px] flex flex-col items-center md:hidden">
+      <div className="w-full bg-[#FFD1D1] rounded-t-[40px] pt-[48px] pb-[80px] flex flex-col items-center md:hidden">
         {/* LINKS SECTIONS */}
         <div className="flex flex-col gap-[40px] w-full max-w-[265px] mb-[50px]">
           {FOOTER_LINKS.map((section, index) => (

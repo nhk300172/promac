@@ -151,7 +151,7 @@ export const HomeNews = () => {
       <div className="hidden lg:flex flex-col items-center w-full px-4 xl:px-0">
         {/* HEADER SECTION */}
         <div className="w-full max-w-[1260px] flex flex-col items-start mb-[60px]">
-          <h2 className="font-inter font-normal text-[#000000] text-[48px] xl:text-[56px] leading-[115%] tracking-[-2px] xl:tracking-[-5px]">
+          <h2 className="font-inter font-normal text-[#000000] text-[48px] xl:text-[48px] leading-[115%] tracking-[-2px] xl:tracking-[-5px]">
             Tin tức khuyến mãi
           </h2>
         </div>

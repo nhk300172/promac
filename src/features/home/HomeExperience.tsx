@@ -46,7 +46,7 @@ export const HomeExperience = () => {
           ================================================================= */}
       <div className="flex flex-col items-center text-center mb-[40px] xl:mb-[60px] w-full max-w-[1392px]">
         {/* Title */}
-        <h2 className="font-inter font-bold lg:font-extrabold text-[#000000] text-[28px] md:text-[40px] lg:text-[56px] leading-[110%] mb-[24px] lg:mb-[32px]">
+        <h2 className="font-inter font-bold  text-[#000000] text-[28px] md:text-[40px] lg:text-[48px] leading-[110%] mb-[24px] lg:mb-[32px]">
           Kinh nghiệm dự án phong phú
         </h2>
 

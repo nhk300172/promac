@@ -128,7 +128,7 @@ const TabletAndIpadProcess = () => {
     <div className="hidden md:flex xl:hidden flex-col items-center w-full px-8 py-10">
       {/* HEADER */}
       <div className="flex flex-col items-center text-center mb-[60px] max-w-[800px]">
-        <h2 className="font-inter font-bold text-[40px] leading-[48px] text-[#000000] mb-[24px]">
+        <h2 className="font-inter font-bold text-[32px] leading-[48px] text-[#000000] mb-[24px]">
           Quy trình làm việc chuyên nghiệp
         </h2>
         <p className="font-manrope font-medium text-[18px] leading-[28px] text-[#64607D] tracking-[-0.02em]">
@@ -248,10 +248,10 @@ const DesktopProcess = () => {
       <div className="relative w-[1440px] h-full z-10">
         <div className="absolute left-[125px] top-[126px] z-20">
           <h2
-            className="font-inter font-extrabold text-black"
+            className="font-inter font-bold text-black"
             style={{
               width: "940px",
-              fontSize: "56px",
+              fontSize: "48px",
               lineHeight: "60px",
               whiteSpace: "nowrap",
             }}
