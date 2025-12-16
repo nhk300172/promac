@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Star, ArrowLeft, ArrowRight } from "lucide-react";
 
-// --- IMPORT HÌNH ẢNH TESTIMONIALS ---
+// --- IMPORT HÌNH ẢNH (Đảm bảo đường dẫn chính xác) ---
 import imgCongTyA from "../../assets/home-testimonials/congtyA.png";
 import imgCongTyC from "../../assets/home-testimonials/congtyC.png";
 import imgKhachHangB from "../../assets/home-testimonials/khachhangB.png";
@@ -39,7 +39,7 @@ const TESTIMONIALS = [
       "Sản phẩm in ấn sắc nét, màu sắc trung thực. Chúng tôi đã tăng doanh số bán hàng nhờ bao bì sản phẩm đẹp mắt do PROMAC thiết kế.",
     name: "Đối tác D",
     position: "Retail Group",
-    avatar: "bg-yellow-200",
+    avatar: "bg-yellow-200", // Class màu nền
   },
   {
     id: 5,
@@ -59,7 +59,7 @@ const TESTIMONIALS = [
   },
 ];
 
-// --- COMPONENT CON: ICON QUOTE (Tái sử dụng) ---
+// --- COMPONENT CON: ICON QUOTE ---
 const QuoteIcon = ({ id }: { id: number }) => (
   <svg
     width="40"
@@ -92,6 +92,7 @@ export const HomeTestimonials = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const VISIBLE_ITEMS = 3;
   const isStart = currentIndex === 0;
+  // Fix logic isEnd: đảm bảo không scroll quá mức
   const isEnd = currentIndex + VISIBLE_ITEMS >= TESTIMONIALS.length;
 
   const handleNext = () => {
@@ -102,12 +103,36 @@ export const HomeTestimonials = () => {
     if (!isStart) setCurrentIndex((prev) => prev - VISIBLE_ITEMS);
   };
 
+  // Helper function để render Avatar an toàn
+  const renderAvatar = (avatar: string, name: string) => {
+    // Nếu là class màu nền (ví dụ: "bg-red-200")
+    if (avatar.startsWith("bg-")) {
+      return (
+        <div
+          className={`w-[37px] h-[41px] xl:w-[50px] xl:h-[50px] rounded-full ${avatar} xl:mr-[16px]`}
+        />
+      );
+    }
+    // Ngược lại là đường dẫn ảnh
+    return (
+      <img
+        src={avatar}
+        alt={name}
+        className="w-[37px] h-[41px] xl:w-[50px] xl:h-[50px] rounded-full object-cover xl:mr-[16px]"
+      />
+    );
+  };
+
   return (
     <section className="w-full flex flex-col items-center">
+      {/* CSS Ẩn thanh cuộn */}
+      <style>{`
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      `}</style>
+
       {/* =================================================================
           1. RESPONSIVE SWIPE VERSION (Mobile + Tablet + iPad Pro)
-          - Hiển thị cho màn hình < 1280px (xl)
-          - Tablet/iPad sẽ có thẻ to hơn và padding rộng hơn
           ================================================================= */}
       <div className="flex flex-col items-center w-full xl:hidden px-[20px] md:px-[40px]">
         {/* HEADER */}
@@ -131,9 +156,8 @@ export const HomeTestimonials = () => {
               key={index}
               className="flex flex-col shrink-0 bg-white rounded-[20px] p-[25px] md:p-[32px] snap-center shadow-[0px_8px_16px_rgba(0,0,0,0.15)]"
               style={{
-                // Responsive Width: Mobile 269px -> Tablet/iPad 340px
                 width: "clamp(269px, 45vw, 340px)",
-                height: "367px", // Giữ nguyên chiều cao hoặc tăng nếu cần
+                height: "367px",
               }}
             >
               <div className="mb-[8px]">
@@ -151,19 +175,7 @@ export const HomeTestimonials = () => {
               </p>
 
               <div className="flex flex-col items-center gap-[11px] mt-auto">
-                {/* Avatar */}
-                {item.avatar.startsWith("/") ||
-                item.avatar.startsWith("data") ? (
-                  <img
-                    src={item.avatar}
-                    alt={item.name}
-                    className="w-[37px] h-[41px] rounded-full object-cover"
-                  />
-                ) : (
-                  <div
-                    className={`w-[37px] h-[41px] rounded-full ${item.avatar}`}
-                  />
-                )}
+                {renderAvatar(item.avatar, item.name)}
 
                 <div className="flex flex-col items-center">
                   <span className="font-inter font-medium text-[15px] md:text-[16px] text-[#000000] text-center">
@@ -177,17 +189,10 @@ export const HomeTestimonials = () => {
             </div>
           ))}
         </div>
-
-        {/* Hide Scrollbar CSS */}
-        <style>{`
-            .hide-scrollbar::-webkit-scrollbar { display: none; }
-            .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        `}</style>
       </div>
 
       {/* =================================================================
-          2. DESKTOP VERSION (>= 1280px) - Slider Nút Bấm
-          - Chỉ hiển thị từ breakpoint xl trở lên để không bị vỡ trên iPad Pro
+          2. DESKTOP VERSION (>= 1280px)
           ================================================================= */}
       <div
         className="hidden xl:flex relative flex-col items-center"
@@ -202,7 +207,7 @@ export const HomeTestimonials = () => {
         <div className="flex flex-col items-center text-center mb-[60px]">
           <h2
             className="font-manrope font-bold text-[#0E0E0E]"
-            style={{ fontSize: "56px", lineHeight: "140%" }}
+            style={{ fontSize: "48px", lineHeight: "140%" }}
           >
             Khách hàng nói gì về PROMAC
           </h2>
@@ -260,18 +265,8 @@ export const HomeTestimonials = () => {
                 </p>
 
                 <div className="flex items-center mt-auto">
-                  {item.avatar.startsWith("/") ||
-                  item.avatar.startsWith("data") ? (
-                    <img
-                      src={item.avatar}
-                      alt={item.name}
-                      className="w-[50px] h-[50px] rounded-full object-cover mr-[16px]"
-                    />
-                  ) : (
-                    <div
-                      className={`w-[50px] h-[50px] rounded-full ${item.avatar} mr-[16px]`}
-                    />
-                  )}
+                  {renderAvatar(item.avatar, item.name)}
+
                   <div className="flex flex-col">
                     <span className="font-inter font-semibold text-[16px] text-[#000000]">
                       {item.name}
@@ -290,29 +285,34 @@ export const HomeTestimonials = () => {
           className="absolute flex items-center gap-[20px]"
           style={{ bottom: "60px" }}
         >
+          {/* Sửa: Thêm type="button" và disabled state */}
           <button
+            type="button"
             onClick={handlePrev}
             disabled={isStart}
+            aria-label="Previous Testimonial"
             className={`flex items-center justify-center rounded-full transition-all duration-300 hover:scale-110 
-                    ${
-                      isStart
-                        ? "bg-gray-300 cursor-not-allowed"
-                        : "bg-[#4A5F9F] hover:bg-[#1F3A8A] cursor-pointer"
-                    }`}
+              ${
+                isStart
+                  ? "bg-gray-300 cursor-not-allowed"
+                  : "bg-[#4A5F9F] hover:bg-[#1F3A8A] cursor-pointer"
+              }`}
             style={{ width: "80px", height: "80px" }}
           >
             <ArrowLeft size={34} color="#FFFFFF" strokeWidth={3} />
           </button>
 
           <button
+            type="button"
             onClick={handleNext}
             disabled={isEnd}
+            aria-label="Next Testimonial"
             className={`flex items-center justify-center rounded-full transition-all duration-300 hover:scale-110
-                    ${
-                      isEnd
-                        ? "bg-gray-300 cursor-not-allowed"
-                        : "bg-[#4A5F9F] hover:bg-[#1F3A8A] cursor-pointer"
-                    }`}
+              ${
+                isEnd
+                  ? "bg-gray-300 cursor-not-allowed"
+                  : "bg-[#4A5F9F] hover:bg-[#1F3A8A] cursor-pointer"
+              }`}
             style={{ width: "80px", height: "80px" }}
           >
             <ArrowRight size={34} color="#FFFFFF" strokeWidth={3} />

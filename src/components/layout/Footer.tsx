@@ -604,29 +604,36 @@ export const Footer = () => {
         className={`md:hidden w-full ${BG_COLOR} rounded-t-[40px] pt-[48px] pb-[80px] flex flex-col items-center`}
       >
         {/* Links */}
-        <div className="flex flex-col gap-[40px] w-full max-w-[265px] mb-[50px]">
-          {FOOTER_LINKS.map((section, index) => (
-            <div key={index} className="flex flex-col items-center w-full">
-              <SectionTitle
-                title={section.title}
-                className="text-center items-center"
-              />
-              <ul className="flex flex-col gap-[14px] items-center w-full">
-                {section.items.map((item, idx) => (
-                  <li key={idx} className="text-center">
-                    <a
-                      href="#"
-                      className="font-inter font-normal text-[16px] text-black hover:text-[#FF0000] transition-colors"
-                    >
-                      {item}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
 
+        {/* =================================================================
+          1. MOBILE VERSION (< 768px) - GIỮ NGUYÊN
+          ================================================================= */}
+        <div className="w-full bg-[#FFD1D1] rounded-t-[40px] pt-[48px] pb-[80px] flex flex-col items-center md:hidden">
+          {/* LINKS SECTIONS */}
+
+          <div className="flex flex-col gap-[40px] w-full max-w-[265px] mb-[50px]">
+            {FOOTER_LINKS.map((section, index) => (
+              <div key={index} className="flex flex-col items-center w-full">
+                <SectionTitle
+                  title={section.title}
+                  className="text-center items-center"
+                />
+                <ul className="flex flex-col gap-[14px] items-center w-full">
+                  {section.items.map((item, idx) => (
+                    <li key={idx} className="text-center">
+                      <a
+                        href="#"
+                        className="font-inter font-normal text-[16px] text-black hover:text-[#FF0000] transition-colors"
+                      >
+                        {item}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
         {/* Info */}
         <div className="flex flex-col items-center w-full max-w-[324px] mb-[40px]">
           <SectionTitle

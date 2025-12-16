@@ -1,15 +1,17 @@
 //src/features/home/HomeServices.tsx
-import { Check } from "lucide-react";
+import React, { useRef, useState, useEffect } from "react";
+import { Check, ArrowRight } from "lucide-react";
 
+// --- IMPORT ẢNH (Giữ nguyên) ---
 import project1 from "../../assets/printingservices/project1.png";
 import project2 from "../../assets/printingservices/project2.png";
 import project3 from "../../assets/printingservices/project3.png";
 
-// 1. DỮ LIỆU DỊCH VỤ CHÍNH
+// --- 1. DỮ LIỆU ---
 const MAIN_SERVICES = [
   {
     title: "In hộp cứng cao cấp",
-    desc: "The consensus mechanism that connects stacks and bitcoin. The consensus mechanism that connects stacks and b...",
+    desc: "Bao bì hộp cứng sang trọng, nâng tầm giá trị sản phẩm với kỹ thuật in ấn hiện đại.",
     image: project2,
     features: [
       "Hộp quà, hộp sản phẩm",
@@ -18,321 +20,268 @@ const MAIN_SERVICES = [
     ],
   },
   {
-    title: "In hộp cứng cao cấp",
-    desc: "The consensus mechanism that connects stacks and bitcoin. The consensus mechanism that connects stacks and b...",
+    title: "In bao bì giấy",
+    desc: "Giải pháp bao bì giấy thân thiện môi trường, thiết kế bắt mắt và bền bỉ.",
     image: project1,
-    features: [
-      "Hộp quà, hộp sản phẩm",
-      "Thùng carton màu",
-      "Hộp custom theo thiết kế",
-    ],
+    features: ["Túi giấy kraft", "Túi giấy thời trang", "Túi giấy thực phẩm"],
   },
   {
-    title: "In hộp cứng cao cấp",
-    desc: "The consensus mechanism that connects stacks and bitcoin. The consensus mechanism that connects stacks and b...",
+    title: "In ấn phẩm văn phòng",
+    desc: "Đồng bộ nhận diện thương hiệu qua các ấn phẩm văn phòng chuyên nghiệp.",
     image: project3,
     features: [
-      "Hộp quà, hộp sản phẩm",
-      "Thùng carton màu",
-      "Hộp custom theo thiết kế",
+      "Catalogue, Brochure",
+      "Namecard, Phong bì",
+      "Kẹp file, Tiêu đề thư",
     ],
   },
 ];
 
-// 2. DỮ LIỆU DỊCH VỤ KHÁC
-const OTHER_SERVICES = [
+// Nhân bản danh sách nhiều lần để tạo cảm giác vô tận khi user kéo
+const OTHER_SERVICES_RAW = [
   "In thẻ cào biến đổi",
   "In thẻ cào kích hoạt",
   "In thẻ cào trúng thưởng",
   "In thẻ cào ráp chữ",
+  "In tem nhãn decal",
+  "In lịch tết",
+  "In bao lì xì",
+  "In phiếu bảo hành",
 ];
+// Nhân 6 lần để đủ dài cho việc scroll
+const OTHER_SERVICES = Array(6).fill(OTHER_SERVICES_RAW).flat();
 
 export const HomeServices = () => {
+  // --- LOGIC KÉO THẢ & AUTO SCROLL ---
+  const sliderRef = useRef<HTMLDivElement>(null);
+  const [isDown, setIsDown] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  // Biến này để lưu vị trí chính xác (số thực) để scroll mượt khi tốc độ thấp
+  const scrollFloat = useRef(0);
+
+  // TỐC ĐỘ SCROLL (Càng nhỏ càng chậm)
+  // 1 = Bình thường (~60px/s)
+  // 0.5 = Chậm
+  // 0.3 = Rất chậm
+  const SCROLL_SPEED = 0.5;
+
+  // Auto Scroll Effect
+  useEffect(() => {
+    let animationFrameId: number;
+
+    const autoScroll = () => {
+      if (!isPaused && !isDown && sliderRef.current) {
+        // Cộng dồn vị trí vào biến float
+        scrollFloat.current += SCROLL_SPEED;
+
+        // Gán giá trị float vào scrollLeft (trình duyệt sẽ tự làm tròn visual nhưng ta giữ logic ở ref)
+        sliderRef.current.scrollLeft = scrollFloat.current;
+
+        // Logic lặp vô tận (Optional: Nếu muốn cuộn hết thì quay về đầu ngay lập tức)
+        // Nếu cuộn đến kịch đường biên -> reset về 0 (nếu bạn muốn vòng lặp hoàn hảo cần nhân bản list nhiều hơn nữa)
+        if (
+          sliderRef.current.scrollLeft >=
+          sliderRef.current.scrollWidth - sliderRef.current.clientWidth
+        ) {
+          scrollFloat.current = 0;
+          sliderRef.current.scrollLeft = 0;
+        }
+      }
+      animationFrameId = requestAnimationFrame(autoScroll);
+    };
+
+    animationFrameId = requestAnimationFrame(autoScroll);
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [isPaused, isDown]);
+
+  // Mouse Events (Desktop Drag)
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (!sliderRef.current) return;
+    setIsDown(true);
+    setIsPaused(true);
+    setStartX(e.pageX - sliderRef.current.offsetLeft);
+    setScrollLeft(sliderRef.current.scrollLeft);
+    // Đồng bộ lại biến float khi bắt đầu kéo để tránh bị giật khi thả ra
+    scrollFloat.current = sliderRef.current.scrollLeft;
+  };
+
+  const handleMouseLeave = () => {
+    setIsDown(false);
+    setIsPaused(false);
+    // Đồng bộ lại khi chuột rời đi
+    if (sliderRef.current) scrollFloat.current = sliderRef.current.scrollLeft;
+  };
+
+  const handleMouseUp = () => {
+    setIsDown(false);
+    setIsPaused(false);
+    // Đồng bộ lại khi thả chuột
+    if (sliderRef.current) scrollFloat.current = sliderRef.current.scrollLeft;
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDown || !sliderRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - sliderRef.current.offsetLeft;
+    const walk = (x - startX) * 2; // Tốc độ kéo tay (nhân 2 cho nhạy)
+    sliderRef.current.scrollLeft = scrollLeft - walk;
+    // Cập nhật luôn biến float khi kéo
+    scrollFloat.current = sliderRef.current.scrollLeft;
+  };
+
+  // Touch Events (Mobile)
+  const handleTouchStart = () => {
+    setIsPaused(true);
+    if (sliderRef.current) scrollFloat.current = sliderRef.current.scrollLeft;
+  };
+  const handleTouchEnd = () => {
+    setIsPaused(false);
+    if (sliderRef.current) scrollFloat.current = sliderRef.current.scrollLeft;
+  };
+
   return (
-    <section className="w-full flex flex-col items-center">
-      {/* =================================================================
-          1. MOBILE & TABLET VERSION (< 1024px)
-          - Mobile (< 768px): List dọc.
-          - Tablet (768px - 1023px): Grid 2 cột (Hoặc 3 cột nếu đủ chỗ).
-          ================================================================= */}
-      <div className="flex flex-col items-center w-full lg:hidden px-[20px]">
-        {/* HEADER */}
-        <h2 className="font-inter font-bold text-[28px] leading-[34px] md:text-[40px] text-[#000000] text-center mb-[24px]">
+    <section className="w-full flex justify-center py-[60px] lg:py-[100px] overflow-hidden bg-white">
+      {/* Ẩn thanh cuộn mặc định */}
+      <style>
+        {`
+          .no-scrollbar::-webkit-scrollbar {
+            display: none;
+          }
+          .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+          }
+        `}
+      </style>
+
+      <div className="w-full max-w-[1340px] px-4 md:px-6 flex flex-col items-center">
+        {/* --- 1. HEADER --- */}
+        <h2 className="font-inter font-bold text-[#000000] text-center text-[28px] md:text-[40px] lg:text-[48px] leading-tight mb-[40px] lg:mb-[60px]">
           Dịch vụ cốt lõi
         </h2>
 
-        {/* LIST SERVICES (Responsive Grid) */}
-        <div className="flex flex-col md:grid md:grid-cols-2 md:gap-[24px] gap-[32px] w-full items-center md:items-stretch">
+        {/* --- 2. MAIN SERVICES GRID --- */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[30px] lg:gap-[40px] w-full mb-[50px]">
           {MAIN_SERVICES.map((service, index) => (
             <div
               key={index}
-              className="flex flex-col items-center bg-[#F5F5F5] rounded-[40px] p-[22px] w-full max-w-[370px] md:max-w-full mx-auto h-full"
+              className="flex flex-col bg-[#F5F5F5] rounded-[30px] lg:rounded-[40px] p-[20px] lg:p-[30px] h-full transition-transform hover:-translate-y-2 duration-300"
             >
-              {/* IMAGE */}
-              <div className="w-full h-[228px] mb-[24px] rounded-[15px] overflow-hidden relative shrink-0">
+              {/* Image */}
+              <div className="w-full aspect-[4/3] lg:h-[275px] mb-[24px] rounded-[15px] overflow-hidden shadow-sm">
                 <img
                   src={service.image}
                   alt={service.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
                 />
               </div>
 
-              {/* CONTENT */}
-              <div className="flex flex-col items-start w-full gap-[14px] flex-grow">
-                <h3 className="font-inter font-bold text-[18px] leading-[22px] text-[#000000]">
+              {/* Content */}
+              <div className="flex flex-col flex-grow">
+                <h3 className="font-inter font-bold text-[20px] lg:text-[24px] text-black mb-3">
                   {service.title}
                 </h3>
-
-                <p className="font-inter font-normal text-[15px] leading-[20px] text-[#000000] line-clamp-3">
+                <p className="font-inter text-[15px] lg:text-[16px] text-gray-600 line-clamp-3 mb-4 flex-grow">
                   {service.desc}
                 </p>
 
-                <div className="flex flex-col gap-[10px] w-full my-[10px]">
+                {/* Features List */}
+                <div className="flex flex-col gap-3 mb-6">
                   {service.features.map((feature, idx) => (
-                    <div key={idx} className="flex items-start gap-[12px]">
+                    <div key={idx} className="flex items-center gap-3">
                       <Check
                         size={20}
-                        color="#FF0000"
-                        strokeWidth={4}
-                        className="shrink-0 mt-[2px]"
+                        className="text-[#FF0000] shrink-0"
+                        strokeWidth={3}
                       />
-                      <span className="font-inter font-normal text-[15px] leading-[18px] text-[#000000]">
+                      <span className="font-inter text-[15px] lg:text-[16px] text-gray-800">
                         {feature}
                       </span>
                     </div>
                   ))}
                 </div>
 
-                {/* Button "Xem chi tiết" */}
-                <div className="flex flex-col ml-[98px] md:ml-0 md:mt-auto md:self-center items-start cursor-pointer group mt-[10px]">
-                  <div className="flex items-center gap-[8px]">
-                    <span className="font-inter font-semibold text-[15px] leading-[18px] text-[#FF0000]">
+                {/* Link 'Xem chi tiết' */}
+                <div className="mt-auto pt-4 border-t border-gray-200">
+                  <div className="group flex items-center gap-2 cursor-pointer w-fit">
+                    <span className="font-bold text-[15px] text-[#FF0000]">
                       Xem chi tiết
                     </span>
-                    <div className="transition-transform group-hover:translate-x-1">
-                      <svg
-                        width="10"
-                        height="9"
-                        viewBox="0 0 10 9"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M1 4.5H9"
-                          stroke="#FF0000"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                        <path
-                          d="M5 1L9 4.5L5 8"
-                          stroke="#FF0000"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    </div>
+                    <ArrowRight className="w-4 h-4 text-[#FF0000] transition-transform group-hover:translate-x-1" />
                   </div>
-                  <div className="w-[100px] h-[1px] bg-[#FF0000] mt-[2px]"></div>
+                  <div className="w-[0px] group-hover:w-[100px] h-[2px] bg-[#FF0000] mt-1 transition-all duration-300" />
                 </div>
               </div>
             </div>
           ))}
         </div>
 
-        {/* BUTTON BÁO GIÁ */}
-        <button className="flex items-center justify-center w-[160px] h-[45px] bg-[#FF0000] rounded-[20px] shadow-[0px_0px_14px_#FF0000] mt-[42px] mb-[50px] active:scale-95 transition-transform">
-          <span className="font-inter font-bold text-[16px] text-[#F5F5F5]">
-            Yêu cầu báo giá
-          </span>
+        {/* --- BUTTON BÁO GIÁ --- */}
+        <button className="bg-[#FF0000] text-white font-bold text-[16px] lg:text-[18px] px-8 py-3 rounded-full shadow-[0px_4px_15px_rgba(255,0,0,0.4)] hover:scale-105 hover:shadow-[0px_8px_25px_rgba(255,0,0,0.5)] transition-all mb-[80px]">
+          Yêu cầu báo giá
         </button>
 
-        {/* OTHER SERVICES (MOBILE & TABLET) */}
-        <div className="flex flex-col items-center w-full max-w-[370px] md:max-w-[600px]">
-          <h3 className="font-inter font-semibold text-[24px] text-[#000000] mb-[30px] text-center">
+        {/* --- 3. OTHER SERVICES (DRAGGABLE SLIDER) --- */}
+        <div className="w-full flex flex-col items-center overflow-hidden">
+          <h3 className="font-inter font-semibold text-[24px] lg:text-[40px] text-black mb-[40px] text-center">
             Các dịch vụ in khác
           </h3>
 
-          <div className="w-full grid grid-cols-2 gap-[15px]">
-            {OTHER_SERVICES.map((item, index) => (
-              <div
-                key={index}
-                className="flex items-center justify-center bg-white border border-black cursor-pointer hover:bg-black hover:text-white transition-colors duration-300 group px-2"
-                style={{ height: "60px", borderRadius: "100px" }}
-              >
-                <span className="font-inter font-normal text-[14px] text-center leading-[1.2] line-clamp-2">
-                  {item}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
+          <div className="relative w-full group">
+            {/* Fade effect 2 bên */}
+            <div className="absolute left-0 top-0 bottom-0 w-[50px] lg:w-[150px] bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+            <div className="absolute right-0 top-0 bottom-0 w-[50px] lg:w-[150px] bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
 
-      {/* =================================================================
-          2. DESKTOP & IPAD PRO VERSION (>= 1024px)
-          - Đã điều chỉnh Width linh hoạt cho iPad Pro.
-          ================================================================= */}
-      <div className="hidden lg:flex flex-col items-center w-full px-4 xl:px-0">
-        <h2
-          className="font-inter font-bold text-[#000000] text-center"
-          style={{ fontSize: "56px", lineHeight: "110%", marginBottom: "67px" }}
-        >
-          Dịch vụ cốt lõi
-        </h2>
-
-        <div
-          className="grid grid-cols-3"
-          style={{
-            width: "100%",
-            maxWidth: "1340px", // Thay width cứng thành max-w
-            gap: "40px",
-            marginBottom: "50px",
-          }}
-        >
-          {MAIN_SERVICES.map((service, index) => (
+            {/* DRAGGABLE CONTAINER */}
             <div
-              key={index}
-              className="flex flex-col items-center bg-[#F5F5F5]"
-              style={{
-                height: "663px",
-                borderRadius: "40px",
-                padding: "30px 14px",
-              }}
+              ref={sliderRef}
+              className="flex overflow-x-auto no-scrollbar py-6 cursor-grab active:cursor-grabbing pl-4"
+              onMouseDown={handleMouseDown}
+              onMouseLeave={handleMouseLeave}
+              onMouseUp={handleMouseUp}
+              onMouseMove={handleMouseMove}
+              onMouseEnter={() => setIsPaused(true)} // Hover chuột vào thì dừng
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
             >
-              <div
-                className="w-full mb-[32px] relative"
-                style={{
-                  // Dùng aspect ratio hoặc width % để ảnh co giãn trên iPad
-                  width: "100%",
-                  height: "275px",
-                  borderRadius: "15px",
-                  overflow: "hidden",
-                }}
-              >
-                <img
-                  src={service.image}
-                  alt={service.title}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-
-              <div className="flex flex-col items-center w-full px-[16px]">
-                <h3
-                  className="font-inter font-bold text-[#000000] w-full text-left"
-                  style={{
-                    fontSize: "24px",
-                    lineHeight: "34px",
-                    marginBottom: "16px",
-                  }}
+              {OTHER_SERVICES.map((item, index) => (
+                <div
+                  key={index}
+                  className="mx-[10px] lg:mx-[15px] flex-shrink-0"
                 >
-                  {service.title}
-                </h3>
+                  <div
+                    className="
+                    cursor-pointer 
+                    px-6 py-3 lg:px-8 lg:py-4 
+                    rounded-full 
+                    transition-all duration-300 
+                    
+                    /* --- DEFAULT STATE (Chữ đỏ, Viền đỏ, Nền trắng, Shadow nhẹ) --- */
+                    bg-white 
+                    border border-[#FF0000] 
+                    text-[#FF0000] 
+                    shadow-md
+                    
+                    /* --- HOVER STATE (Nền đỏ, Chữ trắng) --- */
+                    hover:bg-[#FF0000] 
+                    hover:text-white 
+                    hover:shadow-lg
+                    hover:-translate-y-1
 
-                <p
-                  className="font-inter font-normal text-[#000000] w-full text-left line-clamp-3 opacity-80"
-                  style={{
-                    fontSize: "18px",
-                    lineHeight: "30px",
-                    marginBottom: "20px",
-                  }}
-                >
-                  {service.desc}
-                </p>
-
-                <div className="flex flex-col gap-[10px] w-full mb-[30px]">
-                  {service.features.map((feature, idx) => (
-                    <div key={idx} className="flex items-center gap-[12px]">
-                      <Check
-                        size={24}
-                        color="#FF0000"
-                        strokeWidth={4}
-                        className="shrink-0"
-                      />
-                      <span className="font-inter font-normal text-[18px] text-[#000000] leading-[22px]">
-                        {feature}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="flex flex-col items-center cursor-pointer group mt-auto">
-                  <div className="flex items-center gap-[8px] mb-[5px]">
-                    <span className="font-inter font-bold text-[16px] text-[#FF0000]">
-                      Xem chi tiết
+                    group/item
+                    select-none
+                  "
+                  >
+                    <span className="font-inter font-medium text-[15px] lg:text-[18px] whitespace-nowrap">
+                      {item}
                     </span>
-                    <div className="transition-transform group-hover:translate-x-1 flex items-center">
-                      <svg
-                        width="18"
-                        height="10"
-                        viewBox="0 0 18 10"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M1 5H17"
-                          stroke="#FF0000"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                        <path
-                          d="M13 1L17 5L13 9"
-                          stroke="#FF0000"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    </div>
                   </div>
-                  <div className="w-[126px] h-[2px] bg-[#FF0000]" />
                 </div>
-              </div>
+              ))}
             </div>
-          ))}
-        </div>
-
-        <button
-          className="flex items-center justify-center bg-[#FF0000] transition-transform hover:scale-105"
-          style={{
-            width: "215px",
-            height: "50px",
-            borderRadius: "20px",
-            boxShadow: "0px 0px 14px #FF0000",
-            marginBottom: "67px",
-          }}
-        >
-          <span className="font-inter font-bold text-[20px] text-[#F5F5F5]">
-            Yêu cầu Báo giá
-          </span>
-        </button>
-
-        <div className="w-full max-w-[1340px] flex flex-col items-start">
-          <h3
-            className="font-inter font-semibold text-[#000000]"
-            style={{
-              fontSize: "40px",
-              lineHeight: "60px",
-              marginBottom: "50px",
-            }}
-          >
-            Các dịch vụ in khác
-          </h3>
-
-          <div className="w-full grid grid-cols-4 gap-[20px]">
-            {OTHER_SERVICES.map((item, index) => (
-              <div
-                key={index}
-                className="flex items-center justify-center bg-white border border-black cursor-pointer hover:bg-black hover:text-white transition-colors duration-300 group"
-                style={{ height: "78px", borderRadius: "100px" }}
-              >
-                <span className="font-inter font-normal text-[20px] xl:text-[24px] text-center whitespace-nowrap overflow-hidden text-ellipsis px-2">
-                  {item}
-                </span>
-              </div>
-            ))}
           </div>
         </div>
       </div>
