@@ -22,13 +22,6 @@ export const ProductHero: React.FC = () => {
           </p>
         </div>
 
-        {/* Button */}
-        <button className="flex flex-col justify-center items-center w-[155px] h-[45px] bg-[#FF0000] rounded-[20px] shadow-[0px_0px_14px_#FF0000] mb-[24px] active:scale-95 transition-transform">
-          <span className="font-inter font-bold text-[16px] leading-[19px] text-[#F5F5F5]">
-            Yêu cầu Báo giá
-          </span>
-        </button>
-
         {/* Divider */}
         <div className="w-full h-[1px] bg-black/50 border border-black/50 mb-[24px]"></div>
 
@@ -86,13 +79,6 @@ export const ProductHero: React.FC = () => {
             đáp ứng mọi nhu cầu kinh doanh và cá nhân của bạn.
           </p>
         </div>
-
-        {/* Button */}
-        <button className="flex items-center justify-center bg-[#FF0000] rounded-[20px] shadow-[0px_0px_14px_#FF0000] mb-[40px] active:scale-95 transition-transform w-[220px] h-[60px]">
-          <span className="font-inter font-bold text-[18px] text-[#F5F5F5]">
-            Yêu cầu Báo giá
-          </span>
-        </button>
 
         {/* Divider */}
         <div className="w-full max-w-[600px] h-[1px] bg-black/50 border border-black/50 mb-[30px]"></div>
@@ -160,7 +146,7 @@ export const ProductHero: React.FC = () => {
             Sản phẩm của chúng tôi
           </h1>
           <p
-            className="mt-[24px] font-semibold text-[#374151] text-center"
+            className="mt-[35px] font-semibold text-[#374151] text-center"
             style={{
               fontFamily: "Inter",
               fontSize: "20px",
@@ -172,30 +158,6 @@ export const ProductHero: React.FC = () => {
             đáp ứng mọi nhu cầu kinh doanh và cá nhân của bạn.
           </p>
         </div>
-
-        {/* CTA Button */}
-        <button
-          className="mt-[32px] flex flex-col items-center justify-center bg-[#FF0000] text-[#F5F5F5] transition-transform hover:scale-105 active:scale-95"
-          style={{
-            width: "309.82px",
-            height: "70.53px",
-            borderRadius: "20px",
-            border: "1px solid #FFF5F6",
-            boxShadow: "0px 0px 14px #FF0000",
-            gap: "12px",
-          }}
-        >
-          <span
-            className="font-bold"
-            style={{
-              fontFamily: "Inter",
-              fontSize: "20px",
-              lineHeight: "24px",
-            }}
-          >
-            Yêu cầu Báo giá
-          </span>
-        </button>
 
         {/* Divider */}
         <div

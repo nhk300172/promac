@@ -2,7 +2,7 @@
 import React from "react";
 import { ProductHero } from "../../features/products/ProductHero";
 import { ProductListing } from "../../features/products/ProductListing";
-import { OrderBanner } from "../../components/layout/OrderBanner";
+import { ContactBanner } from "../../components/layout/ContactBanner";
 
 export const ProductPage: React.FC = () => {
   return (
@@ -12,7 +12,7 @@ export const ProductPage: React.FC = () => {
       <div className="w-full mt-[-50px]">
         {" "}
         {/* <--- Chỉnh số pixel bạn muốn ở đây */}
-        <OrderBanner />
+        <ContactBanner />
       </div>
     </div>
   );

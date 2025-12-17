@@ -32,14 +32,13 @@ export const IntroPage = () => {
       {/* 2. HISTORY 
           - Khoảng cách nhỏ, giữ nguyên hoặc tăng nhẹ trên Tablet
       */}
-      <div className="mt-[40px] md:mt-[50px] lg:mt-[60px]">
+      <div className="mt-[40px] md:mt-[50px] lg:mt-[60px] ">
         <History />
       </div>
 
-      {/* 3. TEAM 
-          - Liền mạch với History, không cần margin
-      */}
-      <div>
+      {/* 3. TEAM
+       */}
+      <div className="mt-[40px] md:mt-[50px] lg:mt-[60px]">
         <OurTeam />
       </div>
 
