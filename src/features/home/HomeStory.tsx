@@ -189,6 +189,7 @@
 //   );
 // };
 
+//src/features/home/HomeStory.tsx
 import { ArrowRight } from "lucide-react";
 import mainVisual from "../../assets/main-visual.jpg";
 
@@ -198,17 +199,27 @@ const CONTENT = {
   description: (
     <>
       <span className="text-[#FF0000] font-bold">PROMAC</span> đã và đang đáp
-      ứng nhu cầu in ấn của khu vực Amravati và các vùng lân cận với sự tận tâm
-      và chuyên nghiệp.
-      <br className="hidden md:block" />
-      Được thành lập với tầm nhìn mang đến các giải pháp in ấn chất lượng cao,
-      chúng tôi đã phát triển và trở thành một thương hiệu đáng tin cậy trong
-      ngành in ấn.
+      ứng nhu cầu in ấn thẻ cào, túi thẻ cào trong toàn quốc.
       <br />
       <br />
-      Cam kết của chúng tôi về chất lượng, giao hàng đúng hẹn và sự hài lòng của
-      khách hàng đã giúp chúng tôi trở thành lựa chọn hàng đầu của các doanh
-      nghiệp, tổ chức và cá nhân đang tìm kiếm dịch vụ in ấn chuyên nghiệp.
+      <span className="text-[#FF0000] font-bold">PROMAC</span> được thành lập
+      với tầm nhìn mang đến các giải pháp in ấn các loại thẻ cào bảo mật, chất
+      lượng cao. <span className="text-[#FF0000] font-bold">PROMAC</span> tự hào
+      là đơn vị tiên phong và thương hiệu đáng tin cậy trong lĩnh vực in thẻ cào
+      trúng thưởng.
+      <br />
+      <br />
+      Chúng tôi hiểu được giá trị mang lại cho khách hàng qua sản phẩm đảm bảo
+      tiêu chuẩn đạt chất lượng, bảo mật thông tin tuyệt đối, giao hàng đúng hẹn
+      và sự hài lòng của khách hàng đã giúp chúng tôi từng bước phát triển Công
+      ty hướng đến mục tiêu tạo dựng uy tín với khách hàng.
+      <br />
+      <br />
+      Sự chuyên nghiệp <span className="text-[#FF0000] font-bold">
+        PROMAC
+      </span>{" "}
+      mang lại từ: máy móc thiết bị hiện đại chuyên dùng. Đội ngũ công nhân lành
+      nghề, kỹ thuật viên chuyên ngành.
     </>
   ),
   buttonText: "Tìm hiểu thêm",

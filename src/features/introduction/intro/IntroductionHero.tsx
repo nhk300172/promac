@@ -8,7 +8,7 @@ const DATA = {
   subHeader:
     "Đối tác đáng tin cậy của bạn về dịch vụ in ấn chuyên nghiệp tại PROMAC",
   contact: {
-    address: "236/59 Điện Biên Phủ, Phường 17, Q. Bình Thạnh, TP.HCM",
+    address: "236/59 Điện Biên Phủ, Phường Gia Định, Thành phố Hồ Chí Minh",
     email: "info@promacprinting.com",
     phones: ["(028) 22272416", "0906838869"],
   },

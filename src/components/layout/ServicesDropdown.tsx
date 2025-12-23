@@ -229,7 +229,6 @@ type Column = {
 
 // --- DỮ LIỆU MENU (Giữ nguyên) ---
 const COLUMNS: Column[] = [
-  // Index 0
   {
     title: "DỊCH VỤ CỐT LÕI",
     items: [
@@ -239,7 +238,6 @@ const COLUMNS: Column[] = [
       { label: "In tem nhãn decal", path: "/dich-vu-cot-loi/in-tem-nhan" },
     ],
   },
-  // Index 1
   {
     title: "CÁC DỊCH VỤ KHÁC",
     items: [
@@ -258,12 +256,10 @@ const COLUMNS: Column[] = [
       { label: "In thẻ cào ráp chữ", path: "/dich-vu-khac/in-the-cao-rap-chu" },
     ],
   },
-  // Index 2
   {
     title: "SẢN PHẨM",
     items: [{ label: "Danh mục sản phẩm", path: "/san-pham" }],
   },
-  // Index 3 - CHÍNH SÁCH
   {
     title: "Chính sách",
     items: [
@@ -339,84 +335,64 @@ export const ServicesDropdown = ({
             leaveTo="opacity-0 translate-y-1"
           >
             <PopoverPanel
-              className="absolute z-50 bg-white"
-              style={{
-                top: "100px",
-                // Căn giữa màn hình
-                left: "50%",
-                transform: "translateX(-50%)",
-
-                // --- CÁC THAY ĐỔI ĐỂ GIẢM KHOẢNG TRỐNG ---
-                width: "max-content", // Tự động co theo nội dung (thay vì 1434px)
-                maxWidth: "95vw", // Giới hạn không quá màn hình
-                height: "auto", // Chiều cao tự động (thay vì 280px)
-                padding: "24px", // Giảm padding (cũ 30px)
-
-                borderTop: "1px solid #E3E7EF",
-                boxShadow: "0px 10px 20px rgba(0,0,0,0.05)",
-                boxSizing: "border-box",
-                borderRadius: "0 0 8px 8px", // Bo nhẹ góc dưới cho đẹp
-              }}
+              // --- CẤU HÌNH CHO DESKTOP LỚN (>= 1280px) ---
+              // Sử dụng 'fixed' thay vì 'absolute' để căn giữa màn hình chuẩn xác
+              // Bỏ các inline style phức tạp
+              className={cn(
+                "fixed z-50 bg-white border-t border-[#E3E7EF]",
+                "top-[110px]", // Khớp với chiều cao Header Desktop
+                "left-1/2 -translate-x-1/2", // Căn giữa màn hình
+                "w-[1440px]", // Cố định chiều rộng 1440px như bạn yêu cầu
+                "rounded-[16px] border shadow-2xl" // Bo góc và đổ bóng đẹp
+              )}
+              style={{ padding: "32px 0" }}
             >
-              <div
-                className="flex w-full h-full items-start"
-                style={{
-                  justifyContent: "center",
-                  gap: "32px", // Giảm khoảng cách giữa menu và QR (cũ 60px)
-                }}
-              >
-                {/* RENDER CÁC CỘT */}
-                <div className="flex" style={{ gap: "24px" }}>
-                  {" "}
-                  {/* Giảm khoảng cách cột (cũ 40px) */}
-                  {displayColumns.map((col, index) => (
-                    <div
-                      key={index}
-                      // Giảm chiều rộng cột xuống 220px (cũ 256px) để gọn hơn
-                      className="flex flex-col w-[220px] gap-[16px]"
-                    >
-                      <span
-                        className="font-inter font-semibold text-[12px] text-[#97A3B7] tracking-[0.5px] uppercase"
-                        style={{ lineHeight: "150%" }}
+              {/* Container nội dung */}
+              <div className="w-full px-10">
+                <div className="flex items-start justify-center gap-16">
+                  {/* --- KHỐI MENU (GRID) --- */}
+                  <div className="grid grid-flow-col auto-cols-max gap-12">
+                    {displayColumns.map((col, index) => (
+                      <div
+                        key={index}
+                        className="flex flex-col gap-[16px] w-[220px]"
                       >
-                        {col.title}
-                      </span>
-                      <div className="flex flex-col gap-[12px]">
-                        {" "}
-                        {/* Giảm gap item */}
-                        {col.items.map((item, idx) => (
-                          <Link
-                            key={idx}
-                            to={item.path}
-                            className={cn(
-                              "font-inter font-semibold text-[15px] leading-[140%] transition-colors text-left", // Giảm size chữ chút xíu cho gọn (15px)
-                              location.pathname === item.path
-                                ? "text-[#FF0000]"
-                                : "text-[#111B29] hover:text-[#FF0000]"
-                            )}
-                          >
-                            {item.label}
-                          </Link>
-                        ))}
+                        <span className="font-inter font-semibold text-[12px] text-[#97A3B7] tracking-[0.5px] uppercase border-b border-gray-100 pb-2 mb-1">
+                          {col.title}
+                        </span>
+                        <div className="flex flex-col gap-[12px]">
+                          {col.items.map((item, idx) => (
+                            <Link
+                              key={idx}
+                              to={item.path}
+                              className={cn(
+                                "font-inter font-semibold text-[15px] leading-[140%] transition-colors text-left break-words",
+                                location.pathname === item.path
+                                  ? "text-[#FF0000]"
+                                  : "text-[#111B29] hover:text-[#FF0000]"
+                              )}
+                            >
+                              {item.label}
+                            </Link>
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
 
-                {/* ẢNH QR */}
-                <div
-                  className="relative flex flex-col items-center justify-center border-l border-gray-100 pl-[32px]" // Thêm đường kẻ mờ ngăn cách cho đẹp
-                  style={{
-                    width: "auto", // Để tự nhiên
-                    height: "100%",
-                  }}
-                >
-                  <img
-                    src={promacQrImage}
-                    alt="PROMAC QR"
-                    // Thu nhỏ ảnh QR lại chút (cũ 255px)
-                    className="w-[180px] h-[180px] object-contain"
-                  />
+                  {/* --- KHỐI QR CODE --- */}
+                  <div className="flex-shrink-0 border-l border-gray-100 pl-16">
+                    <div className="flex flex-col items-center">
+                      <img
+                        src={promacQrImage}
+                        alt="PROMAC QR"
+                        className="w-[140px] h-[140px] object-contain mb-3"
+                      />
+                      <span className="text-xs text-gray-400 font-inter">
+                        Quét mã QR
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </PopoverPanel>

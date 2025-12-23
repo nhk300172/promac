@@ -1,3 +1,4 @@
+// src/features/home/HomeBanner.tsx
 import { Mail, Phone, MapPin, Check, ArrowRight } from "lucide-react";
 import mainVisual from "../../assets/main-visual.jpg";
 
@@ -18,7 +19,7 @@ const DATA = {
     "Thời gian đáp ứng nhanh",
   ],
   contact: {
-    address: "236/59 Điện Biên Phủ, Phường 17, Q. Bình Thạnh, TP.HCM",
+    address: "236/59 Điện Biên Phủ, Phường Gia Định, Thành phố Hồ Chí Minh",
     email: "info@promacprinting.com",
     phones: ["(028) 22272416", "0906838869"],
   },
@@ -28,19 +29,20 @@ export const HomeBanner = () => {
   return (
     <div className="w-full flex justify-center bg-white my-10 px-4 xl:px-0">
       {/* =========================================================================
-          1. MOBILE & TABLET VERSION (< 1024px)
-          - Layout dọc (Flex Column)
+          1. MOBILE & TABLET & IPAD PRO VERSION (< 1280px)
+          - Đổi từ lg:hidden -> xl:hidden (Để hiện trên iPad Pro)
+          - Tinh chỉnh layout để tận dụng chiều rộng của iPad
          ========================================================================= */}
-      <div className="flex lg:hidden flex-col w-full bg-[#FFDEDE] rounded-[20px] overflow-hidden shadow-lg relative pb-6">
+      <div className="flex xl:hidden flex-col w-full bg-[#FFDEDE] rounded-[20px] overflow-hidden shadow-lg relative pb-6 max-w-[800px] xl:max-w-none mx-auto">
         {/* --- Phần Header & Hình ảnh Mobile --- */}
         <div className="absolute top-[-100px] right-[-100px] w-[300px] h-[300px] bg-red-500 rounded-full opacity-10 z-0 pointer-events-none"></div>
 
         <div className="flex flex-col items-center pt-8 px-6 z-10 relative">
-          <h1 className="font-bold text-[28px] leading-tight text-[#FF0000] text-center mb-6">
+          <h1 className="font-bold text-[28px] md:text-[36px] leading-tight text-[#FF0000] text-center mb-6">
             {DATA.header}
           </h1>
 
-          {/* Cụm ảnh Mobile (Xếp chồng đơn giản hơn Desktop) */}
+          {/* Cụm ảnh Mobile */}
           <div className="relative w-[280px] h-[280px] mb-6">
             {/* Hình tròn trung tâm */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[140px] h-[140px] rounded-full border-4 border-white shadow-md overflow-hidden z-20">
@@ -69,17 +71,18 @@ export const HomeBanner = () => {
           </div>
 
           {/* Box trắng subtitle */}
-          <div className="bg-white rounded-[20px] px-4 py-3 shadow-sm w-full mb-6">
-            <p className="font-bold text-[14px] text-center text-black leading-snug">
+          <div className="bg-white rounded-[20px] px-4 py-3 shadow-sm w-full md:w-auto md:px-10 mb-6">
+            <p className="font-bold text-[14px] md:text-[16px] text-center text-black leading-snug">
               {DATA.subHeaderBox}
             </p>
           </div>
 
-          {/* Checklist Mobile */}
-          <div className="flex flex-col gap-3 w-full pl-2 mb-6">
+          {/* Checklist Mobile & Tablet */}
+          {/* SỬA: Thêm md:grid md:grid-cols-2 để trên iPad nó chia thành 2 cột cho gọn */}
+          <div className="flex flex-col md:grid md:grid-cols-2 gap-3 md:gap-x-10 w-full md:w-auto pl-2 mb-6">
             {DATA.features.map((item, index) => (
               <div key={index} className="flex items-center gap-3">
-                <div className="bg-white rounded-full p-1">
+                <div className="bg-white rounded-full p-1 shrink-0">
                   <Check className="text-[#0066CC] w-4 h-4" />
                 </div>
                 <span className="text-[15px] font-semibold text-gray-800">
@@ -90,34 +93,37 @@ export const HomeBanner = () => {
           </div>
 
           {/* Buttons Mobile */}
-          <button className="w-full py-3 bg-[#FF0000] text-white font-bold rounded-full shadow-lg mb-4">
-            Yêu cầu báo giá
-          </button>
-          <a
-            href="#"
-            className="flex items-center justify-center gap-2 text-[#FF0000] font-bold text-[15px] hover:underline"
-          >
-            Xem danh mục sản phẩm <ArrowRight size={18} />
-          </a>
+          <div className="w-full md:w-auto flex flex-col items-center gap-4">
+            <button className="w-full md:w-[250px] py-3 bg-[#FF0000] text-white font-bold rounded-full shadow-lg">
+              Yêu cầu báo giá
+            </button>
+            <a
+              href="#"
+              className="flex items-center justify-center gap-2 text-[#FF0000] font-bold text-[15px] hover:underline"
+            >
+              Xem danh mục sản phẩm <ArrowRight size={18} />
+            </a>
+          </div>
         </div>
 
         {/* Footer Mobile (Thông tin liên hệ) */}
-        <div className="mt-6 mx-4 bg-white rounded-[15px] p-4 flex flex-col gap-3">
+        {/* SỬA: Thêm md:flex-row md:justify-around để trên iPad nó dàn ngang ra */}
+        <div className="mt-6 mx-4 bg-white rounded-[15px] p-4 flex flex-col md:flex-row md:justify-around md:items-center gap-3 shadow-sm">
           <div className="flex items-start gap-3">
             <MapPin className="text-[#FF0000] w-5 h-5 shrink-0 mt-1" />
-            <span className="text-[13px] text-gray-600">
+            <span className="text-[13px] md:text-[14px] text-gray-600">
               {DATA.contact.address}
             </span>
           </div>
           <div className="flex items-center gap-3">
             <Mail className="text-[#FF0000] w-5 h-5 shrink-0" />
-            <span className="text-[13px] text-gray-600 break-all">
+            <span className="text-[13px] md:text-[14px] text-gray-600 break-all">
               {DATA.contact.email}
             </span>
           </div>
           <div className="flex items-center gap-3">
             <Phone className="text-[#FF0000] w-5 h-5 shrink-0" />
-            <div className="text-[13px] text-gray-600">
+            <div className="text-[13px] md:text-[14px] text-gray-600">
               <span>{DATA.contact.phones[0]}</span> |{" "}
               <span>{DATA.contact.phones[1]}</span>
             </div>
@@ -126,11 +132,10 @@ export const HomeBanner = () => {
       </div>
 
       {/* =========================================================================
-          2. DESKTOP VERSION (>= 1024px)
-          - Giữ nguyên code desktop hiện tại của bạn
-          - Chỉ hiện khi màn hình lớn (hidden lg:flex)
+          2. DESKTOP VERSION (>= 1280px)
+          - Đổi từ lg:flex -> xl:flex (Chỉ hiện trên màn hình rất lớn từ 1280px trở lên)
          ========================================================================= */}
-      <div className="hidden lg:flex w-full bg-[#FFDEDE] rounded-[30px] relative overflow-hidden shadow-lg flex-col min-h-[600px] m-8">
+      <div className="hidden xl:flex w-full bg-[#FFDEDE] rounded-[30px] relative overflow-hidden shadow-lg flex-col min-h-[600px] m-8">
         {/* --- PHẦN BODY --- */}
         <div className="flex w-full h-full flex-grow relative z-10">
           {/* CỘT TRÁI: TEXT CONTENT */}
