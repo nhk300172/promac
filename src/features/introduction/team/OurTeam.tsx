@@ -183,7 +183,7 @@ export const OurTeam = () => {
           ================================================================= */}
       <div
         className="hidden xl:flex flex-col items-center"
-        style={{ width: "1440px", paddingBottom: "100px" }}
+        style={{ width: "1440px" }}
       >
         <div className="flex flex-col items-center text-center mb-[48px]">
           <h2

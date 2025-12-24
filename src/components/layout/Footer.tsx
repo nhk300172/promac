@@ -1,15 +1,10 @@
 // src/components/layout/Footer.tsx
-import React from "react";
-import {
-  Twitter,
-  Instagram,
-  Facebook,
-  Phone,
-  MapPin,
-  Mail,
-  Clock,
-} from "lucide-react";
-import { SiZalo } from "react-icons/si";
+import { Phone, MapPin, Mail, Clock } from "lucide-react";
+
+// --- IMPORT HÌNH ẢNH ICON ---
+import facebookImg from "../../assets/footer/facebookicon.png";
+import messengerImg from "../../assets/footer/messengericon.png";
+import telephoneImg from "../../assets/footer/telephoneicon.png";
 
 // --- CONFIG ---
 const MAP_SRC =
@@ -52,13 +47,6 @@ interface SectionTitleProps {
   className?: string;
 }
 
-interface SocialItemProps {
-  href: string;
-  icon: React.ElementType;
-  label: string;
-  isZalo?: boolean;
-}
-
 interface MapFrameProps {
   heightClass: string;
 }
@@ -75,44 +63,6 @@ const SectionTitle = ({ title, className = "" }: SectionTitleProps) => (
     <div className="w-full h-[2px] bg-[#E5E5E5]/50"></div>
   </div>
 );
-
-const SocialItem = ({
-  href,
-  icon: Icon,
-  label,
-  isZalo = false,
-}: SocialItemProps) => {
-  return (
-    <a
-      href={href}
-      aria-label={label}
-      // Container 45px để có không gian rộng rãi hơn cho icon lớn
-      className="w-[45px] h-[45px] flex items-center justify-center rounded-full transition-all duration-300 group hover:bg-white/50"
-    >
-      <Icon
-        // LOGIC SIZE:
-        // - Zalo: 30px (Lớn hơn hẳn để nhìn cho đều)
-        // - Lucide: 24px (Kích thước chuẩn)
-        size={isZalo ? 30 : 24}
-        // Lucide cần strokeWidth để đậm đà, Zalo (dạng fill) sẽ bỏ qua thuộc tính này
-        strokeWidth={isZalo ? 0 : 2.25}
-        className="text-black opacity-70 group-hover:opacity-100 group-hover:text-[#FF0000] transition-colors"
-      />
-    </a>
-  );
-};
-
-const SocialList = () => {
-  return (
-    <div className="flex gap-1 items-center">
-      <SocialItem href="#" label="Twitter" icon={Twitter} />
-      <SocialItem href="#" label="Instagram" icon={Instagram} />
-      <SocialItem href="#" label="Facebook" icon={Facebook} />
-      {/* Icon Zalo được set cờ isZalo=true để kích hoạt logic size lớn */}
-      <SocialItem href="#" label="Zalo" icon={SiZalo} isZalo={true} />
-    </div>
-  );
-};
 
 const MapFrame = ({ heightClass }: MapFrameProps) => (
   <div
@@ -133,41 +83,34 @@ const MapFrame = ({ heightClass }: MapFrameProps) => (
 export const Footer = () => {
   return (
     <footer className="w-full flex flex-col items-center font-sans text-promac-black bg-white !overflow-hidden">
-      {/* MOBILE VERSION */}
-      <div
-        className={`md:hidden w-full ${BG_COLOR} rounded-t-[40px] pt-[48px] pb-[80px] flex flex-col items-center`}
-      >
-        {/* Links */}
-
-        {/* =================================================================
-          1. MOBILE VERSION (< 768px) - GIỮ NGUYÊN
+      {/* =================================================================
+          1. MOBILE VERSION (< 768px) - ĐÃ CẬP NHẬT GIAO DIỆN
           ================================================================= */}
-        <div className="w-full bg-[#FFD1D1] rounded-t-[40px] pt-[48px] pb-[80px] flex flex-col items-center md:hidden">
-          {/* LINKS SECTIONS */}
-
-          <div className="flex flex-col gap-[40px] w-full max-w-[265px] mb-[50px]">
-            {FOOTER_LINKS.map((section, index) => (
-              <div key={index} className="flex flex-col items-center w-full">
-                <SectionTitle
-                  title={section.title}
-                  className="text-center items-center"
-                />
-                <ul className="flex flex-col gap-[14px] items-center w-full">
-                  {section.items.map((item, idx) => (
-                    <li key={idx} className="text-center">
-                      <a
-                        href="#"
-                        className="font-inter font-normal text-[16px] text-black hover:text-[#FF0000] transition-colors"
-                      >
-                        {item}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
+      <div className="w-full bg-[#FFD1D1] rounded-t-[40px] pt-[48px] pb-[80px] flex flex-col items-center md:hidden">
+        {/* LINKS SECTIONS */}
+        <div className="flex flex-col gap-[40px] w-full max-w-[265px] mb-[50px]">
+          {FOOTER_LINKS.map((section, index) => (
+            <div key={index} className="flex flex-col items-center w-full">
+              <SectionTitle
+                title={section.title}
+                className="text-center items-center"
+              />
+              <ul className="flex flex-col gap-[14px] items-center w-full">
+                {section.items.map((item, idx) => (
+                  <li key={idx} className="text-center">
+                    <a
+                      href="#"
+                      className="font-inter font-normal text-[16px] text-black hover:text-[#FF0000] transition-colors"
+                    >
+                      {item}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
+
         {/* Info */}
         <div className="flex flex-col items-center w-full max-w-[324px] mb-[40px]">
           <SectionTitle
@@ -220,25 +163,55 @@ export const Footer = () => {
           <MapFrame heightClass="h-[210px]" />
         </div>
 
-        {/* Socials Mobile */}
+        {/* Socials Mobile - CẬP NHẬT MỚI */}
         <div className="flex flex-col items-center w-full max-w-[324px] pb-[10px]">
           <SectionTitle
-            title="Liên kết mạng xã hội"
+            title="Theo dõi chúng tôi trên Facebook"
             className="text-center items-center"
           />
-          <div className="flex justify-center items-center mb-[40px]">
-            <button
-              aria-label="Gọi ngay cho chúng tôi"
-              className="w-[45px] h-[45px] rounded-full bg-white flex items-center justify-center animate-bounce-slow mr-[20px] shadow-[0px_0px_15px_5px_rgba(255,0,0,0.4)] border border-[#FF0000]"
+          {/* Hàng ngang chứa 3 icon */}
+          <div className="flex justify-center items-center gap-[24px] mb-[40px]">
+            {/* Facebook */}
+            <a
+              href="#"
+              aria-label="Facebook"
+              className="w-[60px] h-[60px] opacity-90"
             >
-              <Phone className="text-[#FF0000]" size={24} fill="#FF0000" />
-            </button>
-            <SocialList />
+              <img
+                src={facebookImg}
+                alt="Facebook"
+                className="w-full h-full object-contain"
+              />
+            </a>
+
+            {/* Messenger */}
+            <a href="#" aria-label="Messenger" className="w-[60px] h-[60px]">
+              <img
+                src={messengerImg}
+                alt="Messenger"
+                className="w-full h-full object-contain"
+              />
+            </a>
+
+            {/* Phone */}
+            <a
+              href="#"
+              aria-label="Call Now"
+              className="w-[60px] h-[60px] rounded-full shadow-[0px_0px_15px_5px_rgba(255,0,0,0.6)] animate-bounce-slow"
+            >
+              <img
+                src={telephoneImg}
+                alt="Phone"
+                className="w-full h-full object-contain"
+              />
+            </a>
           </div>
         </div>
       </div>
 
-      {/* TABLET & DESKTOP VERSION */}
+      {/* =================================================================
+          2. TABLET & DESKTOP VERSION
+          ================================================================= */}
       <div
         className={`hidden md:flex w-full ${BG_COLOR} rounded-t-[40px] xl:rounded-t-[30px] pt-[60px] xl:pt-[64px] pb-[80px] flex-col items-center px-[40px] xl:px-0 z-20 relative`}
       >
@@ -303,7 +276,7 @@ export const Footer = () => {
                     size={24}
                   />
                   <p>
-                    <span className="font-semibold">SĐT: </span>{" "}
+                    <span className="font-semibold">SĐT: </span>
                     <span className="text-[#FF0000] font-bold">
                       0903 006 409
                     </span>{" "}
@@ -332,12 +305,25 @@ export const Footer = () => {
                 </div>
               </div>
 
-              {/* Tablet Socials */}
+              {/* Tablet Socials (Only visible on Tablet) */}
               <div className="mt-8 flex flex-col items-center lg:items-start xl:hidden">
                 <h3 className="font-bold text-[24px] text-[#FF0000] mb-4">
-                  Liên kết mạng xã hội
+                  Theo dõi chúng tôi trên Facebook
                 </h3>
-                <SocialList />
+                <div className="flex gap-[20px]">
+                  <a href="#" className="w-[50px] h-[50px]">
+                    <img src={facebookImg} className="w-full h-full" />
+                  </a>
+                  <a href="#" className="w-[50px] h-[50px]">
+                    <img src={messengerImg} className="w-full h-full" />
+                  </a>
+                  <a
+                    href="#"
+                    className="w-[50px] h-[50px] rounded-full shadow-[0px_0px_10px_rgba(255,0,0,0.5)]"
+                  >
+                    <img src={telephoneImg} className="w-full h-full" />
+                  </a>
+                </div>
               </div>
             </div>
 
@@ -350,24 +336,52 @@ export const Footer = () => {
               <MapFrame heightClass="h-[280px] xl:h-[320px]" />
             </div>
 
-            {/* COLUMN 3: DESKTOP SOCIALS */}
-            <div className="hidden xl:flex flex-col w-[340px] items-center relative h-full min-h-[300px]">
+            {/* COLUMN 3: DESKTOP SOCIALS (STACK DỌC) */}
+            <div className="hidden xl:flex flex-col w-[340px] items-center h-full">
               <SectionTitle
-                title="Liên kết mạng xã hội"
+                title="Theo dõi chúng tôi trên Facebook"
                 className="items-center text-center"
               />
 
-              <div className="flex gap-[20px] justify-center mb-10 mt-4 scale-110 origin-top">
-                <SocialList />
-              </div>
-
-              <div className="absolute -bottom-[90px] right-0">
-                <button
-                  aria-label="Gọi ngay cho chúng tôi"
-                  className="w-[110px] h-[110px] rounded-full bg-white flex items-center justify-center hover:scale-105 transition-transform animate-bounce-slow shadow-[0px_0px_20px_10px_rgba(255,0,0,0.5)] border-2 border-[#FF0000]"
+              <div className="flex flex-col gap-[28px] mt-[20px] w-full px-6">
+                {/* 1. FACEBOOK (Ở GIỮA) */}
+                <a
+                  href="#"
+                  aria-label="Facebook"
+                  className="self-center w-[70px] h-[70px] flex items-center justify-center opacity-70 hover:opacity-100 hover:scale-110 transition-all duration-300"
                 >
-                  <Phone className="text-[#FF0000]" size={50} fill="#FF0000" />
-                </button>
+                  <img
+                    src={facebookImg}
+                    alt="Facebook"
+                    className="w-full h-full object-contain"
+                  />
+                </a>
+
+                {/* 2. MESSENGER (SANG PHẢI) */}
+                <a
+                  href="#"
+                  aria-label="Messenger"
+                  className="self-end w-[70px] h-[70px] flex items-center justify-center hover:scale-110 transition-transform duration-300"
+                >
+                  <img
+                    src={messengerImg}
+                    alt="Messenger"
+                    className="w-full h-full object-contain"
+                  />
+                </a>
+
+                {/* 3. PHONE (SANG PHẢI) */}
+                <a
+                  href="#"
+                  aria-label="Call Now"
+                  className="self-end w-[70px] h-[70px] rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300 shadow-[0px_0px_20px_5px_rgba(255,0,0,0.7)] animate-bounce-slow"
+                >
+                  <img
+                    src={telephoneImg}
+                    alt="Phone"
+                    className="w-full h-full object-contain"
+                  />
+                </a>
               </div>
             </div>
           </div>
