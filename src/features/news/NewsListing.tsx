@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { ChevronLeft, ChevronRight, Search } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { NewsSearchFilter } from "./NewsSearchFilter"; // Component search
+import { NewsSearchFilter } from "./NewsSearchFilter";
 
 // --- IMPORT HÌNH ẢNH TIN TỨC ---
 import news1 from "../../assets/home-experience/onca.png";
@@ -34,8 +34,8 @@ const newsImages = [
   news12,
 ];
 
-// DỮ LIỆU MẪU (75 bài)
-const NEWS_DATA = Array.from({ length: 75 }).map((_, i) => ({
+// --- THAY ĐỔI 1: GIỚI HẠN DỮ LIỆU CÒN 12 BÀI ---
+const NEWS_DATA = Array.from({ length: 12 }).map((_, i) => ({
   id: i + 1,
   date: "22 July 2024",
   readTime: "Read 4 min",
@@ -46,7 +46,8 @@ const NEWS_DATA = Array.from({ length: 75 }).map((_, i) => ({
   tag: i % 2 === 0 ? "In ấn" : "Voucher",
 }));
 
-const ITEMS_PER_PAGE = 15;
+// --- THAY ĐỔI 2: HIỂN THỊ 12 BÀI MỖI TRANG ---
+const ITEMS_PER_PAGE = 12;
 
 export const NewsListing: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -87,7 +88,7 @@ export const NewsListing: React.FC = () => {
     window.scrollTo(0, 0);
   };
 
-  // Style responsive cho nút phân trang (nhỏ hơn trên mobile)
+  // Style responsive cho nút phân trang
   const navBtnStyle = (disabled: boolean) => `
     flex items-center justify-center gap-[4px] h-[36px] md:h-[40px] rounded-[10px] transition-all border px-3
     ${
@@ -169,8 +170,6 @@ export const NewsListing: React.FC = () => {
             </div>
           ))}
         </div>
-
-        {/* ĐÃ XÓA NÚT "XEM THÊM" Ở ĐÂY ĐỂ DÙNG PHÂN TRANG CHUNG */}
       </div>
 
       {/* 2. TABLET LIST (768px - 1280px) */}
@@ -200,7 +199,6 @@ export const NewsListing: React.FC = () => {
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
-              {/* ... (Các phần nội dung khác giữ nguyên) ... */}
               <div className="flex flex-col">
                 <div className="flex items-center gap-[4px] mb-[12px]">
                   <span className="font-inter font-semibold text-[16px] text-[#4F4F4F]">
@@ -272,7 +270,6 @@ export const NewsListing: React.FC = () => {
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
-              {/* ... (Nội dung Desktop giữ nguyên) ... */}
               <div className="flex flex-col">
                 <div className="flex items-center gap-[4px] mb-[12px]">
                   <span className="font-inter font-semibold text-[18px] text-[#4F4F4F]">
@@ -298,15 +295,12 @@ export const NewsListing: React.FC = () => {
             </div>
           ))}
         </div>
-        {/* ĐÃ XÓA PAGINATION CỤC BỘ Ở ĐÂY */}
       </div>
 
-      {/* =================================================================
-          4. SHARED PAGINATION (HIỂN THỊ CHUNG CHO MỌI MÀN HÌNH)
-          ================================================================= */}
+      {/* 4. SHARED PAGINATION (CHỈ HIỆN KHI > 1 TRANG) */}
+      {/* Với dữ liệu 12 bài và hiển thị 12 bài/trang thì phần này sẽ tự động ẩn */}
       {totalPages > 1 && (
         <div className="flex flex-wrap justify-center items-center gap-[15px] md:gap-[32px] mb-[60px] lg:mb-[100px] w-full">
-          {/* Nút Prev */}
           <button
             onClick={handlePrev}
             disabled={currentPage === 1}
@@ -320,7 +314,6 @@ export const NewsListing: React.FC = () => {
             </span>
           </button>
 
-          {/* Các số trang */}
           <div className="flex items-center gap-[5px] md:gap-[10px]">
             {Array.from({ length: totalPages }).map((_, index) => {
               const pageNum = index + 1;
@@ -343,7 +336,6 @@ export const NewsListing: React.FC = () => {
             })}
           </div>
 
-          {/* Nút Next */}
           <button
             onClick={handleNext}
             disabled={currentPage === totalPages}

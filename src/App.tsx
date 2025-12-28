@@ -1,5 +1,6 @@
 // src/App.tsx
 import { Routes, Route } from "react-router-dom";
+import ScrollToTop from "./components/ScrollToTop";
 import { Header } from "./components/layout/Header";
 import { Footer } from "./components/layout/Footer";
 import { HomePage } from "./pages/home/HomePage";
@@ -27,7 +28,10 @@ import { ShippingPolicyPage } from "./pages/shippingpolicy/ShippingPolicyPage";
 
 function App() {
   return (
-    <main className="min-h-screen w-full bg-black flex flex-col items-center overflow-x-hidden ">
+    <main className="min-h-screen w-full bg-white flex flex-col items-center overflow-x-hidden ">
+      {/* --- BỔ SUNG Ở ĐÂY: Kích hoạt tính năng cuộn lên đầu trang --- */}
+      <ScrollToTop />
+
       <div
         className="bg-white flex flex-col relative shadow-2xl"
         style={{

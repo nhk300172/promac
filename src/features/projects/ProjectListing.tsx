@@ -34,8 +34,8 @@ const projectImages = [
   project12,
 ];
 
-// DỮ LIỆU GIẢ: 60 Dự án
-const PROJECT_DATA = Array.from({ length: 60 }).map((_, i) => ({
+// DỮ LIỆU GIẢ: CHỈ CÓ 12 DỰ ÁN
+const PROJECT_DATA = Array.from({ length: 12 }).map((_, i) => ({
   id: i + 1,
   date: "August 2024",
   client: "Vinamilk Corp",
@@ -199,7 +199,6 @@ export const ProjectListing: React.FC = () => {
             </div>
           ))}
         </div>
-        {/* ĐÃ XÓA NÚT "XEM THÊM" */}
       </div>
 
       {/* 2. TABLET & IPAD PRO VERSION (768px -> 1279px) */}
@@ -279,7 +278,6 @@ export const ProjectListing: React.FC = () => {
             </div>
           ))}
         </div>
-        {/* ĐÃ XÓA PAGINATION RIÊNG */}
       </div>
 
       {/* 3. DESKTOP VERSION (>= 1280px) */}
@@ -379,7 +377,7 @@ export const ProjectListing: React.FC = () => {
         </div>
       </div>
 
-      {/* 4. SHARED PAGINATION (HIỂN THỊ CHUNG) */}
+      {/* 4. SHARED PAGINATION (CHỈ HIỂN THỊ KHI CẦN) */}
       {totalPages > 1 && (
         <div className="flex flex-wrap justify-center items-center gap-[15px] md:gap-[32px] mb-[60px] lg:mb-[100px] w-full">
           <button

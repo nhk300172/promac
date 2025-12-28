@@ -1,55 +1,108 @@
 // src/features/contact/ContactForm.tsx
 import React, { useState, useRef, useEffect } from "react";
-// Import Icons từ Lucide
 import { ChevronDown, Phone, Mail, MapPin, Clock } from "lucide-react";
 
-// --- IMPORT ẢNH TỪ ASSETS/CONTACT ---
 import imgPhone from "../../assets/contact/contact-phone.png";
 import imgGmail from "../../assets/contact/contact-gmail.png";
 import imgMap from "../../assets/contact/contact-mappointer.png";
 import imgClock from "../../assets/contact/contact-clock.png";
 
-// --- Dữ liệu Dropdown ---
+// --- DỮ LIỆU DROPDOWN ---
 const SERVICE_OPTIONS = [
-  { id: "all", label: "Tất cả", type: "highlight" },
-  { id: "print", label: "In ấn", type: "red-text" },
-  { id: "promo", label: "Chương trình khuyến mãi", type: "normal" },
-  { id: "paper", label: "Bìa và giấy in", type: "normal" },
-  { id: "event", label: "Vật dụng sự kiện", type: "normal" },
-  { id: "voucher", label: "Voucher", type: "normal" },
-  { id: "scratch", label: "Thẻ cào", type: "normal" },
-  { id: "box", label: "Hộp cứng", type: "normal" },
-  { id: "bag", label: "Túi giấy", type: "normal" },
+  { id: "all", label: "Tất cả", type: "normal" },
+  { id: "hard-box", label: "In hộp cứng cao cấp", type: "normal" },
+  { id: "voucher", label: "In Voucher", type: "normal" },
+  { id: "marketing", label: "In ấn phẩm marketing", type: "normal" },
+  { id: "decal", label: "In tem nhãn decal", type: "normal" },
+  { id: "variable-scratch", label: "In thẻ cào biến đổi", type: "normal" },
+  {
+    id: "activation-scratch",
+    label: "In thẻ cào kích hoạt dịch vụ",
+    type: "normal",
+  },
+  { id: "winning-scratch", label: "In thẻ cào trúng thưởng", type: "normal" },
+  { id: "matching-scratch", label: "In thẻ cào ráp chữ", type: "normal" },
 ];
 
-export const ContactForm: React.FC = () => {
-  // State chung cho cả Mobile & Desktop
+// --- COMPONENT CON: ContactServiceDropdown (Định nghĩa nội bộ) ---
+interface ContactServiceDropdownProps {
+  selected: string;
+  onSelect: (val: string) => void;
+}
+
+const ContactServiceDropdown: React.FC<ContactServiceDropdownProps> = ({
+  selected,
+  onSelect,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedService, setSelectedService] = useState<string>("");
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Click outside dropdown
+  // Xử lý click ra ngoài để đóng dropdown
   useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
+    const handleClickOutside = (event: MouseEvent) => {
       if (
         dropdownRef.current &&
         !dropdownRef.current.contains(event.target as Node)
       ) {
         setIsOpen(false);
       }
-    }
+    };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [dropdownRef]);
+  }, []);
 
-  const handleSelect = (label: string) => {
-    setSelectedService(label);
-    setIsOpen(false);
-  };
+  return (
+    <div className="relative w-full" ref={dropdownRef}>
+      <div
+        className="w-full h-[35px] md:h-[45px] bg-[#F3F3F5] rounded-[10px] px-[14px] md:px-[20px] flex items-center justify-between cursor-pointer border border-transparent focus:border-red-500 transition-colors"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <span
+          className={`text-[14px] md:text-[15px] truncate ${
+            selected ? "text-[#364153]" : "text-[#707081]"
+          }`}
+        >
+          {selected || "Chọn một dịch vụ"}
+        </span>
+        <ChevronDown
+          size={16}
+          className={`text-[#707081] transition-transform duration-200 ${
+            isOpen ? "rotate-180" : ""
+          }`}
+        />
+      </div>
+
+      {isOpen && (
+        <div className="absolute top-[110%] left-0 w-full bg-white border border-[#BDBDBD] rounded-[5px] max-h-[200px] overflow-y-auto z-50 custom-scrollbar p-1 shadow-lg animate-in fade-in zoom-in-95 duration-100">
+          {SERVICE_OPTIONS.map((opt) => (
+            <div
+              key={opt.id}
+              onClick={() => {
+                onSelect(opt.label);
+                setIsOpen(false);
+              }}
+              // CSS: Hover vào hiện nền hồng và chữ đậm lên
+              className="p-2 text-[14px] text-[#333333] font-normal cursor-pointer rounded-[3px] mb-1 last:mb-0 transition-all hover:bg-[#FF9E9E] hover:font-medium hover:text-black"
+            >
+              {opt.label}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
+// --- COMPONENT CHÍNH: ContactForm ---
+export const ContactForm: React.FC = () => {
+  // State quản lý giá trị đã chọn cho từng phiên bản màn hình
+  const [selectedServiceMobile, setSelectedServiceMobile] = useState("");
+  const [selectedServiceTablet, setSelectedServiceTablet] = useState("");
+  const [selectedServiceDesktop, setSelectedServiceDesktop] = useState("");
 
   return (
     <section className="relative flex flex-col items-center bg-white z-10 w-full mt-[40px] lg:mt-[80px]">
-      {/* Inject Style Scrollbar */}
+      {/* Style Scrollbar */}
       <style>{`
         .custom-scrollbar::-webkit-scrollbar { width: 5px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
@@ -70,7 +123,6 @@ export const ContactForm: React.FC = () => {
 
       {/* =================================================================
           1. MOBILE VERSION (< 768px)
-          - Giữ nguyên (md:hidden)
           ================================================================= */}
       <div className="flex flex-col gap-[40px] w-full items-center md:hidden pb-[60px]">
         {/* KHỐI 1: FORM */}
@@ -80,7 +132,6 @@ export const ContactForm: React.FC = () => {
           </h3>
 
           <form className="flex flex-col gap-[24px]">
-            {/* ... (Giữ nguyên nội dung Form Mobile) ... */}
             <div className="flex flex-col gap-[8px]">
               <label className="font-bold text-[#364153] text-[15px]">
                 Họ và tên
@@ -111,41 +162,16 @@ export const ContactForm: React.FC = () => {
                 className="w-full h-[35px] bg-[#F3F3F5] rounded-[10px] px-[14px] text-[15px] outline-none placeholder-[#707081]"
               />
             </div>
-            <div className="flex flex-col gap-[8px] relative" ref={dropdownRef}>
+            <div className="flex flex-col gap-[8px]">
               <label className="font-bold text-[#364153] text-[15px]">
                 Dịch vụ cần hỗ trợ
               </label>
-              <div
-                className="w-full h-[35px] bg-[#F3F3F5] rounded-[10px] px-[14px] flex items-center justify-between cursor-pointer"
-                onClick={() => setIsOpen(!isOpen)}
-              >
-                <span
-                  className={`text-[15px] ${
-                    selectedService ? "text-[#364153]" : "text-[#707081]"
-                  }`}
-                >
-                  {selectedService || "Chọn một dịch vụ"}
-                </span>
-                <ChevronDown
-                  size={16}
-                  className={`transition-transform ${
-                    isOpen ? "rotate-180" : ""
-                  }`}
-                />
-              </div>
-              {isOpen && (
-                <div className="absolute top-[65px] left-0 w-full bg-white border border-[#BDBDBD] rounded-[5px] max-h-[200px] overflow-y-auto z-50 custom-scrollbar p-1 shadow-lg">
-                  {SERVICE_OPTIONS.map((opt) => (
-                    <div
-                      key={opt.id}
-                      onClick={() => handleSelect(opt.label)}
-                      className="p-2 text-[14px] hover:bg-gray-100 cursor-pointer"
-                    >
-                      {opt.label}
-                    </div>
-                  ))}
-                </div>
-              )}
+
+              {/* SỬ DỤNG ContactServiceDropdown */}
+              <ContactServiceDropdown
+                selected={selectedServiceMobile}
+                onSelect={setSelectedServiceMobile}
+              />
             </div>
             <div className="flex flex-col gap-[8px]">
               <label className="font-bold text-[#364153] text-[15px]">
@@ -240,9 +266,7 @@ export const ContactForm: React.FC = () => {
       </div>
 
       {/* =================================================================
-          2. TABLET & IPAD PRO VERSION (768px -> 1279px) - KHỐI MỚI
-          - Fluid Layout (Linh hoạt)
-          - ĐÃ SỬA: items-center để căn giữa 2 khối theo chiều dọc
+          2. TABLET & IPAD PRO VERSION (768px -> 1279px)
           ================================================================= */}
       <div className="hidden md:flex xl:hidden w-full max-w-[1000px] flex-col md:flex-row items-center justify-center gap-[30px] lg:gap-[50px] px-[20px] pb-[80px]">
         {/* FORM */}
@@ -284,32 +308,16 @@ export const ContactForm: React.FC = () => {
                 className="w-full h-[45px] bg-[#F3F3F5] rounded-[10px] px-[20px] text-[14px] outline-none focus:ring-1 focus:ring-red-500"
               />
             </div>
-            <div className="flex flex-col gap-[8px] relative">
+            <div className="flex flex-col gap-[8px]">
               <label className="font-bold text-[#364153] text-[16px]">
                 Dịch vụ cần hỗ trợ
               </label>
-              <div
-                className="w-full h-[45px] bg-[#F3F3F5] rounded-[10px] px-[20px] flex items-center justify-between cursor-pointer"
-                onClick={() => setIsOpen(!isOpen)}
-              >
-                <span className="text-[14px] text-[#364153]">
-                  {selectedService || "Chọn dịch vụ"}
-                </span>
-                <ChevronDown size={16} />
-              </div>
-              {isOpen && (
-                <div className="absolute top-[50px] w-full bg-white border rounded-[5px] max-h-[200px] overflow-y-auto z-50 shadow-lg p-2">
-                  {SERVICE_OPTIONS.map((opt) => (
-                    <div
-                      key={opt.id}
-                      onClick={() => handleSelect(opt.label)}
-                      className="p-2 hover:bg-gray-100 cursor-pointer"
-                    >
-                      {opt.label}
-                    </div>
-                  ))}
-                </div>
-              )}
+
+              {/* SỬ DỤNG ContactServiceDropdown */}
+              <ContactServiceDropdown
+                selected={selectedServiceTablet}
+                onSelect={setSelectedServiceTablet}
+              />
             </div>
             <div className="flex flex-col gap-[8px]">
               <label className="font-bold text-[#364153] text-[16px]">
@@ -329,35 +337,29 @@ export const ContactForm: React.FC = () => {
           </form>
         </div>
 
-        {/* INFO */}
+        {/* INFO TABLET */}
         <div className="bg-white flex flex-col px-[30px] py-[40px] rounded-[20px] shadow-[0px_8px_25px_rgba(0,0,0,0.25)] w-full flex-1 h-fit">
-          {" "}
-          {/* Thêm h-fit để nó ôm nội dung, căn giữa đẹp hơn */}
           <h3 className="font-bold text-black text-center mb-[30px] text-[24px]">
             Thông tin liên hệ
           </h3>
           <div className="flex flex-col gap-[30px]">
             <div className="flex gap-[15px] items-start">
-              <div className="w-[30px] h-[30px] flex items-center justify-center">
-                <img
-                  src={imgPhone}
-                  className="w-full h-full object-contain"
-                  alt="phone"
-                />
-              </div>
+              <img
+                src={imgPhone}
+                className="w-[30px] h-[30px] object-contain"
+                alt="phone"
+              />
               <div className="flex flex-col">
                 <span className="font-bold text-[16px]">Hotline</span>
                 <span className="text-[14px] text-[#4A5464]">0906838869</span>
               </div>
             </div>
             <div className="flex gap-[15px] items-start">
-              <div className="w-[30px] h-[30px] flex items-center justify-center">
-                <img
-                  src={imgGmail}
-                  className="w-full h-full object-contain"
-                  alt="mail"
-                />
-              </div>
+              <img
+                src={imgGmail}
+                className="w-[30px] h-[30px] object-contain"
+                alt="mail"
+              />
               <div className="flex flex-col">
                 <span className="font-bold text-[16px]">Email</span>
                 <span className="text-[14px] text-[#4A5464]">
@@ -366,13 +368,11 @@ export const ContactForm: React.FC = () => {
               </div>
             </div>
             <div className="flex gap-[15px] items-start">
-              <div className="w-[30px] h-[30px] flex items-center justify-center">
-                <img
-                  src={imgMap}
-                  className="w-full h-full object-contain"
-                  alt="map"
-                />
-              </div>
+              <img
+                src={imgMap}
+                className="w-[30px] h-[30px] object-contain"
+                alt="map"
+              />
               <div className="flex flex-col">
                 <span className="font-bold text-[16px]">Địa chỉ</span>
                 <span className="text-[14px] text-[#4A5464]">
@@ -381,13 +381,11 @@ export const ContactForm: React.FC = () => {
               </div>
             </div>
             <div className="flex gap-[15px] items-start">
-              <div className="w-[30px] h-[30px] flex items-center justify-center">
-                <img
-                  src={imgClock}
-                  className="w-full h-full object-contain"
-                  alt="clock"
-                />
-              </div>
+              <img
+                src={imgClock}
+                className="w-[30px] h-[30px] object-contain"
+                alt="clock"
+              />
               <div className="flex flex-col">
                 <span className="font-bold text-[16px]">Giờ làm việc</span>
                 <span className="text-[14px] text-[#4A5464]">
@@ -415,7 +413,6 @@ export const ContactForm: React.FC = () => {
 
       {/* =================================================================
           3. DESKTOP VERSION (>= 1280px)
-          - Giữ nguyên thiết kế pixel-perfect
           ================================================================= */}
       <div
         className="hidden xl:flex justify-center gap-[80px] w-full"
@@ -453,16 +450,12 @@ export const ContactForm: React.FC = () => {
             chúng tôi
           </p>
           <form className="w-full flex flex-col gap-[20px]">
-            {/* Input Fields (Giữ nguyên) */}
+            {/* Input Fields */}
             <div className="flex flex-col gap-[8px]">
-              <label
-                htmlFor="fullName"
-                className="font-bold text-[#364153] text-[16px]"
-              >
+              <label className="font-bold text-[#364153] text-[16px]">
                 Họ và tên
               </label>
               <input
-                id="fullName"
                 type="text"
                 placeholder="Nguyễn Văn An"
                 className="w-full h-[35px] bg-[#F3F3F5] rounded-[10px] px-[20px] text-[14px] outline-none focus:ring-1 focus:ring-red-500 placeholder-[#707081]"
@@ -470,107 +463,42 @@ export const ContactForm: React.FC = () => {
             </div>
             <div className="flex gap-[36px]">
               <div className="flex flex-col gap-[8px] w-[245px]">
-                <label
-                  htmlFor="email"
-                  className="font-bold text-[#364153] text-[16px]"
-                >
+                <label className="font-bold text-[#364153] text-[16px]">
                   Địa chỉ email
                 </label>
                 <input
-                  id="email"
                   type="email"
                   placeholder="your@gmail.com"
                   className="w-full h-[35px] bg-[#F3F3F5] rounded-[10px] px-[20px] text-[14px] outline-none focus:ring-1 focus:ring-red-500 placeholder-[#707081]"
                 />
               </div>
               <div className="flex flex-col gap-[8px] w-[239px]">
-                <label
-                  htmlFor="phone"
-                  className="font-bold text-[#364153] text-[16px]"
-                >
+                <label className="font-bold text-[#364153] text-[16px]">
                   Số điện thoại
                 </label>
                 <input
-                  id="phone"
                   type="tel"
                   placeholder="09876543210"
                   className="w-full h-[35px] bg-[#F3F3F5] rounded-[10px] px-[20px] text-[14px] outline-none focus:ring-1 focus:ring-red-500 placeholder-[#707081]"
                 />
               </div>
             </div>
-            <div className="flex flex-col gap-[8px] relative z-50">
+            <div className="flex flex-col gap-[8px]">
               <label className="font-bold text-[#364153] text-[16px]">
                 Dịch vụ cần hỗ trợ
               </label>
-              <div
-                className="w-full h-[35px] bg-[#F3F3F5] rounded-[10px] px-[20px] flex items-center justify-between cursor-pointer border border-transparent focus:border-red-500"
-                onClick={() => setIsOpen(!isOpen)}
-              >
-                <span
-                  className={`text-[14px] ${
-                    selectedService ? "text-[#364153]" : "text-[#707081]"
-                  }`}
-                >
-                  {selectedService || "Chọn một dịch vụ"}
-                </span>
-                <ChevronDown
-                  size={16}
-                  className={`transition-transform duration-200 ${
-                    isOpen ? "rotate-180" : ""
-                  }`}
-                />
-              </div>
-              {isOpen && (
-                <div
-                  className="absolute top-[68px] left-0 w-full custom-scrollbar"
-                  style={{
-                    height: "276px",
-                    background: "#FFFFFF",
-                    border: "0.5px solid #BDBDBD",
-                    borderRadius: "5px",
-                    padding: "5px",
-                    overflowY: "auto",
-                    boxShadow: "0px 4px 10px rgba(0,0,0,0.1)",
-                  }}
-                >
-                  <div className="flex flex-col w-full">
-                    {SERVICE_OPTIONS.map((option) => (
-                      <div
-                        key={option.id}
-                        onClick={() => handleSelect(option.label)}
-                        className="cursor-pointer flex items-center px-[10px] mb-1 last:mb-0 hover:bg-gray-100"
-                        style={{
-                          height: "37px",
-                          width: "100%",
-                          borderRadius:
-                            option.type === "highlight" ? "3px" : "0px",
-                          background:
-                            option.type === "highlight"
-                              ? "#FF9E9E"
-                              : "transparent",
-                          color:
-                            option.type === "red-text" ? "#FF383C" : "#333333",
-                          fontFamily: "Inter",
-                          fontSize: "14px",
-                          fontWeight: option.type === "highlight" ? 500 : 400,
-                        }}
-                      >
-                        {option.label}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
+
+              {/* SỬ DỤNG ContactServiceDropdown */}
+              <ContactServiceDropdown
+                selected={selectedServiceDesktop}
+                onSelect={setSelectedServiceDesktop}
+              />
             </div>
             <div className="flex flex-col gap-[8px]">
-              <label
-                htmlFor="message"
-                className="font-bold text-[#364153] text-[16px]"
-              >
+              <label className="font-bold text-[#364153] text-[16px]">
                 Mô tả chi tiết dự án
               </label>
               <textarea
-                id="message"
                 placeholder="Vd: Thẻ cào trúng thưởng - 5.000 thẻ..."
                 className="w-full h-[87px] bg-[#F3F3F5] rounded-[10px] p-[20px] text-[14px] outline-none focus:ring-1 focus:ring-red-500 resize-none placeholder-[#707081]"
               />
@@ -605,6 +533,7 @@ export const ContactForm: React.FC = () => {
             Thông tin liên hệ
           </h3>
           <div className="flex flex-col gap-[30px] pl-[18px]">
+            {/* Item 1 */}
             <div className="flex gap-[20px] items-start">
               <div className="w-[26px] h-[26px] flex items-center justify-center mt-1">
                 <img
@@ -621,6 +550,7 @@ export const ContactForm: React.FC = () => {
                 </div>
               </div>
             </div>
+            {/* Các item khác tương tự... */}
             <div className="flex gap-[20px] items-start">
               <div className="w-[28px] h-[28px] flex items-center justify-center mt-1">
                 <img

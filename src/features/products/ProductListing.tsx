@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { ChevronLeft, ChevronRight, Search } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { ProjectSearchFilter } from "../projects/ProjectSearchFilter";
+import { ProductSearchFilter } from "./ProductSearchFilter";
 
 // --- IMPORT HÌNH ẢNH SẢN PHẨM ---
 import product1 from "../../assets/products/product1.png";
@@ -12,8 +12,8 @@ import product3 from "../../assets/products/product3.png";
 // Danh sách ảnh để lặp
 const productImages = [product1, product2, product3];
 
-// 1. DỮ LIỆU MẪU (60 sản phẩm)
-const PRODUCT_DATA = Array.from({ length: 60 }).map((_, i) => ({
+// 1. DỮ LIỆU MẪU (CHỈNH LẠI THÀNH 3 SẢN PHẨM)
+const PRODUCT_DATA = Array.from({ length: 3 }).map((_, i) => ({
   id: i + 1,
   title: `Sản phẩm số ${i + 1}: Our SaaS Product Just Launched!`,
   slug: `san-pham-so-${i + 1}`,
@@ -22,7 +22,8 @@ const PRODUCT_DATA = Array.from({ length: 60 }).map((_, i) => ({
   newPrice: "39.000đ/cái",
 }));
 
-const ITEMS_PER_PAGE = 12;
+// 2. CHỈNH SỐ LƯỢNG HIỂN THỊ MỖI TRANG THÀNH 3
+const ITEMS_PER_PAGE = 3;
 
 export const ProductListing: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -125,8 +126,6 @@ export const ProductListing: React.FC = () => {
             </div>
           ))}
         </div>
-
-        {/* ĐÃ XÓA NÚT "XEM THÊM" */}
       </div>
 
       {/* 2. TABLET LIST (768px - 1280px) */}
@@ -141,7 +140,7 @@ export const ProductListing: React.FC = () => {
           </p>
         </div>
         <div className="mb-[60px] w-full flex justify-center">
-          <ProjectSearchFilter onSearch={handleSearchFilter} />
+          <ProductSearchFilter onSearch={handleSearchFilter} />
         </div>
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-[30px] w-full">
           {currentProducts.map((item) => (
@@ -199,7 +198,7 @@ export const ProductListing: React.FC = () => {
           </p>
         </div>
         <div className="mb-[100px] w-full flex justify-center">
-          <ProjectSearchFilter onSearch={handleSearchFilter} />
+          <ProductSearchFilter onSearch={handleSearchFilter} />
         </div>
 
         <div
@@ -270,7 +269,8 @@ export const ProductListing: React.FC = () => {
         </div>
       </div>
 
-      {/* 4. SHARED PAGINATION (HIỂN THỊ CHUNG) */}
+      {/* 4. SHARED PAGINATION */}
+      {/* Chỉ hiển thị pagination nếu có nhiều hơn 1 trang */}
       {totalPages > 1 && (
         <div className="flex flex-wrap justify-center items-center gap-[15px] md:gap-[32px] mb-[60px] lg:mb-[100px] w-full">
           <button

@@ -121,7 +121,7 @@ export const Header = () => {
     <>
       {/* --- PHẦN HEADER CHÍNH (FIXED) --- */}
       {/* Sử dụng 'fixed top-0 left-0 right-0' để ghim chặt lên đầu */}
-      <div className="fixed top-0 left-0 right-0 w-full flex justify-center z-50 bg-white shadow-sm font-inter">
+      <div className="fixed top-0 left-0 right-0 w-full flex justify-center z-[999] bg-white shadow-sm font-inter">
         {/* 1. MOBILE & TABLET & IPAD PRO HEADER */}
         <header className="xl:hidden relative w-full h-[72px] md:h-[80px] bg-white border-b border-[#FF0000] flex items-center justify-between px-[20px] md:px-[32px]">
           <div className="flex-shrink-0 flex items-center gap-2">

@@ -1,11 +1,15 @@
 // src/features/home/HomeBanner.tsx
-import { Mail, Phone, MapPin, Check, ArrowRight } from "lucide-react";
-import mainVisual from "../../assets/main-visual.jpg";
+import { Mail, Phone, MapPin, Check } from "lucide-react";
+
+import inHopCarton from "../../assets/in-hop-carton.jpg";
+import inTemNhanDecal from "../../assets/in-tem-nhan-decal.jpg";
+import inTheCaoYeuCau from "../../assets/in-the-cao-yeu-cau.jpg";
+import mayIn from "../../assets/may-in.jpg";
 
 // --- ẢNH GIẢ LẬP ---
-const productImg1 = mainVisual;
-const productImg2 = mainVisual;
-const productImg3 = mainVisual;
+const productImg1 = inHopCarton;
+const productImg2 = inTemNhanDecal;
+const productImg3 = inTheCaoYeuCau;
 
 // --- DATA TĨNH ---
 const DATA = {
@@ -30,11 +34,9 @@ export const HomeBanner = () => {
     <div className="w-full flex justify-center bg-white my-10 px-4 xl:px-0">
       {/* =========================================================================
           1. MOBILE & TABLET & IPAD PRO VERSION (< 1280px)
-          - Đổi từ lg:hidden -> xl:hidden (Để hiện trên iPad Pro)
-          - Tinh chỉnh layout để tận dụng chiều rộng của iPad
-         ========================================================================= */}
+          ========================================================================= */}
       <div className="flex xl:hidden flex-col w-full bg-[#FFDEDE] rounded-[20px] overflow-hidden shadow-lg relative pb-6 max-w-[800px] xl:max-w-none mx-auto">
-        {/* --- Phần Header & Hình ảnh Mobile --- */}
+        {/* ... (Giữ nguyên phần Mobile) ... */}
         <div className="absolute top-[-100px] right-[-100px] w-[300px] h-[300px] bg-red-500 rounded-full opacity-10 z-0 pointer-events-none"></div>
 
         <div className="flex flex-col items-center pt-8 px-6 z-10 relative">
@@ -42,17 +44,14 @@ export const HomeBanner = () => {
             {DATA.header}
           </h1>
 
-          {/* Cụm ảnh Mobile */}
           <div className="relative w-[280px] h-[280px] mb-6">
-            {/* Hình tròn trung tâm */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[140px] h-[140px] rounded-full border-4 border-white shadow-md overflow-hidden z-20">
               <img
-                src={mainVisual}
+                src={mayIn}
                 className="w-full h-full object-cover"
                 alt="Main"
               />
             </div>
-            {/* Hình nhỏ trái */}
             <div className="absolute bottom-[20px] left-0 w-[100px] h-[100px] rounded-full border-4 border-white shadow-md overflow-hidden z-10">
               <img
                 src={productImg1}
@@ -60,7 +59,6 @@ export const HomeBanner = () => {
                 alt="P1"
               />
             </div>
-            {/* Hình nhỏ phải */}
             <div className="absolute bottom-[20px] right-0 w-[100px] h-[100px] rounded-full border-4 border-white shadow-md overflow-hidden z-10">
               <img
                 src={productImg2}
@@ -70,15 +68,12 @@ export const HomeBanner = () => {
             </div>
           </div>
 
-          {/* Box trắng subtitle */}
           <div className="bg-white rounded-[20px] px-4 py-3 shadow-sm w-full md:w-auto md:px-10 mb-6">
             <p className="font-bold text-[14px] md:text-[16px] text-center text-black leading-snug">
               {DATA.subHeaderBox}
             </p>
           </div>
 
-          {/* Checklist Mobile & Tablet */}
-          {/* SỬA: Thêm md:grid md:grid-cols-2 để trên iPad nó chia thành 2 cột cho gọn */}
           <div className="flex flex-col md:grid md:grid-cols-2 gap-3 md:gap-x-10 w-full md:w-auto pl-2 mb-6">
             {DATA.features.map((item, index) => (
               <div key={index} className="flex items-center gap-3">
@@ -91,24 +86,9 @@ export const HomeBanner = () => {
               </div>
             ))}
           </div>
-
-          {/* Buttons Mobile */}
-          <div className="w-full md:w-auto flex flex-col items-center gap-4">
-            <button className="w-full md:w-[250px] py-3 bg-[#FF0000] text-white font-bold rounded-full shadow-lg">
-              Yêu cầu báo giá
-            </button>
-            <a
-              href="#"
-              className="flex items-center justify-center gap-2 text-[#FF0000] font-bold text-[15px] hover:underline"
-            >
-              Xem danh mục sản phẩm <ArrowRight size={18} />
-            </a>
-          </div>
         </div>
 
-        {/* Footer Mobile (Thông tin liên hệ) */}
-        {/* SỬA: Thêm md:flex-row md:justify-around để trên iPad nó dàn ngang ra */}
-        <div className="mt-6 mx-4 bg-white rounded-[15px] p-4 flex flex-col md:flex-row md:justify-around md:items-center gap-3 shadow-sm">
+        <div className="mt-6 mx-4 bg-white rounded-[15px] p-4 flex flex-col md:flex-row md:justify-around md:items-center gap-3 shadow-sm border border-red-50">
           <div className="flex items-start gap-3">
             <MapPin className="text-[#FF0000] w-5 h-5 shrink-0 mt-1" />
             <span className="text-[13px] md:text-[14px] text-gray-600">
@@ -133,13 +113,13 @@ export const HomeBanner = () => {
 
       {/* =========================================================================
           2. DESKTOP VERSION (>= 1280px)
-          - Đổi từ lg:flex -> xl:flex (Chỉ hiện trên màn hình rất lớn từ 1280px trở lên)
-         ========================================================================= */}
+          ========================================================================= */}
       <div className="hidden xl:flex w-full bg-[#FFDEDE] rounded-[30px] relative overflow-hidden shadow-lg flex-col min-h-[600px] m-8">
         {/* --- PHẦN BODY --- */}
         <div className="flex w-full h-full flex-grow relative z-10">
           {/* CỘT TRÁI: TEXT CONTENT */}
-          <div className="w-[60%] pt-[40px] pl-[30px] lg:pl-[50px] xl:pl-[80px] flex flex-col justify-start gap-6 z-20">
+          {/* SỬA: justify-center (để căn giữa dọc), bỏ pt/pb để không bị lệch */}
+          <div className="w-[60%] pl-[30px] lg:pl-[50px] xl:pl-[80px] flex flex-col justify-center gap-6 z-20">
             <h1 className="font-inter font-semibold text-[30px] lg:text-[40px] leading-tight text-[#FF0000]">
               {DATA.header}
             </h1>
@@ -163,19 +143,6 @@ export const HomeBanner = () => {
                 </div>
               ))}
             </div>
-
-            <div className="flex items-center gap-6 pl-12 mb-5 pb-5 md:pb-0">
-              <button className="px-6 py-3 bg-[#FF0000] text-white text-[16px] lg:text-[18px] font-bold rounded-full shadow-[0px_4px_15px_rgba(255,0,0,0.4)] hover:scale-105 transition-transform">
-                Yêu cầu báo giá
-              </button>
-              <a
-                href="#"
-                className="flex items-center gap-2 text-[#FF0000] font-bold text-[16px] lg:text-[18px] hover:underline group"
-              >
-                Xem danh mục sản phẩm
-                <ArrowRight className="group-hover:translate-x-1 transition-transform" />
-              </a>
-            </div>
           </div>
 
           {/* CỘT PHẢI: HÌNH ẢNH & BUBBLES */}
@@ -184,7 +151,7 @@ export const HomeBanner = () => {
             <div className="absolute top-2/3 right-[-300px] transform -translate-y-[60%] w-[850px] h-[850px] rounded-full border-[10px] border-[#FF0000] overflow-hidden shadow-2xl">
               <div className="w-full h-full relative">
                 <img
-                  src={mainVisual}
+                  src={mayIn}
                   alt="Factory"
                   className="w-full h-full object-cover opacity-60 mix-blend-luminosity"
                 />
@@ -193,21 +160,21 @@ export const HomeBanner = () => {
             </div>
 
             {/* 3 HÌNH TRÒN NHỎ */}
-            <div className="absolute top-[4%] right-[63%] w-[140px] h-[140px] rounded-full border-[6px] border-white bg-white shadow-lg overflow-hidden z-30 pointer-events-auto">
+            <div className="absolute top-[3%] right-[59%] w-[140px] h-[140px] rounded-full border-[6px] border-white bg-white shadow-lg overflow-hidden z-30 pointer-events-auto">
               <img
                 src={productImg1}
                 className="w-full h-full object-cover"
                 alt="P1"
               />
             </div>
-            <div className="absolute top-[35%] right-[68%] w-[160px] h-[160px] rounded-full border-[6px] border-white bg-white shadow-lg overflow-hidden z-30 pointer-events-auto">
+            <div className="absolute top-[30%] right-[68%] w-[160px] h-[160px] rounded-full border-[6px] border-white bg-white shadow-lg overflow-hidden z-30 pointer-events-auto">
               <img
                 src={productImg2}
                 className="w-full h-full object-cover scale-110"
                 alt="P2"
               />
             </div>
-            <div className="absolute bottom-[4%] right-[63%] w-[140px] h-[140px] rounded-full border-[6px] border-white bg-white shadow-lg overflow-hidden z-30 pointer-events-auto">
+            <div className="absolute bottom-[15%] right-[63%] w-[140px] h-[140px] rounded-full border-[6px] border-white bg-white shadow-lg overflow-hidden z-30 pointer-events-auto">
               <img
                 src={productImg3}
                 className="w-full h-full object-cover"
@@ -217,31 +184,39 @@ export const HomeBanner = () => {
           </div>
         </div>
 
-        {/* FOOTER DESKTOP */}
-        <div className="bg-white w-full h-[80px] flex items-center justify-between px-[60px] relative z-40 border-t border-red-50">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-full bg-[#FF0000] flex items-center justify-center text-white">
-              <MapPin size={16} />
+        {/* --- FOOTER DESKTOP (CONTACT BAR) --- */}
+        <div className="absolute bottom-0 left-0 w-full bg-white h-[70px] z-40 flex items-center justify-center border-t border-red-50">
+          <div className="flex items-center gap-[20px] xl:gap-[40px] px-4 w-full max-w-[1440px] justify-center">
+            {/* 1. ĐỊA CHỈ */}
+            <div className="flex items-center gap-[16px]">
+              <div className="w-[25px] h-[25px] bg-[#FF0000] rounded-[15px] flex items-center justify-center shrink-0">
+                <MapPin size={14} className="text-white" />
+              </div>
+              <span className="font-inter font-normal text-[15px] xl:text-[20px] text-black whitespace-nowrap">
+                236/59 Điện Biên Phủ. Phường 17. Q. Bình Thạnh. TP.HCM
+              </span>
             </div>
-            <span className="text-gray-600 font-medium text-[15px]">
-              {DATA.contact.address}
-            </span>
-          </div>
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-full bg-[#FF0000] flex items-center justify-center text-white">
-              <Mail size={16} />
+
+            {/* 2. EMAIL */}
+            <div className="flex items-center gap-[16px]">
+              <div className="w-[25px] h-[25px] bg-[#FF0000] rounded-[15px] flex items-center justify-center shrink-0">
+                <Mail size={14} className="text-white" />
+              </div>
+              <span className="font-inter font-normal text-[15px] xl:text-[20px] text-black whitespace-nowrap">
+                info@promacprinting.com
+              </span>
             </div>
-            <span className="text-gray-600 font-medium text-[15px]">
-              {DATA.contact.email}
-            </span>
-          </div>
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-full bg-[#FF0000] flex items-center justify-center text-white">
-              <Phone size={16} />
-            </div>
-            <div className="text-gray-600 font-medium text-[15px]">
-              <span>{DATA.contact.phones[0]}</span> |{" "}
-              <span>{DATA.contact.phones[1]}</span>
+
+            {/* 3. ĐIỆN THOẠI */}
+            <div className="flex items-center gap-[16px]">
+              <div className="w-[25px] h-[25px] bg-[#FF0000] rounded-[15px] flex items-center justify-center shrink-0">
+                <Phone size={14} className="text-white" />
+              </div>
+              <div className="flex items-center gap-[10px] xl:gap-[16px] font-inter font-normal text-[15px] xl:text-[20px] text-black whitespace-nowrap">
+                <span>(028) 22272416</span>
+                <div className="w-[1px] h-[20px] bg-black/50"></div>
+                <span>0906838869</span>
+              </div>
             </div>
           </div>
         </div>

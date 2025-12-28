@@ -1,6 +1,10 @@
 // src/features/home/HomeEquipment.tsx
 import { ArrowRight } from "lucide-react";
-import mainVisual from "../../assets/main-visual.jpg"; // Bạn hãy thay bằng ảnh máy móc thật nhé
+import { useNavigate } from "react-router-dom"; // 1. Import useNavigate
+import machine1 from "../../assets/introduction-machinery/machinery1.jpg";
+import machine2 from "../../assets/introduction-machinery/machinery2.jpg";
+import machine3 from "../../assets/introduction-machinery/machinery3.jpg";
+import machine4 from "../../assets/introduction-machinery/machinery4.jpg";
 
 // --- 1. CONFIG DATA ---
 const CONTENT = {
@@ -10,10 +14,10 @@ const CONTENT = {
       "Đối tác đáng tin cậy của bạn trong các giải pháp in ấn chuyên nghiệp. PROMAC mang đến dịch vụ chất lượng với công nghệ hiện đại và tay nghề chuyên môn cao.",
   },
   machines: [
-    { id: 1, name: "Máy bo góc", image: mainVisual },
-    { id: 2, name: "Máy bo góc", image: mainVisual },
-    { id: 3, name: "Máy bo góc", image: mainVisual },
-    { id: 4, name: "Máy bo góc", image: mainVisual },
+    { id: 1, image: machine1, name: "A107W - Dán nhãn tròn - Dán thùng son" },
+    { id: 2, image: machine2, name: "A751LC - Dán và in thùng carton" },
+    { id: 3, image: machine3, name: "A910 - Dán nhãn quanh chai tròn" },
+    { id: 4, image: machine4, name: "A920 - Dán nhãn 2 mặt" },
   ],
   info: {
     description:
@@ -23,6 +27,9 @@ const CONTENT = {
 };
 
 export const HomeEquipment = () => {
+  // 2. Khởi tạo hook navigate
+  const navigate = useNavigate();
+
   return (
     <div className="flex justify-center py-[40px] mx-8 px-4 xl:px-0 bg-white">
       {/* --- CONTAINER CHÍNH --- */}
@@ -85,10 +92,6 @@ export const HomeEquipment = () => {
 
           {/* --- CỘT PHẢI: THÔNG TIN & NÚT --- */}
           <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start gap-6 lg:gap-8">
-            {/* items-center: Canh giữa cho Mobile/Tablet
-               lg:items-start: Canh trái cho Desktop
-            */}
-
             {/* DESCRIPTION BOX */}
             <div
               className="
@@ -107,6 +110,8 @@ export const HomeEquipment = () => {
 
             {/* BUTTON */}
             <button
+              // 3. Sự kiện chuyển trang
+              onClick={() => navigate("/gioi-thieu")}
               className="
               flex items-center justify-center gap-3 
               h-[50px] px-8

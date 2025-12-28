@@ -8,7 +8,8 @@ const DATA = {
   subHeader:
     "Đối tác đáng tin cậy của bạn về dịch vụ in ấn chuyên nghiệp tại PROMAC",
   contact: {
-    address: "236/59 Điện Biên Phủ, Phường Gia Định, Thành phố Hồ Chí Minh",
+    // Cập nhật địa chỉ ngắn gọn hơn để hiển thị tốt hơn nếu cần
+    address: "236/59 Điện Biên Phủ, Phường 17, Q. Bình Thạnh, TP.HCM",
     email: "info@promacprinting.com",
     phones: ["(028) 22272416", "0906838869"],
   },
@@ -19,8 +20,7 @@ export const IntroductionHero = () => {
     <div className="w-full flex justify-center bg-white my-10 px-4 xl:px-0">
       {/* =========================================================================
           1. MOBILE VERSION (< 1024px)
-          - Giữ nguyên thiết kế card dọc cho Mobile
-         ========================================================================= */}
+          ========================================================================= */}
       <div className="flex lg:hidden flex-col w-full bg-[#FFDEDE] rounded-[20px] overflow-hidden shadow-lg relative pb-6 max-w-[500px] mx-auto">
         <div className="absolute top-[-50px] left-[-50px] w-[200px] h-[200px] bg-red-500 rounded-full opacity-5 z-0 pointer-events-none"></div>
 
@@ -67,23 +67,16 @@ export const IntroductionHero = () => {
 
       {/* =========================================================================
           2. DESKTOP VERSION (>= 1024px)
-          - Copy cấu trúc chính xác từ HomeBanner.tsx
-          - Wrapper: min-h-[600px], m-8
-          - Cột trái: w-[60%], padding chuẩn (pt-40, pl-30/50/80)
-          - Cột phải: absolute top-0 right-0 w-[50%]
-         ========================================================================= */}
+          ========================================================================= */}
       <div className="hidden lg:flex w-full bg-[#FFDEDE] rounded-[30px] relative overflow-hidden shadow-lg flex-col min-h-[600px] m-8">
         {/* --- PHẦN BODY --- */}
         <div className="flex w-full h-full flex-grow relative z-10">
-          {/* CỘT TRÁI: TEXT CONTENT (Cấu trúc y hệt HomeBanner) */}
-          <div className="w-[60%] pt-[40px] pl-[30px] lg:pl-[50px] xl:pl-[80px] flex flex-col justify-start gap-6 z-20">
-            {/* Tiêu đề */}
-            <h1 className="font-inter font-bold text-[30px] lg:text-[40px] leading-tight text-[#FF0000] uppercase mt-10">
+          {/* CỘT TRÁI: TEXT CONTENT */}
+          <div className="w-[60%] pl-[30px] lg:pl-[50px] xl:pl-[80px] flex flex-col justify-center gap-6 z-20 pb-[80px]">
+            <h1 className="font-inter font-bold text-[30px] lg:text-[40px] leading-tight text-[#FF0000] uppercase">
               {DATA.header}
             </h1>
 
-            {/* Subheader Box (Nếu muốn giống hệt layout HomeBanner thì có thể bọc div trắng, 
-                nhưng theo design Intro thì để trần cũng được. Ở đây tôi để trần nhưng canh lề khớp) */}
             <div className="w-fit max-w-[80%]">
               <p className="font-semibold text-[16px] lg:text-[18px] text-[#374151] tracking-wide leading-relaxed">
                 {DATA.subHeader}
@@ -91,49 +84,52 @@ export const IntroductionHero = () => {
             </div>
           </div>
 
-          {/* CỘT PHẢI: HÌNH ẢNH (Absolute Positioning giống HomeBanner) */}
+          {/* CỘT PHẢI: HÌNH ẢNH */}
           <div className="absolute top-0 right-0 w-[50%] h-full z-10 overflow-hidden pointer-events-none">
-            {/* Thay vì dùng Bubble tròn như Home, ta dùng hình chữ nhật full 
-                nhưng vẫn giữ vị trí absolute right-0 w-[50%] để khớp layout
-             */}
             <div className="w-full h-full relative">
               <img
                 src={mainVisual}
                 alt="Introduction Visual"
                 className="w-full h-full object-cover object-center pointer-events-auto"
               />
-              {/* Lớp phủ Gradient để hòa trộn biên giới ảnh và nền hồng */}
               <div className="absolute top-0 bottom-0 left-0 w-[150px] bg-gradient-to-r from-[#FFDEDE] to-transparent pointer-events-none"></div>
             </div>
           </div>
         </div>
 
-        {/* FOOTER DESKTOP (Cấu trúc y hệt HomeBanner) */}
-        <div className="bg-white w-full h-[80px] flex items-center justify-between px-[60px] relative z-40 border-t border-red-50">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-full bg-[#FF0000] flex items-center justify-center text-white">
-              <MapPin size={16} />
-            </div>
-            <span className="text-gray-600 font-medium text-[15px]">
-              {DATA.contact.address}
-            </span>
-          </div>
-
-          <div className="flex gap-8">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-[#FF0000] flex items-center justify-center text-white">
-                <Mail size={16} />
+        {/* --- FOOTER DESKTOP (CONTACT BAR) --- */}
+        <div className="absolute bottom-0 left-0 w-full bg-white h-[70px] z-40 flex items-center justify-center">
+          {/* SỬA: Giảm gap và padding để vừa vặn hơn trên iPad Pro */}
+          <div className="flex items-center justify-center gap-[15px] lg:gap-[20px] xl:gap-[40px] px-2 lg:px-4 w-full max-w-[1440px]">
+            {/* 1. ĐỊA CHỈ */}
+            <div className="flex items-center gap-[8px] lg:gap-[16px]">
+              <div className="w-[25px] h-[25px] bg-[#FF0000] rounded-[15px] flex items-center justify-center shrink-0">
+                <MapPin size={14} className="text-white" />
               </div>
-              <span className="text-gray-600 font-medium text-[15px]">
+              {/* SỬA: Font size 13px cho màn hình lg, 20px cho màn hình xl */}
+              <span className="font-inter font-normal text-[13px] xl:text-[20px] text-black whitespace-nowrap">
+                {DATA.contact.address}
+              </span>
+            </div>
+
+            {/* 2. EMAIL */}
+            <div className="flex items-center gap-[8px] lg:gap-[16px]">
+              <div className="w-[25px] h-[25px] bg-[#FF0000] rounded-[15px] flex items-center justify-center shrink-0">
+                <Mail size={14} className="text-white" />
+              </div>
+              <span className="font-inter font-normal text-[13px] xl:text-[20px] text-black whitespace-nowrap">
                 {DATA.contact.email}
               </span>
             </div>
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-[#FF0000] flex items-center justify-center text-white">
-                <Phone size={16} />
+
+            {/* 3. ĐIỆN THOẠI */}
+            <div className="flex items-center gap-[8px] lg:gap-[16px]">
+              <div className="w-[25px] h-[25px] bg-[#FF0000] rounded-[15px] flex items-center justify-center shrink-0">
+                <Phone size={14} className="text-white" />
               </div>
-              <div className="text-gray-600 font-medium text-[15px]">
-                <span>{DATA.contact.phones[0]}</span> |{" "}
+              <div className="flex items-center gap-[5px] lg:gap-[10px] xl:gap-[16px] font-inter font-normal text-[13px] xl:text-[20px] text-black whitespace-nowrap">
+                <span>{DATA.contact.phones[0]}</span>
+                <div className="w-[1px] h-[14px] lg:h-[20px] bg-black/50"></div>
                 <span>{DATA.contact.phones[1]}</span>
               </div>
             </div>
